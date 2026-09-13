@@ -94,14 +94,20 @@ export default function Home() {
             kind="stops"
             alt="The work at each of the four stops: scope argued into ordered lines of specification, then a sparse structure with the risky joins between its parts drawn in, then the same product built solid, then the same product again with two columns and a row removed and three parts marked."
             labels={[
-              { x: 0.151, y: 0.9, text: "Specify", align: "center", only: "wide" },
-              { x: 0.384, y: 0.9, text: "Prove", align: "center", only: "wide" },
-              { x: 0.616, y: 0.9, text: "Build", align: "center", only: "wide" },
-              { x: 0.849, y: 0.9, text: "Scale", align: "center", only: "wide" },
-              { x: 0.268, y: 0.88, text: "Specify", align: "center", only: "narrow" },
-              { x: 0.733, y: 0.88, text: "Prove", align: "center", only: "narrow" },
-              { x: 0.268, y: 0.425, text: "Build", align: "center", only: "narrow" },
-              { x: 0.733, y: 0.425, text: "Scale", align: "center", only: "narrow" },
+              { x: 0.151, y: 0.9, text: "Specify", align: "center", only: "wide", index: 0 },
+              { x: 0.384, y: 0.9, text: "Prove", align: "center", only: "wide", index: 1 },
+              { x: 0.616, y: 0.9, text: "Build", align: "center", only: "wide", index: 2 },
+              { x: 0.849, y: 0.9, text: "Scale", align: "center", only: "wide", index: 3 },
+              { x: 0.268, y: 0.88, text: "Specify", align: "center", only: "narrow", index: 0 },
+              { x: 0.733, y: 0.88, text: "Prove", align: "center", only: "narrow", index: 1 },
+              { x: 0.268, y: 0.425, text: "Build", align: "center", only: "narrow", index: 2 },
+              { x: 0.733, y: 0.425, text: "Scale", align: "center", only: "narrow", index: 3 },
+            ]}
+            details={[
+              "Loose scope, argued into ordered lines. Changing your mind is still free here.",
+              "The risky joins drawn first, and almost nothing else built around them.",
+              "The product, solid, in front of people who are using it.",
+              "The same product with what usage did not justify taken out, and the few parts that mattered marked.",
             ]}
             caption="Scope argued into a specification, the risky joins proved before the rest exists, the product built, then everything usage did not justify taken back out."
           />

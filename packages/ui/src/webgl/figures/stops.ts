@@ -18,6 +18,8 @@ import { Squares, Hairlines, ortho, palette3, leg, easeOut, rng } from "./lib"
 --------------------------------------------------------------------------- */
 
 type Cell = { x: number; y: number; s: number; tone: number; from: [number, number]; delay: number; keep: number }
+type Rule = { a: [number, number]; b: [number, number]; alpha: number; tone: number; owner: number }
+type Rect = { x0: number; x1: number; y0: number; y1: number }
 
 export const create: SceneFactory = (ctx) => {
   const { renderer, palette } = ctx
@@ -34,6 +36,14 @@ export const create: SceneFactory = (ctx) => {
   let cells: Cell[] = []
   let used = 0
   let panelOf: number[] = []
+  let ruleDefs: Rule[] = []
+  let panelRect: Rect[] = []
+
+  /* A panel can be held open by clicking it, which is also how the figure
+     works on a touch screen, where there is no hovering to do. */
+  let pinned = -1
+  let hovered = -1
+  let announced = -2
 
   function build(w: number, h: number) {
     const aspect = w / Math.max(h, 1)
@@ -44,6 +54,8 @@ export const create: SceneFactory = (ctx) => {
     const R = rng(7)
     cells = []
     panelOf = []
+    ruleDefs = []
+    panelRect = []
 
     const padX = 0.035
     const padTop = wide ? 0.24 : 0.17
@@ -51,15 +63,18 @@ export const create: SceneFactory = (ctx) => {
     const panelW = (1 - padX * 2) / cols
     const panelH = (1 - padTop - padBottom) / rows
 
-    let ri = 0
+    const rule = (x1: number, y1: number, x2: number, y2: number, alpha: number, owner: number) => {
+      ruleDefs.push({ a: [x1, y1], b: [x2, y2], alpha, tone: 0, owner })
+    }
+
     /* Dividers between panels, and nothing around the outside: the same rule
        RuledList follows. */
     for (let c = 1; c < cols; c++) {
       const x = padX + c * panelW
-      rules.seg(ri++, x, padBottom * 0.5, x, 1 - padTop * 0.62, 0.9, 0)
+      rule(x, padBottom * 0.5, x, 1 - padTop * 0.62, 0.9, -1)
     }
     if (rows > 1) {
-      rules.seg(ri++, padX, padBottom + panelH, 1 - padX, padBottom + panelH, 0.9, 0)
+      rule(padX, padBottom + panelH, 1 - padX, padBottom + panelH, 0.9, -1)
     }
 
     const push = (panel: number, x: number, y: number, s: number, tone: number, delay: number, keep = 1) => {
@@ -81,6 +96,7 @@ export const create: SceneFactory = (ctx) => {
       const r = wide ? 0 : 1 - Math.floor(panel / 2)
       const x0 = padX + c * panelW
       const y0 = padBottom + r * panelH
+      panelRect[panel] = { x0, x1: x0 + panelW, y0, y1: y0 + panelH }
       const iw = panelW * 0.74
       const ih = panelH * 0.72
       const ix = x0 + (panelW - iw) / 2
@@ -128,7 +144,7 @@ export const create: SceneFactory = (ctx) => {
         for (const [[t1, i1], [t2, i2]] of edges) {
           const [ax, ay] = pt(tiers[t1][i1][0], tiers[t1][i1][1])
           const [bx, by] = pt(tiers[t2][i2][0], tiers[t2][i2][1])
-          rules.seg(ri++, ax, ay, bx, by, 0.75, 0)
+          rule(ax, ay, bx, by, 0.75, 1)
         }
         tiers.forEach((tier, ti) => {
           tier.forEach(([u, v], ni) => {
@@ -177,17 +193,32 @@ export const create: SceneFactory = (ctx) => {
     }
 
     used = cells.length
-    rules.hideFrom(ri)
-    rules.commit()
     squares.aspect(aspect)
   }
 
   build(ctx.width, ctx.height)
 
+  const hit = (fx: number, fy: number) =>
+    panelRect.findIndex((r) => fx >= r.x0 && fx <= r.x1 && fy >= r.y0 && fy <= r.y1)
+
   return {
+    cursorAt(fx, fy) {
+      return hit(fx, fy) >= 0 ? "pointer" : "default"
+    },
+    click(fx, fy) {
+      const i = hit(fx, fy)
+      pinned = i >= 0 && i !== pinned ? i : -1
+    },
     frame(f) {
       squares.reveal(f.reveal)
       rules.reveal(f.reveal)
+
+      hovered = f.over ? hit(f.fx, f.fy) : -1
+      const active = pinned >= 0 ? pinned : hovered
+      if (active !== announced) {
+        announced = active
+        ctx.emit({ active })
+      }
 
       /* Each panel assembles over its own quarter of the section's passage. */
       for (let i = 0; i < used; i++) {
@@ -201,11 +232,26 @@ export const create: SceneFactory = (ctx) => {
 
         /* A cut cell stays on the page as a ghost. The gap is the argument:
            that work existed, and usage did not justify keeping it. */
-        const alpha = c.keep === 0 ? a * 0.2 : a * 0.95
-        squares.set(i, x, y, c.s, c.tone, alpha)
+        let alpha = c.keep === 0 ? a * 0.2 : a * 0.95
+        let tone = c.tone
+        /* Looking at one stop pushes the other three back rather than lighting
+           the chosen one, so the figure never gets brighter than it was. */
+        if (active >= 0 && panel !== active) {
+          alpha *= 0.28
+          tone = Math.min(tone, 0.32)
+        }
+        squares.set(i, x, y, c.s, tone, alpha)
       }
       for (let i = used; i < MAX; i++) squares.set(i, 0, 0, 0, 0, 0)
       squares.commit()
+
+      for (let i = 0; i < ruleDefs.length; i++) {
+        const r = ruleDefs[i]
+        const dim = active >= 0 && r.owner >= 0 && r.owner !== active ? 0.28 : 1
+        rules.seg(i, r.a[0], r.a[1], r.b[0], r.b[1], r.alpha * dim, r.tone)
+      }
+      rules.hideFrom(ruleDefs.length)
+      rules.commit()
 
       renderer.render(scene, camera)
     },

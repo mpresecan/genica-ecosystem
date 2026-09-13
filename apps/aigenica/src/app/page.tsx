@@ -99,7 +99,8 @@ export default function Home() {
               { x: 0.05, y: 0.09, text: "The delivery record", only: "wide" },
               { x: 0.05, y: 0.05, text: "The record", only: "narrow" },
             ]}
-            caption="Everything that passes writes its own line in the record. The marked changes are the ones whose mandate requires a named human approval, and they wait until they have it."
+            toggle={{ key: "enforced", on: "Gate enforced", off: "Gate off", initial: true }}
+            caption="Switch the gate off and the work still ships. Nothing is written down."
           />
           <SpecTable
             className="mt-20"

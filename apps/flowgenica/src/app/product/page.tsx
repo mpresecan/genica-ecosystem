@@ -3,6 +3,7 @@ import {
   Band,
   Container,
   CtaBand,
+  Figure,
   RouteSteps,
   SectionHead,
   SpecTable,
@@ -74,8 +75,28 @@ export default function Product() {
       <Band tone="paper" className="border-t border-b border-hair">
         <Container className="py-20 sm:py-24">
           <SectionHead heading="What it will do." />
-          <SpecTable
+
+          <Figure
             className="mt-14"
+            kind="clientview"
+            alt="One engagement shown twice. Your team's view carries owners, load, margin and the other engagements alongside the stages. The client's view keeps the same stages, the same dates and the one stage waiting on them, and nothing else."
+            labels={[
+              { x: 0.05, y: 0.88, text: "The engagement" },
+              { x: 0.05, y: 0.56, text: "Owners and load", when: { key: "team", is: true } },
+              { x: 0.05, y: 0.36, text: "Margin, notes, other clients", when: { key: "team", is: true } },
+              { x: 0.62, y: 0.58, text: "Waiting on them" },
+            ]}
+            toggle={{
+              key: "team",
+              on: "What your team sees",
+              off: "What your client sees",
+              initial: true,
+            }}
+            caption="Switching the view moves no stage and changes no date. It removes everything that was never theirs to see."
+          />
+
+          <SpecTable
+            className="mt-20"
             rows={CAPABILITIES}
           />
         </Container>

@@ -3,9 +3,10 @@ import {
   Band,
   Container,
   CtaBand,
+  Eyebrow,
+  Figure,
   SectionHead,
   SpecTable,
-  Eyebrow,
 } from "@genica/ui";
 import { INCLUDED } from "../../content";
 
@@ -140,7 +141,25 @@ export default function Formats() {
             heading="Whichever format you pick, this is underneath it."
             lede="The parts that have to exist before you can sell a seat and sleep afterwards."
           />
-          <SpecTable className="mt-14" rows={INCLUDED} />
+
+          <Figure
+            className="mt-14"
+            kind="formats"
+            alt="Above a line, the shape of the chosen format: a webinar's three steps, a course's modules, a masterclass funnel, a conference's tracks, a streamed room and its access list. Below the line, the same seven platform parts, which do not change when the format does."
+            labels={[
+              { x: 0.04, y: 0.94, text: "The format" },
+              { x: 0.04, y: 0.05, text: "The platform, unchanged" },
+            ]}
+            choices={{
+              key: "pick",
+              label: "Format",
+              options: ["Webinars", "Courses", "Masterclasses", "Conferences", "Streamed events"],
+              initial: 0,
+            }}
+            caption="Change the format and watch what does not move."
+          />
+
+          <SpecTable className="mt-20" rows={INCLUDED} />
         </Container>
       </Band>
 

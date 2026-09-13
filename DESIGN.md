@@ -89,16 +89,20 @@ The client asked for something as interesting as Stripe's. The first answer,
 moving fields behind every band, was decoration: it was on every page, it was
 the same on every page, and it said nothing. It was removed.
 
-What replaced it is four figures, one per property, each placed inside the
-section whose claim it makes, and nowhere else. A page that has no argument to
-draw does not get one.
+What replaced it is eight figures, two per property, each placed inside the
+section whose claim it makes and nowhere else. A page with no argument to draw
+does not get one.
 
-| Property | Section | The figure |
-|---|---|---|
-| genica.org | "Every engagement runs the same four stops" | The work at each stop: scope argued into lines of specification, the risky joins proved with nothing else built, the product solid, then the product refined with what usage did not justify taken out |
-| aigenica.com | "What we install" | The pipeline: a queue, a scoped agent, a gate that every change passes through, and the record each passing change writes |
-| edugenica.com | "Your audience is spread across four rented tools" | Four boxes emptying into one database, with the people who were in more than one box merging as they land |
-| flowgenica.com | "Define it once. Run every client on it." | A template and its engagements, until one client returns feedback late and every date after it moves, on that row only |
+| Property | Section | The figure | What using it does |
+|---|---|---|---|
+| genica.org | "Every engagement runs the same four stops" | The work at each stop: scope argued into lines of specification, the risky joins proved with nothing else built, the product solid, then refined with what usage did not justify taken out | Point at a stop and the other three recede |
+| genica.org/work | "What we built" | Four documents arriving with a deal, and the few lines in each that reach the brief | Point at a document and its lines in the brief light up, which is the traceability claim |
+| aigenica.com | "What we install" | The pipeline: a queue, a scoped agent, a gate, and the record each passing change writes | Switch the gate off. Work still ships and the record stops |
+| aigenica.com/pipeline | "Four stages, then the record" | Work moving through four stages, with a gate after one of them and the discarded work piling up below | Move the gate. The same rejection rate costs six times as much on the right |
+| edugenica.com | "Your audience is spread across four rented tools" | Four boxes emptying into one database, with the people who were in more than one merging as they land | Point at a tool and its share of the list stands out, merged records included |
+| edugenica.com/formats | "Whichever format you pick, this is underneath it" | The chosen format's shape above a line, the platform below it | Change the format and watch what does not move |
+| flowgenica.com | "Define it once. Run every client on it." | A template and its engagements, until a stage runs long and every date after it moves | Click a stage to delay it, or the template to change it for everyone |
+| flowgenica.com/product | "What it will do" | One engagement, shown to your team and shown to your client | Switch the view. No stage moves and no date changes |
 
 Rules these keep:
 
@@ -107,23 +111,34 @@ Rules these keep:
   list without announcing that it came from a different toolbox.
 - **The accent marks the one thing the section is about.** The changes waiting
   on a named approval. The people who were in two lists. The dates that moved.
-  If the accent is not carrying the argument, it is not used.
-- **Labels are real text, not drawn into the canvas.** The drawing and the
-  labels share one coordinate box, x and y from 0 to 1 with y up, so a label
-  stays on the part it names at every width. A figure switches to a stacked
-  arrangement below a measured proportion, and each label belongs to one
-  arrangement or the other.
-- **Every figure has an `alt`**, describing what it shows rather than naming it.
-- **Three are driven by scroll and finish while still in view.** The gate runs
-  on its own clock instead: a pipeline that stopped when you stopped reading
-  would be making the wrong point.
+  The work a late gate throws away. If the accent is not carrying the argument,
+  it is not used.
+- **Interaction has to prove something.** Every figure answers a question the
+  copy can only assert. Nothing lights up merely because a cursor is near it.
+- **State that matters is a real control.** Where a figure is set or switched
+  rather than explored, the control is a pill button under the drawing:
+  reachable with a keyboard, announced to a screen reader, and legible at every
+  width, which a tab drawn inside a canvas is not. Clicking the drawing is a
+  shortcut to the same state, never the only way to reach it.
+- **Whatever a figure reveals also appears as text**, in the line under it, and
+  that line's height is reserved so nothing below it moves.
+- **Labels are real text**, sharing the drawing's coordinate box, x and y from
+  0 to 1 with y up, so a label stays on the part it names at every width. Each
+  belongs to the wide or the stacked arrangement, chosen on the figure's
+  measured proportions rather than on a viewport breakpoint that would disagree
+  with it.
+- **Every figure has an `alt`** describing what it shows, not naming it.
+- **Scroll-driven figures finish while still in view.** The gate and the
+  pipeline run on their own clock instead: a pipeline that stopped when you
+  stopped reading would be making the wrong point.
 
 Infrastructure is `packages/ui/src/webgl`. `Stage` imports three.js only when a
 figure is about to enter the viewport, stops the loop when it leaves or the tab
 is hidden, caps pixel ratio, thins scenes on phones, survives context loss, and
 under `prefers-reduced-motion` renders one still frame at the figure's finished
-state. `figures/lib.ts` holds the square and the hairline; each figure is one
-file that says what it draws and why.
+state while keeping interaction working, repainting on demand. `figures/lib.ts`
+holds the square and the hairline; each figure is one file that says what it
+draws and why.
 
 Adding one is a decision about the section, not about the page: if you cannot
 say in one sentence what the drawing proves that the copy asserts, do not add

@@ -3,10 +3,11 @@ import {
   Band,
   Container,
   CtaBand,
+  Eyebrow,
+  Figure,
   Quote,
   SectionHead,
   SpecTable,
-  Eyebrow,
 } from "@genica/ui";
 
 export const metadata: Metadata = {
@@ -87,6 +88,19 @@ export default function Work() {
               </div>
             </div>
           </div>
+
+          <Figure
+            className="mt-16"
+            kind="extraction"
+            alt="A deal arriving as four documents, most of which is filler. The lines that matter move across into a single brief, in order, leaving a mark behind where each came from."
+            labels={[
+              { x: 0.03, y: 0.94, text: "The deal, as it arrives", only: "wide" },
+              { x: 0.64, y: 0.94, text: "The brief", only: "wide" },
+              { x: 0.03, y: 0.96, text: "The deal, as it arrives", only: "narrow" },
+              { x: 0.03, y: 0.45, text: "The brief", only: "narrow" },
+            ]}
+            caption="Point at a document to see which lines of the brief came out of it. That trace is the reason the brief survives the only question that matters in finance."
+          />
         </Container>
       </Band>
 

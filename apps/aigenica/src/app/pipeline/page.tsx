@@ -3,6 +3,7 @@ import {
   Band,
   Container,
   CtaBand,
+  Figure,
   RouteSteps,
   SectionHead,
   SpecTable,
@@ -63,7 +64,28 @@ export default function Pipeline() {
       <Band tone="paper">
         <Container className="py-20 sm:py-24">
           <SectionHead heading="Four stages, then the record." />
-          <RouteSteps stops={STAGES} className="mt-14" />
+
+          <Figure
+            className="mt-14"
+            kind="stages"
+            alt="Work moving through intent, plan, execution and review. A gate stands after one of them; changes that fail it drop out and accumulate as discarded work below. Moving the gate later increases the pile."
+            labels={[
+              { x: 0.156, y: 0.94, text: "Intent", align: "center", index: 0 },
+              { x: 0.387, y: 0.94, text: "Plan", align: "center", index: 1 },
+              { x: 0.619, y: 0.94, text: "Execute", align: "center", index: 2 },
+              { x: 0.85, y: 0.94, text: "Review", align: "center", index: 3 },
+              { x: 0.04, y: 0.05, text: "Discarded" },
+            ]}
+            choices={{
+              key: "gate",
+              label: "Human gate after",
+              options: ["Intent", "Plan", "Execute", "Review"],
+              initial: 1,
+            }}
+            caption="The same rejection rate at each position. The gate belongs on the plan because that is where a rejection costs the least, and the pile below is the difference."
+          />
+
+          <RouteSteps stops={STAGES} className="mt-20" />
           <p className="measure mt-16 border-t border-hair pt-7 text-[0.9375rem] leading-[1.6] text-body">
             The fifth stage is not an activity. The record (issue, plan,
             change, approval, deployment) is produced by the first four

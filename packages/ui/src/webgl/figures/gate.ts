@@ -86,6 +86,11 @@ export const create: SceneFactory = (ctx) => {
   }
 
   let written = Math.round(LEDGER * 0.38)
+  /* The gate can be switched off, which is the argument the section makes:
+     without it the work still ships, and nothing is written down. */
+  let enforced = true
+  let note = ""
+  let heldNow = 0
 
   return {
     frame(f) {
@@ -98,25 +103,30 @@ export const create: SceneFactory = (ctx) => {
       rules.seg(ri++, L.agent, L.y - 0.21, L.agent, L.y + 0.22, 0.85, 0)
       /* The gate is the only heavy rule in the figure, and the only one drawn
          in the line colour. Everything else here is structure. */
-      rules.seg(ri++, L.gate, L.y - 0.25, L.gate, L.y + 0.27, 1, 0.5)
+      rules.seg(ri++, L.gate, L.y - 0.25, L.gate, L.y + 0.27, enforced ? 1 : 0.16, enforced ? 0.5 : 0)
       rules.seg(ri++, L.x0, L.ledgerY, L.x1, L.ledgerY, 0.5, 0)
       rules.hideFrom(ri)
       rules.commit()
 
       let si = 0
+      let held = 0
       for (let i = 0; i < N; i++) {
         const c = flow[i]
-        c.u += c.rate * f.dt
+        c.u += c.rate * f.dt * (enforced ? 1 : 1.35)
         if (c.u >= 1) {
           c.u -= 1
-          written = Math.min(written + 1, LEDGER)
+          if (enforced) written = Math.min(written + 1, LEDGER)
         }
-        const { x, waiting } = advance(c.u, c.held, c.wait)
+        const { x, waiting } = advance(c.u, enforced && c.held, c.wait)
+        if (waiting > 0) held++
 
         /* Lanes pinch to almost nothing at the gate: everything passes
-           through the same point, which is what makes it a gate. */
+           through the same point, which is what makes it a gate. With the gate
+           off they run straight past, side by side. */
         const span = L.x1 - L.x0
-        const pinch = 0.18 + 0.82 * Math.min(1, Math.abs(x - L.gate) / (span * 0.2))
+        const pinch = enforced
+          ? 0.18 + 0.82 * Math.min(1, Math.abs(x - L.gate) / (span * 0.2))
+          : 1
         const y = L.y + (c.lane - 2) * L.laneGap * pinch
 
         /* Before the agent the change is only a request, so it stays quiet.
@@ -129,7 +139,9 @@ export const create: SceneFactory = (ctx) => {
         squares.set(si++, x, y, L.s * (waiting > 0 ? 1.15 : 1), tone, enter * exit * 0.95)
       }
 
-      /* The record. One line per change that passed, and it stays. */
+      /* The record. One line per change that passed, and it stays. With the
+         gate off it stops growing, and what is already there goes quiet,
+         because nothing after this point is attributable to anyone. */
       const dx = (L.x1 - L.x0 - 0.02) / LEDGER
       for (let i = 0; i < LEDGER; i++) {
         const on = i < written
@@ -138,9 +150,18 @@ export const create: SceneFactory = (ctx) => {
           L.x0 + 0.01 + i * dx + dx * 0.5,
           L.ledgerY + 0.055,
           L.s * 0.62,
-          on ? 0.5 : 0,
-          on ? 0.9 : 0.18
+          on ? (enforced ? 0.5 : 0.1) : 0,
+          on ? (enforced ? 0.9 : 0.35) : 0.18
         )
+      }
+
+      const next = enforced
+        ? `${written} of ${LEDGER} changes recorded. ${held} waiting on a named approval.`
+        : "Gate off. Work still ships, and nothing is being recorded."
+      if (next !== note || held !== heldNow) {
+        note = next
+        heldNow = held
+        ctx.emit({ note, enforced })
       }
 
       for (let i = si; i < N + LEDGER + 8; i++) squares.set(i, 0, 0, 0, 0, 0)
@@ -149,6 +170,15 @@ export const create: SceneFactory = (ctx) => {
     },
     resize(w, h) {
       build(w, h)
+    },
+    cursorAt(fx) {
+      return Math.abs(fx - L.gate) < 0.05 ? "pointer" : "default"
+    },
+    click(fx) {
+      if (Math.abs(fx - L.gate) < 0.05) enforced = !enforced
+    },
+    input(v) {
+      if (typeof v.enforced === "boolean") enforced = v.enforced
     },
     dispose() {
       squares.dispose()

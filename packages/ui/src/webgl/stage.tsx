@@ -74,6 +74,12 @@ export type StageProps = {
   className?: string
   /** Painted under the canvas so there is never a blank frame on load. */
   fallbackClassName?: string
+  /** Let the figure take the pointer. Off by default: most drawings do not. */
+  interactive?: boolean
+  /** State the scene hands back, for the label layer to render as text. */
+  onState?: (state: Record<string, unknown>) => void
+  /** State the page owns, pushed into the scene whenever it changes. */
+  input?: Record<string, unknown>
   /** Start loading this far outside the viewport. */
   rootMargin?: string
   /**
@@ -94,9 +100,27 @@ export function Stage({
   fallbackClassName,
   rootMargin = "300px",
   still = { t: 4.2, scroll: 0.5 },
+  interactive = false,
+  onState,
+  input,
 }: StageProps) {
   const hostRef = React.useRef<HTMLDivElement | null>(null)
   const [live, setLive] = React.useState(false)
+
+  const onStateRef = React.useRef(onState)
+  onStateRef.current = onState
+  const sceneRef = React.useRef<StageScene | null>(null)
+
+  /* Page-owned state reaches the scene as a push rather than through the loop,
+     so a figure that is paused still repaints when a control is used. */
+  const inputKey = JSON.stringify(input ?? null)
+  React.useEffect(() => {
+    if (!sceneRef.current?.input || !input) return
+    sceneRef.current.input(input)
+    requestRepaint.current?.()
+  }, [inputKey])
+
+  const requestRepaint = React.useRef<(() => void) | null>(null)
 
   React.useEffect(() => {
     const host = hostRef.current
@@ -124,9 +148,24 @@ export function Stage({
     let w = host.clientWidth || 1
     let h = host.clientHeight || 1
 
+    /* Figure coordinates: 0 to 1 across and up the host box. */
+    let fx = 0.5
+    let fy = 0.5
+    let over = false
+    let lastScroll = 0
+
     const onPointer = (e: PointerEvent) => {
       cx = e.clientX
       cy = e.clientY
+      if (!interactive) return
+      const r = host.getBoundingClientRect()
+      fx = (cx - r.left) / Math.max(r.width, 1)
+      fy = 1 - (cy - r.top) / Math.max(r.height, 1)
+      over = fx >= 0 && fx <= 1 && fy >= 0 && fy <= 1
+      if (over && scene?.cursorAt) {
+        host.style.cursor = scene.cursorAt(fx, fy) ?? "default"
+      }
+      repaint()
     }
     const onLeave = () => {
       cx = -1e5
@@ -163,11 +202,54 @@ export function Stage({
          completes while it is fully in view, rather than at the moment it
          leaves the screen. */
       const scroll = Math.max(0, Math.min(1, (vh - rect.top) / Math.max(vh * 0.8, 1)))
+      lastScroll = scroll
       reveal = Math.min(1, reveal + dt / 0.9)
 
       /* Scenes render themselves: each owns its own camera, and some render
          more than once per frame. */
-      scene.frame({ t, dt, px, py, scroll, reveal, w, h })
+      scene.frame({ t, dt, px, py, scroll, reveal, w, h, fx, fy, over })
+    }
+
+    /* A figure that is not looping still has to repaint when the reader does
+       something to it, which is the whole of the reduced-motion case. */
+    let repaintRaf = 0
+    const repaint = () => {
+      if (raf || repaintRaf || !scene) return
+      repaintRaf = requestAnimationFrame(() => {
+        repaintRaf = 0
+        if (!scene) return
+        scene.frame({
+          t: reduced ? still.t : (performance.now() - started) / 1000,
+          dt: 0,
+          px,
+          py,
+          scroll: reduced ? still.scroll : lastScroll,
+          reveal: Math.max(reveal, reduced ? 1 : 0),
+          w,
+          h,
+          fx,
+          fy,
+          over,
+        })
+      })
+    }
+    requestRepaint.current = repaint
+
+    const onClick = (e: PointerEvent) => {
+      if (!interactive || !scene?.click) return
+      const r = host.getBoundingClientRect()
+      const x = (e.clientX - r.left) / Math.max(r.width, 1)
+      const y = 1 - (e.clientY - r.top) / Math.max(r.height, 1)
+      if (x < 0 || x > 1 || y < 0 || y > 1) return
+      scene.click(x, y)
+      repaint()
+    }
+
+    const onHostLeave = () => {
+      if (!interactive) return
+      over = false
+      host.style.cursor = "default"
+      repaint()
     }
 
     const start = () => {
@@ -237,10 +319,19 @@ export function Stage({
         variant,
         onDark,
         reducedMotion: reduced,
+        emit: (state) => onStateRef.current?.(state),
       }
 
       scene = mod.create(ctx)
+      sceneRef.current = scene
+      if (input && scene.input) scene.input(input)
       setLive(true)
+
+      if (interactive) {
+        host.style.pointerEvents = "auto"
+        if (scene.click) host.addEventListener("pointerup", onClick)
+        host.addEventListener("pointerleave", onHostLeave)
+      }
 
       ro = new ResizeObserver(() => {
         if (!host || !renderer || !scene) return
@@ -263,9 +354,13 @@ export function Stage({
       })
 
       if (reduced) {
-        /* One still frame, composed at a point in the field where it reads as
-           a considered image rather than as flat noise. */
-        scene.frame({ t: still.t, dt: 0, px: 0, py: 0, scroll: still.scroll, reveal: 1, w, h })
+        /* One still frame. Interaction is the reader's own doing, so it stays
+           available: the figure repaints on demand rather than on a loop. */
+        scene.frame({
+          t: still.t, dt: 0, px: 0, py: 0, scroll: still.scroll, reveal: 1, w, h,
+          fx, fy, over,
+        })
+        if (interactive) window.addEventListener("pointermove", onPointer, { passive: true })
       } else {
         window.addEventListener("pointermove", onPointer, { passive: true })
         window.addEventListener("pointerleave", onLeave, { passive: true })
@@ -277,23 +372,32 @@ export function Stage({
     return () => {
       cancelled = true
       stop()
+      if (repaintRaf) cancelAnimationFrame(repaintRaf)
+      requestRepaint.current = null
       io.disconnect()
       ro?.disconnect()
       window.removeEventListener("pointermove", onPointer)
       window.removeEventListener("pointerleave", onLeave)
       document.removeEventListener("visibilitychange", onVisibility)
+      host.removeEventListener("pointerup", onClick)
+      host.removeEventListener("pointerleave", onHostLeave)
+      sceneRef.current = null
       scene?.dispose()
       renderer?.dispose()
       canvas?.remove()
     }
-  }, [load, variant, onDark, antialias, maxDpr, rootMargin, still.t, still.scroll])
+  }, [load, variant, onDark, antialias, maxDpr, rootMargin, still.t, still.scroll, interactive])
 
   return (
     <div
       ref={hostRef}
       aria-hidden
       data-live={live || undefined}
-      className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
+      className={cn(
+        "absolute inset-0 overflow-hidden",
+        interactive ? "touch-manipulation" : "pointer-events-none",
+        className
+      )}
     >
       {fallbackClassName ? (
         <div

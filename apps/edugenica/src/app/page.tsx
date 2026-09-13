@@ -110,10 +110,10 @@ export default function Home() {
             kind="sources"
             alt="Four boxes, one per rented tool, each holding part of the audience. The records move down into a single database and sort into one list; the records that existed in more than one tool merge and are marked."
             labels={[
-              { x: 0.155, y: 0.89, text: "Course platform", align: "center", only: "wide" },
-              { x: 0.385, y: 0.89, text: "Webinar tool", align: "center", only: "wide" },
-              { x: 0.615, y: 0.89, text: "Ticketing", align: "center", only: "wide" },
-              { x: 0.845, y: 0.89, text: "Mailing list", align: "center", only: "wide" },
+              { x: 0.155, y: 0.89, text: "Course platform", align: "center", only: "wide", index: 0 },
+              { x: 0.385, y: 0.89, text: "Webinar tool", align: "center", only: "wide", index: 1 },
+              { x: 0.615, y: 0.89, text: "Ticketing", align: "center", only: "wide", index: 2 },
+              { x: 0.845, y: 0.89, text: "Mailing list", align: "center", only: "wide", index: 3 },
               { x: 0.17, y: 0.47, text: "Your database", only: "wide" },
               { x: 0.06, y: 0.35, text: "Your database", only: "narrow" },
             ]}

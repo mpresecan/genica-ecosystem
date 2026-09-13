@@ -33,17 +33,46 @@ export const create: SceneFactory = (ctx) => {
      way in, and the survivor is marked. */
   const dupe = new Set<number>()
   const twin = new Set<number>()
-  for (let k = 0; k < 9; k++) {
-    const a = Math.floor(R() * N)
-    const b = Math.floor(R() * N)
-    if (a !== b && !dupe.has(a) && !dupe.has(b) && !twin.has(a) && !twin.has(b)) {
-      twin.add(a)
-      dupe.add(b)
+  /* Pairs are made deliberately across tools, two per pairing, so every tool
+     has someone in it who is also somewhere else. That is the claim. */
+  const PAIRS: [number, number][] = [
+    [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3], [0, 1], [2, 3],
+  ]
+  for (const [ba, bb] of PAIRS) {
+    for (let tries = 0; tries < 40; tries++) {
+      const a = ba * PER_BOX + Math.floor(R() * PER_BOX)
+      const b = bb * PER_BOX + Math.floor(R() * PER_BOX)
+      if (!dupe.has(a) && !dupe.has(b) && !twin.has(a) && !twin.has(b)) {
+        twin.add(a)
+        dupe.add(b)
+        break
+      }
     }
   }
 
   type Node = { from: [number, number]; to: [number, number]; s: number; delay: number }
   let nodes: Node[] = []
+  let boxRect: { x0: number; x1: number; y0: number; y1: number }[] = []
+
+  /* Which tool each record came from, and the second tool a merged record was
+     also in. Highlighting a tool has to light both, or the merge is invisible. */
+  const sourceOf = (i: number) => Math.floor(i / PER_BOX)
+  const extra = new Map<number, number>()
+  {
+    const twins = [...twin]
+    const dupes = [...dupe]
+    for (let k = 0; k < dupes.length && k < twins.length; k++) {
+      extra.set(twins[k], sourceOf(dupes[k]))
+    }
+  }
+  const shared = [0, 0, 0, 0]
+  for (const [tw, src] of extra) {
+    shared[sourceOf(tw)]++
+    shared[src]++
+  }
+
+  let pinned = -1
+  let announced = -2
 
   function build(w: number, h: number) {
     const aspect = w / Math.max(h, 1)
@@ -52,6 +81,7 @@ export const create: SceneFactory = (ctx) => {
     const rowsOfBoxes = wide ? 1 : 2
 
     nodes = []
+    boxRect = []
     let ri = 0
 
     const padX = 0.04
@@ -69,6 +99,7 @@ export const create: SceneFactory = (ctx) => {
       const x1 = padX + (c + 1) * boxW - boxW * 0.04
       const y0 = topY + r * boxH + boxH * 0.06
       const y1 = topY + (r + 1) * boxH - boxH * 0.22
+      boxRect[b] = { x0, x1, y0, y1 }
       rules.seg(ri++, x0, y0, x1, y0, 0.9, 0)
       rules.seg(ri++, x1, y0, x1, y1, 0.9, 0)
       rules.seg(ri++, x1, y1, x0, y1, 0.9, 0)
@@ -109,19 +140,22 @@ export const create: SceneFactory = (ctx) => {
     const lastRow = survivors - (ny - 1) * nx
     const lastPad = lastRow > 0 ? ((nx - lastRow) / 2) * dx : 0
 
-    let slot = 0
-    for (let i = 0; i < nodes.length; i++) {
-      if (dupe.has(i)) {
-        /* A duplicate goes to its twin's slot and is absorbed there. */
-        nodes[i].to = [0, 0]
-        continue
-      }
+    /* One list is not four lists stacked, so the arrivals interleave. Asking
+       about a tool then shows its share running through the whole list rather
+       than sitting in its own block, which would be the old arrangement with
+       a new border round it. */
+    const order: number[] = []
+    for (let i = 0; i < nodes.length; i++) if (!dupe.has(i)) order.push(i)
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(R() * (i + 1))
+      ;[order[i], order[j]] = [order[j], order[i]]
+    }
+    order.forEach((idx, slot) => {
       const row = Math.floor(slot / nx)
       const cx = slot % nx
       const cy = ny - 1 - row
-      nodes[i].to = [gx + cx * dx + (row === ny - 1 ? lastPad : 0), gy + cy * dyStep]
-      slot++
-    }
+      nodes[idx].to = [gx + cx * dx + (row === ny - 1 ? lastPad : 0), gy + cy * dyStep]
+    })
     /* Resolve duplicates to whichever twin slot is free, so the pair converges
        on one row rather than two. */
     const twins = [...twin]
@@ -137,10 +171,33 @@ export const create: SceneFactory = (ctx) => {
 
   build(ctx.width, ctx.height)
 
+  const hit = (fx: number, fy: number) =>
+    boxRect.findIndex((r) => fx >= r.x0 && fx <= r.x1 && fy >= r.y0 - 0.06 && fy <= r.y1 + 0.06)
+
   return {
+    cursorAt(fx, fy) {
+      return hit(fx, fy) >= 0 ? "pointer" : "default"
+    },
+    click(fx, fy) {
+      const i = hit(fx, fy)
+      pinned = i >= 0 && i !== pinned ? i : -1
+    },
     frame(f) {
       squares.reveal(f.reveal)
       rules.reveal(f.reveal)
+
+      const hovered = f.over ? hit(f.fx, f.fy) : -1
+      const active = pinned >= 0 ? pinned : hovered
+      if (active !== announced) {
+        announced = active
+        ctx.emit({
+          active,
+          note:
+            active >= 0
+              ? `${PER_BOX} records, ${shared[active]} of them also in another tool.`
+              : "",
+        })
+      }
 
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i]
@@ -157,6 +214,17 @@ export const create: SceneFactory = (ctx) => {
           tone = 0.3
         } else if (twin.has(i)) {
           tone = 0.5 + 0.5 * leg(a, 0.7, 1)
+        }
+        /* Asking about one tool pushes the rest of the list back, so what is
+           left standing is that tool's share of the audience. */
+        if (active >= 0) {
+          const mine = sourceOf(i) === active || extra.get(i) === active
+          if (!mine) {
+            alpha *= 0.22
+            tone = Math.min(tone, 0.3)
+          } else if (extra.has(i)) {
+            tone = 1
+          }
         }
         squares.set(i, x, y, n.s * (twin.has(i) ? 1.3 : 1), tone, alpha)
       }
