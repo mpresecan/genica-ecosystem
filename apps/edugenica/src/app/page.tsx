@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import {
-  BOOKING_URL,
   Band,
+  BOOKING_URL,
   Button,
   Container,
   CtaBand,
-  Faq,
   Eyebrow,
+  Faq,
+  Figure,
   RouteSteps,
   SectionHead,
   SpecTable,
@@ -103,6 +104,21 @@ export default function Home() {
               </p>
             </div>
           </div>
+
+          <Figure
+            className="mt-16"
+            kind="sources"
+            alt="Four boxes, one per rented tool, each holding part of the audience. The records move down into a single database and sort into one list; the records that existed in more than one tool merge and are marked."
+            labels={[
+              { x: 0.155, y: 0.89, text: "Course platform", align: "center", only: "wide" },
+              { x: 0.385, y: 0.89, text: "Webinar tool", align: "center", only: "wide" },
+              { x: 0.615, y: 0.89, text: "Ticketing", align: "center", only: "wide" },
+              { x: 0.845, y: 0.89, text: "Mailing list", align: "center", only: "wide" },
+              { x: 0.17, y: 0.47, text: "Your database", only: "wide" },
+              { x: 0.06, y: 0.35, text: "Your database", only: "narrow" },
+            ]}
+            caption="The marked records are the people who were in more than one tool: the buyer who also came to the conference, the attendee who bought the masterclass. Until the lists are one list, nobody can see them."
+          />
         </Container>
       </Band>
 

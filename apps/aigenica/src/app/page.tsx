@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import {
-  BOOKING_URL,
   Band,
+  BOOKING_URL,
   Button,
   Container,
   CtaBand,
-  Faq,
   Eyebrow,
+  Faq,
+  Figure,
   SectionHead,
   SpecTable,
 } from "@genica/ui";
@@ -84,8 +85,24 @@ export default function Home() {
             heading="What we install."
             lede="Six components. None of them is a product you rent from us. Each is configuration, written contracts and automation inside systems you already own."
           />
-          <SpecTable
+
+          <Figure
             className="mt-14"
+            kind="gate"
+            alt="Work leaves a queue, passes a scoped agent that writes the change, and meets a gate. Most changes pass; the ones requiring a named approval wait at the gate and are marked. Everything that passes writes a line into a record below."
+            labels={[
+              { x: 0.05, y: 0.86, text: "Queue" },
+              { x: 0.4, y: 0.86, text: "Scoped agent", align: "center", only: "wide" },
+              { x: 0.4, y: 0.9, text: "Agent", align: "center", only: "narrow" },
+              { x: 0.66, y: 0.92, text: "Gate", align: "center", only: "wide" },
+              { x: 0.68, y: 0.14, text: "Gate", align: "center", only: "narrow" },
+              { x: 0.05, y: 0.09, text: "The delivery record", only: "wide" },
+              { x: 0.05, y: 0.05, text: "The record", only: "narrow" },
+            ]}
+            caption="Everything that passes writes its own line in the record. The marked changes are the ones whose mandate requires a named human approval, and they wait until they have it."
+          />
+          <SpecTable
+            className="mt-20"
             rows={[
               {
                 term: "A control plane",

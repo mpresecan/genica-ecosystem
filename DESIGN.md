@@ -83,6 +83,52 @@ From taste-skill, and they are the reason several things were removed:
   divided field.
 - One accent per page, locked, under 80% saturation.
 
+## The figures
+
+The client asked for something as interesting as Stripe's. The first answer,
+moving fields behind every band, was decoration: it was on every page, it was
+the same on every page, and it said nothing. It was removed.
+
+What replaced it is four figures, one per property, each placed inside the
+section whose claim it makes, and nowhere else. A page that has no argument to
+draw does not get one.
+
+| Property | Section | The figure |
+|---|---|---|
+| genica.org | "Every engagement runs the same four stops" | The work at each stop: scope argued into lines of specification, the risky joins proved with nothing else built, the product solid, then the product refined with what usage did not justify taken out |
+| aigenica.com | "What we install" | The pipeline: a queue, a scoped agent, a gate that every change passes through, and the record each passing change writes |
+| edugenica.com | "Your audience is spread across four rented tools" | Four boxes emptying into one database, with the people who were in more than one box merging as they land |
+| flowgenica.com | "Define it once. Run every client on it." | A template and its engagements, until one client returns feedback late and every date after it moves, on that row only |
+
+Rules these keep:
+
+- **A figure is made of a square and a hairline, and nothing else.** That is
+  the vocabulary the components already use, so a figure sits beside a ruled
+  list without announcing that it came from a different toolbox.
+- **The accent marks the one thing the section is about.** The changes waiting
+  on a named approval. The people who were in two lists. The dates that moved.
+  If the accent is not carrying the argument, it is not used.
+- **Labels are real text, not drawn into the canvas.** The drawing and the
+  labels share one coordinate box, x and y from 0 to 1 with y up, so a label
+  stays on the part it names at every width. A figure switches to a stacked
+  arrangement below a measured proportion, and each label belongs to one
+  arrangement or the other.
+- **Every figure has an `alt`**, describing what it shows rather than naming it.
+- **Three are driven by scroll and finish while still in view.** The gate runs
+  on its own clock instead: a pipeline that stopped when you stopped reading
+  would be making the wrong point.
+
+Infrastructure is `packages/ui/src/webgl`. `Stage` imports three.js only when a
+figure is about to enter the viewport, stops the loop when it leaves or the tab
+is hidden, caps pixel ratio, thins scenes on phones, survives context loss, and
+under `prefers-reduced-motion` renders one still frame at the figure's finished
+state. `figures/lib.ts` holds the square and the hairline; each figure is one
+file that says what it draws and why.
+
+Adding one is a decision about the section, not about the page: if you cannot
+say in one sentence what the drawing proves that the copy asserts, do not add
+it.
+
 ## Adding a page
 
 Read this file, `PRODUCT.md`, and the taste-skill SKILL.md. Install it with

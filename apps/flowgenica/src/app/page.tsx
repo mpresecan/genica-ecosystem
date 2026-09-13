@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import {
-  BOOKING_URL,
   Band,
+  BOOKING_URL,
   Button,
   Container,
   CtaBand,
-  Faq,
   Eyebrow,
+  Faq,
+  Figure,
   SectionHead,
   SpecTable,
 } from "@genica/ui";
@@ -92,8 +93,21 @@ export default function Home() {
             heading="Define it once. Run every client on it."
             lede="Six capabilities, all pointing at the same outcome: the way your best project ran becomes the way every project runs."
           />
-          <SpecTable
+
+          <Figure
             className="mt-14"
+            kind="schedule"
+            alt="One template row of five stages, and six client rows running the same five stages against their own start dates. Partway through, one client's stage stretches and every stage after it on that row moves, marked; the other rows are unaffected."
+            labels={[
+              { x: 0.02, y: 0.93, text: "The template", only: "wide" },
+              { x: 0.02, y: 0.52, text: "Every engagement", only: "wide" },
+              { x: 0.02, y: 0.96, text: "The template", only: "narrow" },
+              { x: 0.02, y: 0.78, text: "Every engagement", only: "narrow" },
+            ]}
+            caption="One client returns feedback late. The stage stretches, the stages after it move, and the delivery date everyone can see moves with them. Only that engagement changes."
+          />
+          <SpecTable
+            className="mt-20"
             rows={CAPABILITIES}
           />
         </Container>

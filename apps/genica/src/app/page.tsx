@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import {
-  BOOKING_URL,
   Band,
+  BOOKING_URL,
   Button,
   Container,
   CtaBand,
   Eyebrow,
   Faq,
+  Figure,
   NetworkMap,
   Quote,
   RouteSteps,
@@ -87,7 +88,24 @@ export default function Home() {
             heading="Every engagement runs the same four stops."
             lede="We de-risk your capital by refusing to write code before the parameters are clear. The sequence is the same whether you arrive with a sketch or a half-built product."
           />
-          <RouteSteps stops={STOPS} className="mt-16 border-t border-hair" />
+
+          <Figure
+            className="mt-14"
+            kind="stops"
+            alt="The work at each of the four stops: scope argued into ordered lines of specification, then a sparse structure with the risky joins between its parts drawn in, then the same product built solid, then the same product again with two columns and a row removed and three parts marked."
+            labels={[
+              { x: 0.151, y: 0.9, text: "Specify", align: "center", only: "wide" },
+              { x: 0.384, y: 0.9, text: "Prove", align: "center", only: "wide" },
+              { x: 0.616, y: 0.9, text: "Build", align: "center", only: "wide" },
+              { x: 0.849, y: 0.9, text: "Scale", align: "center", only: "wide" },
+              { x: 0.268, y: 0.88, text: "Specify", align: "center", only: "narrow" },
+              { x: 0.733, y: 0.88, text: "Prove", align: "center", only: "narrow" },
+              { x: 0.268, y: 0.425, text: "Build", align: "center", only: "narrow" },
+              { x: 0.733, y: 0.425, text: "Scale", align: "center", only: "narrow" },
+            ]}
+            caption="Scope argued into a specification, the risky joins proved before the rest exists, the product built, then everything usage did not justify taken back out."
+          />
+          <RouteSteps stops={STOPS} className="mt-20 border-t border-hair" />
           <p className="mt-12 max-w-[46rem] text-[1rem] leading-[1.6] text-muted">
             Built on the Payload App Stack, which we own and maintain in the open
             at{" "}
