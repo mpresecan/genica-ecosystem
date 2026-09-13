@@ -20,10 +20,10 @@ export default function Ecosystem() {
     <>
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-16 sm:py-24">
-          <h1 className="t-display mt-8 max-w-[18ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+          <h1 className="t-display rise mt-8 max-w-[18ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
             Four lines. One studio behind them.
           </h1>
-          <p className="t-lede measure mt-7 text-body">
+          <p className="t-lede rise d1 measure mt-7 text-body">
             The network grew out of what clients asked for after the first
             engagement ended. Each line is a separate offer with its own site,
             its own contract and its own audience, run by the same people, to
@@ -76,7 +76,7 @@ export default function Ecosystem() {
         <Container className="py-20 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <SectionHead heading="And the work that is not for sale." />
-            <div className="t-body measure grid gap-4 text-[1.0625rem] text-body">
+            <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
                 {OPEN_SOURCE.blurb} It sits outside the network on purpose: it
                 is free, MIT-licensed, and used by people who will never hire

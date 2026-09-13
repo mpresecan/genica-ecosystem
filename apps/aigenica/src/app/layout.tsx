@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { SiteHeader, SiteFooter, PROPERTIES } from "@genica/ui";
+import { SiteHeader, SiteFooter, Motion, PROPERTIES } from "@genica/ui";
 import "./globals.css";
 
 /* Inter + JetBrains Mono, self-hosted variable subsets. Inter is the
@@ -91,6 +91,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <Motion />
         <SiteHeader line="aigenica" nav={NAV} />
         <main id="main">{children}</main>
         <SiteFooter line="aigenica" columns={FOOTER_COLUMNS} />

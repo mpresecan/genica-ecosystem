@@ -157,10 +157,10 @@ export function Figure({
   const readout = details && active >= 0 ? details[active] : state.note
 
   return (
-    <figure className={cn("relative", className)}>
+    <figure className={cn("reveal relative", className)}>
       <div
         ref={boxRef}
-        className="relative h-[300px] w-full sm:h-[340px] lg:h-[380px]"
+        className="figure-box relative h-[300px] w-full sm:h-[340px] lg:h-[380px]"
         role="img"
         aria-label={alt}
       >
@@ -206,8 +206,13 @@ export function Figure({
               type="button"
               onClick={() => setPick(i)}
               aria-pressed={i === pick}
+              data-sheen
+              data-variant="outline"
               className={cn(
-                "t-mono rounded-full border px-3.5 py-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+                "t-mono rounded-full border px-3.5 py-1.5",
+                "transition-[background-color,color,border-color,translate,scale] duration-150 ease-out",
+                "hover:-translate-y-px active:translate-y-0 active:scale-[0.985]",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                 i === pick
                   ? "border-ink text-ink"
                   : "border-hair text-muted hover:border-faint hover:text-ink"
@@ -225,7 +230,14 @@ export function Figure({
             type="button"
             onClick={() => setOn((v) => !v)}
             aria-pressed={on}
-            className="t-mono inline-flex items-center rounded-full border border-hair px-4 py-1.5 text-ink transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            data-sheen
+            data-variant="outline"
+            className={cn(
+              "t-mono inline-flex items-center rounded-full border border-hair px-4 py-1.5 text-ink",
+              "transition-[background-color,color,border-color,translate,scale] duration-150 ease-out",
+              "hover:-translate-y-px hover:border-ink active:translate-y-0 active:scale-[0.985]",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            )}
           >
             {on ? toggle.on : toggle.off}
           </button>
@@ -233,9 +245,14 @@ export function Figure({
         {caption ? <figcaption className="t-mono max-w-[46rem]">{caption}</figcaption> : null}
       </div>
 
-      {/* Held open so nothing below moves as the reading changes. */}
-      <p aria-hidden className="t-mono mt-3 min-h-[1.5rem] max-w-[46rem] text-ink">
-        {readout}
+      {/* Held open so nothing below moves as the reading changes, and keyed
+          on the reading so a new one fades up rather than replacing the old
+          one between two frames. */}
+      <p
+        aria-hidden
+        className="figure-readout t-mono mt-3 min-h-[1.5rem] max-w-[46rem] text-ink"
+      >
+        <span key={String(readout ?? "")}>{readout}</span>
       </p>
     </figure>
   )

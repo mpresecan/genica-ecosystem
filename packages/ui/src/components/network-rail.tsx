@@ -19,11 +19,11 @@ export function NetworkRail({
   return (
     <nav
       aria-label="Other Genica sites"
-      className={cn("border-b border-hair-soft bg-paper", className)}
+      className={cn("h-[var(--rail-h)] border-b border-hair-soft bg-paper", className)}
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-8">
         <ul
-          className="flex items-center justify-end gap-7 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex h-full items-center justify-end gap-7 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{
             maskImage: "linear-gradient(to left, black calc(100% - 1.5rem), transparent)",
             WebkitMaskImage: "linear-gradient(to left, black calc(100% - 1.5rem), transparent)",

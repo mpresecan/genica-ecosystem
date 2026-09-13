@@ -45,12 +45,12 @@ export default function Pipeline() {
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div>
-              <h1 className="t-display mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+              <h1 className="t-display rise mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
                 Approve the approach, not the diff.
               </h1>
             </div>
             <div className="lg:pt-16">
-              <p className="t-lede measure text-body">
+              <p className="t-lede rise d1 measure text-body">
                 The single decision that separates a working agentic pipeline
                 from an expensive one is where the human gate sits. Put it on
                 the output and your engineers become reviewers of volume they

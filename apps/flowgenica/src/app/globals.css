@@ -1,4 +1,5 @@
 @import "tailwindcss";
 @import "@genica/ui/styles.css";
+@import "@genica/ui/motion.css";
 
 @source "../../../../packages/ui/src";

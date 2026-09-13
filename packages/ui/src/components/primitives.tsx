@@ -14,6 +14,10 @@ export function Container({ className, ...props }: React.ComponentProps<"div">) 
 /**
  * Three surfaces and no more: the page, one tinted band, and the dark band.
  * The dark band appears at most once per page.
+ *
+ * `data-tone` is also what tells the motion layer which surface a hovered row
+ * should take, so a row on the tinted band lifts to white rather than tinting
+ * into itself.
  */
 export function Band({
   tone = "paper",
@@ -50,7 +54,12 @@ export function Rule({ className, ...props }: React.ComponentProps<"div">) {
   return <div aria-hidden className={cn("h-px w-full bg-hair", className)} {...props} />
 }
 
-/** Heading, and body stacked under it. No floating corner paragraph. */
+/**
+ * Heading, and body stacked under it. No floating corner paragraph.
+ *
+ * It arrives on the scrollport rather than on a clock: the heading first,
+ * then the line under it, because that is the order they are read in.
+ */
 export function SectionHead({
   heading,
   lede,
@@ -64,9 +73,9 @@ export function SectionHead({
 }) {
   return (
     <div className={cn("max-w-[34rem]", className)}>
-      <h2 className={cn("t-h2", onDark && "text-on-dark")}>{heading}</h2>
+      <h2 className={cn("t-h2 reveal", onDark && "text-on-dark")}>{heading}</h2>
       {lede ? (
-        <p className={cn("t-body mt-5", onDark && "text-on-dark-body")}>{lede}</p>
+        <p className={cn("t-body reveal mt-5", onDark && "text-on-dark-body")}>{lede}</p>
       ) : null}
     </div>
   )
@@ -75,6 +84,11 @@ export function SectionHead({
 /**
  * A ruled list: one hairline between rows, none above the first or below the
  * last. Used wherever parallel facts would otherwise become a card grid.
+ *
+ * A row under the pointer takes the neighbouring surface out to the gutter
+ * and grows a hairline down its leading edge, and its term moves by that
+ * hairline's width. The drawing of the row does not otherwise change: the
+ * gesture says which row you are on, and nothing else.
  */
 export function RuledList({
   rows,
@@ -91,15 +105,20 @@ export function RuledList({
         <div
           key={i}
           className={cn(
-            "grid grid-cols-1 gap-x-16 gap-y-3 py-8 sm:grid-cols-[minmax(0,16rem)_1fr]",
+            "row reveal grid grid-cols-1 gap-x-16 gap-y-3 py-8 sm:grid-cols-[minmax(0,16rem)_1fr]",
             i > 0 && (onDark ? "border-t border-hair-dark" : "border-t border-hair")
           )}
         >
-          <dt className={cn("t-h3", onDark && "text-on-dark")}>{r.term}</dt>
+          <dt className={cn("t-h3 row-term", onDark && "text-on-dark")}>{r.term}</dt>
           <dd className={cn("t-body measure", onDark && "text-on-dark-body")}>
             {r.detail}
             {r.note ? (
-              <span className={cn("mt-2 block text-[0.875rem]", onDark ? "text-on-dark-muted" : "text-faint")}>
+              <span
+                className={cn(
+                  "mt-2 block text-[0.875rem]",
+                  onDark ? "text-on-dark-muted" : "row-note"
+                )}
+              >
                 {r.note}
               </span>
             ) : null}
@@ -130,14 +149,37 @@ export function FactRows({
         <div
           key={i}
           className={cn(
-            "flex flex-wrap items-baseline justify-between gap-x-10 gap-y-1 py-3",
+            "row flex flex-wrap items-baseline justify-between gap-x-10 gap-y-1 py-3",
             i > 0 && "border-t border-hair"
           )}
         >
-          <dt className="t-mono">{r.term}</dt>
+          <dt className="t-mono row-term">{r.term}</dt>
           <dd className="text-[0.9375rem] font-medium text-ink">{r.value}</dd>
         </div>
       ))}
     </dl>
+  )
+}
+
+/**
+ * A roster of names, read one at a time: the one under the pointer holds the
+ * ink and the rest step back to the quiet tone. It is what the eye does to a
+ * list of clients anyway.
+ */
+export function Roster({
+  names,
+  className,
+}: {
+  names: React.ReactNode[]
+  className?: string
+}) {
+  return (
+    <ul className={cn("roster flex flex-wrap items-center gap-x-10 gap-y-2", className)}>
+      {names.map((n, i) => (
+        <li key={i} className="text-[1rem] font-medium tracking-[-0.02em]">
+          {n}
+        </li>
+      ))}
+    </ul>
   )
 }

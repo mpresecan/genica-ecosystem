@@ -43,14 +43,14 @@ export default function Home() {
       <Band tone="sunk" className="border-b border-hair">
         <Container className="flex flex-wrap items-center gap-x-10 gap-y-4 py-6">
           <Eyebrow className="text-muted">For</Eyebrow>
-          <ul className="flex flex-wrap items-center gap-x-8 gap-y-2">
+          <ul className="roster flex flex-wrap items-center gap-x-8 gap-y-2">
             {[
               "Software studios",
               "Design agencies",
               "Marketing agencies",
               "Consultancies",
             ].map((n) => (
-              <li key={n} className="t-h3 text-[1.0625rem] text-body">
+              <li key={n} className="t-h3 text-[1.0625rem]">
                 {n}
               </li>
             ))}
@@ -62,7 +62,7 @@ export default function Home() {
         <Container className="py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <SectionHead heading="Clients ask for status because there is no other way to get it." />
-            <div className="t-body measure grid gap-4 text-[1.0625rem] text-body">
+            <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
                 Every agency past about eight people hits the same wall. The
                 delivery process is real, and it works, but it exists in the
@@ -118,7 +118,7 @@ export default function Home() {
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
             <div>
               <SectionHead heading="Before the software, the process." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   Most agencies do not need a tool first. They need the
                   workflow written down, the real one, with the stage everyone
@@ -141,11 +141,11 @@ export default function Home() {
                 ].map((b) => (
                   <li
                     key={b}
-                    className="flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
+                    className="tick-row reveal flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
                   >
                     <span
                       aria-hidden
-                      className="mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
+                      className="tick mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
                     />
                     {b}
                   </li>
@@ -155,7 +155,7 @@ export default function Home() {
 
             <div>
               <SectionHead heading="Design partners." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   The product is being built now, with a small number of
                   agencies running real engagements on it and telling us where
@@ -178,11 +178,11 @@ export default function Home() {
                 ].map((b) => (
                   <li
                     key={b}
-                    className="flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
+                    className="tick-row reveal flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
                   >
                     <span
                       aria-hidden
-                      className="mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
+                      className="tick mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
                     />
                     {b}
                   </li>

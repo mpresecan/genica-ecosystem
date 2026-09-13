@@ -42,10 +42,10 @@ export default function Agencies() {
     <>
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-16 sm:py-24">
-          <h1 className="t-display mt-8 max-w-[22ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+          <h1 className="t-display rise mt-8 max-w-[22ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
             Write down how you deliver, before you buy software to run it.
           </h1>
-          <p className="t-lede measure mt-7 text-body">
+          <p className="t-lede rise d1 measure mt-7 text-body">
             Two to three weeks, fixed fee. We map your delivery process as it
             actually runs, tell you where it leaks time, and hand you a
             workflow you can put to work the week it lands, in any tool,
@@ -114,11 +114,11 @@ export default function Agencies() {
                 ].map((b) => (
                   <li
                     key={b}
-                    className="flex gap-4 border-b border-hair py-4 text-[0.9375rem] text-ink first:border-t"
+                    className="tick-row reveal flex gap-4 border-b border-hair py-4 text-[0.9375rem] text-ink first:border-t"
                   >
                     <span
                       aria-hidden
-                      className="mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
+                      className="tick mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
                     />
                     {b}
                   </li>
@@ -127,7 +127,7 @@ export default function Agencies() {
             </div>
             <div className="lg:pt-10">
               <SectionHead heading="And no obligation after it." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   The engagement ends with a document you own. Some agencies
                   run it in the tools they already have and never speak to us

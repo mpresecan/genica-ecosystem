@@ -144,6 +144,67 @@ Adding one is a decision about the section, not about the page: if you cannot
 say in one sentence what the drawing proves that the copy asserts, do not add
 it.
 
+## Motion
+
+The client's note was that premium is in the small details. The answer is not
+more movement: it is that every state the interface already has should be
+reported, in the vocabulary the static system already owns. Nothing here adds
+a shape, a colour or a face. `packages/ui/src/styles/motion.css` holds the
+whole layer, and it is imported after `globals.css` so it can redefine what it
+supersedes.
+
+Three rules, and they are the reason several tempting things are absent:
+
+1. **Motion reports position or state.** Nothing moves to be noticed. There is
+   no parallax, no reveal-on-scroll for its own sake, no hover that only makes
+   a thing bigger.
+2. **Entrances run on the scrollport, not on a clock.** `.reveal` uses
+   `animation-timeline: view()`, so a list staggers because it arrives
+   staggered rather than because four delays were written by hand, and an
+   element already on screen is simply already there. Where the browser has no
+   scroll-driven animation, the same class degrades to the single opening
+   animation the system had before. `.rise` is kept for the hero, which is
+   above the fold and therefore has no arrival to run on.
+3. **Everything survives `prefers-reduced-motion`**, and what a gesture
+   reveals is readable with the gesture removed. The override is an
+   `!important` in an earlier layer, because a scroll-driven animation ignores
+   duration: shortening it would leave the element stuck at nothing, so it has
+   to be switched off outright.
+
+What the layer adds, and what each one is for:
+
+| Gesture | Where | What it reports |
+|---|---|---|
+| `.reveal` | Every section-level component | Where the page is under you |
+| `.link` | Every prose link | A hairline underline wiping to the accent |
+| `.nav-link` | Header nav | An underline growing from the side it is read from |
+| `[data-sheen]` | Every pill | A light that follows the pointer across it, and a one-pixel lift |
+| `.arrow` | Anything that leads away | Which way it goes |
+| `.site-header` | Header | The rail scrolls away and the bar pins, by sticking one rail above the viewport, so the document's height never changes and nothing under it jumps |
+| `.site-progress` | Header | How far through the page, as the one accent hairline |
+| `.row` | Every ruled row | The tinted surface out to the gutter, a hairline down the leading edge, the term moved by that hairline's width |
+| `.roster` | Client names | One name at a time: the rest step back |
+| `.tick` | Lists of inclusions | The ring fills, so a list reads as being checked off |
+| `.plus` | Disclosure | A plus of two hairlines rotating into a minus, rather than a chevron, which would have been a third shape |
+| `.cell` | The network field | The whole quarter tints, because the whole quarter is what the click covers |
+| `Stat` | A measured number | Counts once, the first time it is read, then stays |
+| `@view-transition` | Between pages | The header and footer are named and hold still; the page between them cross-fades |
+
+Two things are deliberately gated. The pinned bar goes translucent only inside
+`@supports (backdrop-filter)`, because where the blur cannot be drawn,
+bleed-through stops being a hint and becomes legible text behind the wordmark.
+And `Stat` renders its value in the markup before any script runs, so a
+crawler, a reader mode and a screen reader get the number rather than a zero.
+
+The only JavaScript is `components/motion.tsx`, mounted once per layout: one
+passive pointer listener and one passive scroll listener, folded into a single
+animation frame, writing custom properties and re-rendering nothing. With the
+script absent the pill has no light and the bar simply stays as it is.
+
+Adding a gesture is the same decision as adding a figure: if you cannot say in
+one sentence what state it reports, it is decoration, and this system does not
+take decoration.
+
 ## Adding a page
 
 Read this file, `PRODUCT.md`, and the taste-skill SKILL.md. Install it with

@@ -21,10 +21,10 @@ export default function Work() {
     <>
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-16 sm:py-24">
-          <h1 className="t-display mt-8 max-w-[20ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+          <h1 className="t-display rise mt-8 max-w-[20ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
             Layron, for Layer Finance.
           </h1>
-          <p className="t-lede measure mt-7 text-body">
+          <p className="t-lede rise d1 measure mt-7 text-body">
             An AI deal workspace that carries a real-estate deal from sourcing
             to a brief the team can circulate, without anyone leaving the
             screen to re-type what they just read.
@@ -36,7 +36,7 @@ export default function Work() {
               ["Scope", "Product specification, build, production operation"],
               ["Result", "80% time saved in deal onboarding, measured by the client"],
             ].map(([k, v]) => (
-              <div key={k} className="border-b border-hair py-5 sm:pr-8">
+              <div key={k} className="row reveal border-b border-hair py-5 sm:pr-8">
                 <dt>
                   <Eyebrow className="text-muted">{k}</Eyebrow>
                 </dt>
@@ -54,7 +54,7 @@ export default function Work() {
           <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
             <div>
               <SectionHead heading="The problem was the re-typing." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   Layer Finance underwrites real-estate deals. A new deal
                   arrived as a pile of documents in no fixed shape. Someone
@@ -72,7 +72,7 @@ export default function Work() {
 
             <div>
               <SectionHead heading="What we built." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   One workspace that takes a deal in as it arrives, extracts
                   the structure, keeps every extracted figure traceable back to
@@ -117,9 +117,9 @@ export default function Work() {
                 ].map(([k, v]) => (
                   <div
                     key={k}
-                    className="flex items-baseline justify-between gap-6 border-b border-hair py-4"
+                    className="row reveal flex items-baseline justify-between gap-6 border-b border-hair py-4"
                   >
-                    <dt className="text-[0.9375rem] text-body">{k}</dt>
+                    <dt className="row-term text-[0.9375rem] text-body">{k}</dt>
                     <dd className="t-h3 text-[1.35rem] text-accent">
                       {v}
                     </dd>

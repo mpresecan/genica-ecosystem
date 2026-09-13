@@ -54,7 +54,7 @@ export default function Home() {
         <Container className="py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <SectionHead heading="The pilot worked. The rollout is where it dies." />
-            <div className="t-body measure grid gap-4 text-[1.0625rem] text-body">
+            <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
                 Almost every organisation has now proved that an agent can
                 write a useful change. Very few can answer the questions that

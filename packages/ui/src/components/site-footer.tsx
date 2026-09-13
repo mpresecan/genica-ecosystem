@@ -1,7 +1,13 @@
 import * as React from "react"
 import { NETWORK, OPEN_SOURCE, LEGAL, CONTACT_EMAIL, type LineId } from "../brand"
 import { Container } from "./primitives"
+import { Arrow } from "./ui/button"
 
+/**
+ * The footer is the network's index, so every line in it that leads somewhere
+ * says so under the pointer: the name takes the ink, the address underneath
+ * it steps up a tone, and the arrow moves.
+ */
 export function SiteFooter({
   line,
   columns = [],
@@ -21,8 +27,11 @@ export function SiteFooter({
                 return (
                   <li key={p.id}>
                     <a href={active ? "/" : p.url} className="group block">
-                      <span className="text-[0.9375rem] font-medium text-ink">{p.name}</span>
-                      <span className="mt-0.5 block text-[0.8125rem] text-muted">
+                      <span className="inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
+                        <span className="cell-name inline-block">{p.name}</span>
+                        {!active ? <Arrow className="text-faint opacity-0 transition-opacity duration-200 group-hover:opacity-100" /> : null}
+                      </span>
+                      <span className="mt-0.5 block text-[0.8125rem] text-muted transition-colors duration-200 group-hover:text-body">
                         {p.service}
                         {active ? " (you are here)" : ""}
                       </span>
@@ -44,8 +53,12 @@ export function SiteFooter({
                 <ul className="mt-6 grid gap-3">
                   {col.links.map((l) => (
                     <li key={l.href}>
-                      <a href={l.href} className="text-[0.9375rem] text-body transition-colors hover:text-ink">
-                        {l.label}
+                      <a
+                        href={l.href}
+                        className="group inline-flex items-center gap-2 text-[0.9375rem] text-body transition-colors hover:text-ink"
+                      >
+                        <span className="cell-name inline-block">{l.label}</span>
+                        <Arrow className="text-hair opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                       </a>
                     </li>
                   ))}

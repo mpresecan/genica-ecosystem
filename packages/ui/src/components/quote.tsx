@@ -3,6 +3,11 @@ import { cn } from "../lib/utils"
 
 export type Attribution = { name: string; role: string; org: string }
 
+/**
+ * The quotation arrives before the name under it, in the order they are read.
+ * Both run on the scrollport rather than on a timer, so a quotation that is
+ * already on screen is simply already there.
+ */
 export function Quote({
   children,
   by,
@@ -20,7 +25,7 @@ export function Quote({
     <figure className={className}>
       <blockquote
         className={cn(
-          "text-balance font-normal tracking-[-0.025em]",
+          "reveal text-balance font-normal tracking-[-0.025em]",
           onDark ? "text-on-dark" : "text-ink",
           size === "lead"
             ? "text-[clamp(1.375rem,1.1rem+1.2vw,1.875rem)] leading-[1.3]"
@@ -31,7 +36,7 @@ export function Quote({
       </blockquote>
       <figcaption
         className={cn(
-          "mt-6 text-[0.875rem]",
+          "reveal mt-6 text-[0.875rem]",
           onDark ? "text-on-dark-body" : "text-body"
         )}
       >

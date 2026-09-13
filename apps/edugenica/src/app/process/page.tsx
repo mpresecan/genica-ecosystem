@@ -44,12 +44,12 @@ export default function Process() {
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div>
-              <h1 className="t-display mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+              <h1 className="t-display rise mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
                 Four to six weeks from scope to first sale.
               </h1>
             </div>
             <div className="lg:pt-16">
-              <p className="t-lede measure text-body">
+              <p className="t-lede rise d1 measure text-body">
                 That is a single-format launch, one webinar series or one
                 course, with a signed scope and your material ready. A
                 multi-track conference takes longer, and you will get the real
@@ -91,8 +91,8 @@ export default function Process() {
                     "Pick a date you can market to. A platform with nothing scheduled on it teaches you nothing, and the first event is what shapes the second.",
                   ],
                 ].map(([h, b]) => (
-                  <li key={h} className="border-b border-hair py-6 first:border-t">
-                    <h3 className="t-h3 text-[1.0625rem]">{h}</h3>
+                  <li key={h} className="row reveal border-b border-hair py-6 first:border-t">
+                    <h3 className="t-h3 row-term text-[1.0625rem]">{h}</h3>
                     <p className="t-body mt-2 text-[0.9375rem] text-body">{b}</p>
                   </li>
                 ))}

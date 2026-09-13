@@ -67,10 +67,10 @@ export default function Home() {
       <Band tone="sunk" className="border-b border-hair">
         <Container className="flex flex-wrap items-center gap-x-10 gap-y-4 py-6">
           <Eyebrow className="text-muted">Formats</Eyebrow>
-          <ul className="flex flex-wrap items-center gap-x-8 gap-y-2">
+          <ul className="roster flex flex-wrap items-center gap-x-8 gap-y-2">
             {["Webinars", "Courses", "Masterclasses", "Conferences", "Streamed events"].map(
               (n) => (
-                <li key={n} className="t-h3 text-[1.0625rem] text-body">
+                <li key={n} className="t-h3 text-[1.0625rem]">
                   {n}
                 </li>
               )
@@ -83,7 +83,7 @@ export default function Home() {
         <Container className="py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <SectionHead heading="Your audience is spread across four rented tools." />
-            <div className="t-body measure grid gap-4 text-[1.0625rem] text-body">
+            <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
                 The course lives on one platform, the webinars on another, the
                 tickets on a third and the mailing list on a fourth. Each takes

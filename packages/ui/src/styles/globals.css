@@ -222,13 +222,8 @@
   .measure { max-width: 65ch; }
   .measure-tight { max-width: 46ch; }
 
-  .link {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: var(--hair);
-    transition: text-decoration-color 0.15s var(--ease);
-  }
-  .link:hover { text-decoration-color: var(--accent); }
+  /* `.link` lives in motion.css: its underline is an animated hairline, so
+     the rest state and the hover state have to be described together. */
 }
 
 @layer utilities {

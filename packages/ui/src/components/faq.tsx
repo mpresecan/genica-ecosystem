@@ -12,8 +12,12 @@ export function Faq({ items }: { items: QA[] }) {
   return (
     <Accordion type="single" collapsible className="w-full">
       {items.map((item, i) => (
-        <AccordionItem key={i} value={`q-${i}`} className="border-b border-hair last:border-b-0">
-          <AccordionTrigger className="items-center gap-8 py-6 text-left text-[1.0625rem] font-medium tracking-[-0.015em] text-ink hover:no-underline [&>svg]:size-4 [&>svg]:text-faint">
+        <AccordionItem
+          key={i}
+          value={`q-${i}`}
+          className="reveal border-b border-hair last:border-b-0"
+        >
+          <AccordionTrigger className="items-center gap-8 py-6 text-left text-[1.0625rem] font-medium tracking-[-0.015em] text-ink">
             {item.q}
           </AccordionTrigger>
           <AccordionContent className="pb-7">

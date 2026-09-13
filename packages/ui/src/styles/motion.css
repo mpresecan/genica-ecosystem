@@ -1,0 +1,367 @@
+/* ===========================================================================
+   GENICA, motion
+
+   The system's second layer. It adds no new shapes, no new colours and no new
+   type: every gesture here is made of the things the static system already
+   owns, a hairline, a tint, the ink, and the accent used only where the
+   static system already allows it.
+
+   Three rules it keeps:
+
+   1. Motion reports position or state. Nothing moves to be noticed.
+   2. Entrances are driven by the scrollport, not by a clock, so a list
+      staggers because it arrives staggered rather than because a delay was
+      written by hand. Where the browser cannot do that, the gesture degrades
+      to the single opening animation the system had before.
+   3. Everything here survives `prefers-reduced-motion`, and what it reveals
+      is readable with the animation removed.
+   =========================================================================== */
+
+:root {
+  /* One curve for arrivals, one for changes of state. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io:  cubic-bezier(0.65, 0, 0.35, 1);
+
+  --t-fast: 130ms;
+  --t-base: 220ms;
+  --t-slow: 420ms;
+
+  /* The switcher rail's height. The rail is set to exactly this, rather than
+     to whatever its contents come to, because the bar pins by sticking one
+     rail above the viewport and the two numbers have to be the same one. */
+  --rail-h: 2.25rem;
+
+  /* Written by the motion island: 0 to 1 through the document. */
+  --scroll: 0;
+}
+
+/* Cross-document transitions. The header and footer are named, so they hold
+   still while the page between them changes. */
+@view-transition { navigation: auto; }
+
+@layer components {
+
+  /* --- Arrival ----------------------------------------------------------
+     `.reveal` is the one entrance. Without scroll-driven animation it plays
+     once on load, which is what the system did before. With it, each element
+     runs on its own position in the scrollport.
+     -------------------------------------------------------------------- */
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(0.875rem); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes reveal-soft {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal      { animation: reveal 0.7s var(--ease-out) both; }
+  .reveal-soft { animation: reveal-soft 0.9s var(--ease-out) both; }
+
+  @supports (animation-timeline: view()) {
+    .reveal, .reveal-soft {
+      animation-timeline: view();
+      /* Finishes while the element is still arriving, never after, so nothing
+         is mid-fade once it is in front of you. */
+      animation-range: entry 0% entry 72%;
+    }
+  }
+
+  /* --- Links ------------------------------------------------------------
+     The underline is a hairline at rest and wipes to the accent on hover.
+     Two stacked gradients rather than text-decoration, because only a
+     background can be animated from one end to the other.
+     -------------------------------------------------------------------- */
+  .link {
+    color: inherit;
+    text-decoration: none;
+    background-image:
+      linear-gradient(var(--accent), var(--accent)),
+      linear-gradient(var(--hair), var(--hair));
+    background-size: 0% 1px, 100% 1px;
+    background-position: 0 100%, 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 0.1em;
+    transition: background-size var(--t-slow) var(--ease-out);
+  }
+  .link:hover,
+  .link:focus-visible { background-size: 100% 1px, 100% 1px; }
+
+  [data-tone="dark"] .link {
+    background-image:
+      linear-gradient(var(--accent-dark), var(--accent-dark)),
+      linear-gradient(var(--hair-dark), var(--hair-dark));
+  }
+
+  /* A nav item's underline grows from the side it is read from. */
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -0.45rem;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform var(--t-base) var(--ease-out);
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+  /* --- Controls ---------------------------------------------------------
+     A pill lifts by one pixel under the pointer and carries a light that
+     follows it. The light is a pseudo-element behind the label, so the text
+     is never painted through.
+     -------------------------------------------------------------------- */
+  [data-sheen] { position: relative; isolation: isolate; overflow: hidden; }
+  [data-sheen]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      7rem circle at var(--px, 50%) var(--py, 50%),
+      color-mix(in oklab, var(--paper) 22%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity var(--t-base) var(--ease-out);
+  }
+  [data-sheen][data-variant="outline"]::before,
+  [data-sheen][data-variant="ghost"]::before {
+    background: radial-gradient(
+      7rem circle at var(--px, 50%) var(--py, 50%),
+      color-mix(in oklab, var(--ink) 7%, transparent),
+      transparent 70%
+    );
+  }
+  [data-sheen][data-variant="onDark"]::before {
+    background: radial-gradient(
+      7rem circle at var(--px, 50%) var(--py, 50%),
+      color-mix(in oklab, var(--ink) 10%, transparent),
+      transparent 70%
+    );
+  }
+  [data-sheen]:hover::before { opacity: 1; }
+
+  /* The glyph that means "this goes somewhere" moves the distance it means. */
+  .arrow {
+    display: inline-block;
+    transition: transform var(--t-base) var(--ease-out);
+  }
+  a:hover .arrow,
+  button:hover .arrow,
+  .group:hover .arrow { transform: translateX(0.1875rem); }
+
+  /* --- The header -------------------------------------------------------
+     The switcher rail scrolls away and the bar pins, by sticking the header
+     one rail above the viewport. The document's height never changes, so
+     nothing under it moves.
+     -------------------------------------------------------------------- */
+  .site-header {
+    top: calc(var(--rail-h) * -1);
+    view-transition-name: site-header;
+  }
+  footer { view-transition-name: site-footer; }
+
+  .site-bar {
+    background-color: var(--paper);
+    transition:
+      background-color var(--t-base) var(--ease-out),
+      border-color var(--t-base) var(--ease-out);
+  }
+  /* Pinned, the bar lets what passes beneath it show through, softened.
+     The paper is held at 92% rather than the 70-something a heavier design
+     would use: where the blur does not render, the bleed-through has to stay
+     a hint rather than become legible text behind the wordmark. */
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    [data-scrolled="true"] .site-bar {
+      background-color: color-mix(in oklab, var(--paper) 88%, transparent);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      backdrop-filter: saturate(180%) blur(16px);
+    }
+  }
+
+  /* How far through the page you are, as the one accent line on the bar. */
+  .site-progress {
+    transform: scaleX(var(--scroll));
+    transform-origin: 0 50%;
+    opacity: 0;
+    transition: opacity var(--t-base) var(--ease-out);
+  }
+  [data-scrolled="true"] .site-progress { opacity: 1; }
+
+  /* --- Ruled rows -------------------------------------------------------
+     A row under the pointer takes the tinted surface, bleeding past the text
+     column to the gutter, and grows a hairline down its leading edge. The
+     term moves the width of the hairline and no further.
+     -------------------------------------------------------------------- */
+  .row { position: relative; }
+  .row > * { position: relative; z-index: 1; }
+
+  .row::before {
+    content: "";
+    position: absolute;
+    /* One pixel clear of the top, so the rule between rows survives the
+       tint instead of being swallowed by it. */
+    inset: 1px -1.25rem 0;
+    background: var(--paper-2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-base) var(--ease-out);
+  }
+  .row::after {
+    content: "";
+    position: absolute;
+    left: -1.25rem; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--ink);
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+    transition: transform var(--t-slow) var(--ease-out);
+  }
+  .row:hover::before,
+  .row:focus-within::before { opacity: 1; }
+  .row:hover::after,
+  .row:focus-within::after { transform: scaleY(1); }
+
+  [data-tone="sunk"] .row::before { background: var(--paper); }
+  [data-tone="dark"]  .row::before { background: var(--dark-2); }
+  [data-tone="dark"]  .row::after  { background: var(--on-dark); }
+
+  .row-term { transition: transform var(--t-base) var(--ease-out); }
+  .row:hover .row-term,
+  .row:focus-within .row-term { transform: translateX(0.1875rem); }
+
+  .row-note {
+    color: var(--faint);
+    transition: color var(--t-base) var(--ease-out);
+  }
+  .row:hover .row-note { color: var(--body); }
+
+  /* --- Disclosure -------------------------------------------------------
+     A plus made of two hairlines. Opening rotates one onto the other, which
+     is the same drawing turning into a minus.
+     -------------------------------------------------------------------- */
+  .plus {
+    position: relative;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    flex: none;
+  }
+  .plus::before,
+  .plus::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%;
+    height: 1px;
+    background: var(--faint);
+    transition:
+      transform var(--t-base) var(--ease-io),
+      background-color var(--t-base) var(--ease-out);
+  }
+  .plus::after { transform: rotate(90deg); }
+
+  [data-state="open"] .plus::after { transform: rotate(0deg); }
+  [data-state="open"] .plus::before,
+  [data-state="open"] .plus::after,
+  button:hover .plus::before,
+  button:hover .plus::after { background: var(--ink); }
+
+  .disclosure-q { transition: transform var(--t-base) var(--ease-out); }
+  button:hover .disclosure-q { transform: translateX(0.1875rem); }
+
+  /* --- Figures ----------------------------------------------------------
+     A drawing you are meant to point at says so with the cursor, and the
+     line it writes underneath changes by fading rather than by snapping.
+     -------------------------------------------------------------------- */
+  .figure-box { cursor: crosshair; }
+
+  @keyframes readout-in {
+    from { opacity: 0; transform: translateY(0.25rem); }
+    to   { opacity: 1; transform: none; }
+  }
+  .figure-readout > span { animation: readout-in var(--t-base) var(--ease-out) both; }
+
+  /* --- The tick on a list of inclusions ---------------------------------
+     At rest it is a ring in the accent, which is what the static system
+     drew. Under the pointer the row it belongs to fills it in, so a list of
+     things you are getting reads as a list being checked off.
+     -------------------------------------------------------------------- */
+  .tick { transition: background-color var(--t-base) var(--ease-out); }
+  .tick-row:hover .tick { background-color: var(--accent); }
+  .tick-row { transition: color var(--t-base) var(--ease-out); }
+
+  /* --- A cell in the network field -------------------------------------- */
+  .cell { transition: background-color var(--t-base) var(--ease-out); }
+  .cell-name { transition: transform var(--t-base) var(--ease-out); }
+  .cell:hover .cell-name,
+  .group:hover .cell-name { transform: translateX(0.1875rem); }
+  .cell-domain { transition: color var(--t-base) var(--ease-out); }
+  .cell:hover .cell-domain { color: var(--body); }
+
+  /* --- The mobile sheet -------------------------------------------------- */
+  @keyframes sheet-item {
+    from { opacity: 0; transform: translateX(0.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+  .sheet-item { animation: sheet-item 0.4s var(--ease-out) both; }
+}
+
+@layer utilities {
+  /* Anchors inside a page glide rather than jump. */
+  html { scroll-behavior: smooth; }
+
+  :focus-visible { transition: outline-offset var(--t-fast) var(--ease-out); }
+
+  ::view-transition-old(root) { animation: vt-out 140ms var(--ease-io) both; }
+  ::view-transition-new(root) { animation: vt-in var(--t-base) var(--ease-out) both; }
+
+  @keyframes vt-out { to { opacity: 0; } }
+  @keyframes vt-in  { from { opacity: 0; transform: translateY(0.5rem); } }
+
+  /* Tabular figures never reflow while a number is counting. */
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* --- A roster ---------------------------------------------------------
+     Point at one name and the others step back. It is how you read a list of
+     clients: one at a time.
+
+     These sit in the utilities layer rather than with the rest of the motion,
+     because the thing they have to win against is the colour utility on the
+     item itself, and a components-layer rule never beats one.
+     -------------------------------------------------------------------- */
+  .roster > * {
+    color: var(--body);
+    transition: color var(--t-base) var(--ease-out);
+  }
+  .roster:hover > * { color: var(--faint); }
+  .roster > *:hover,
+  .roster > *:focus-within { color: var(--ink); }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+
+   An important declaration in an earlier layer wins, so these beat the
+   blanket duration clamp in globals.css. That matters for `.reveal`: a
+   scroll-driven animation ignores duration, so shortening it would leave the
+   element stuck at nothing. It has to be switched off outright.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-soft,
+  .sheet-item,
+  .figure-readout > span {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html { scroll-behavior: auto !important; }
+  .site-progress { transition: none !important; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
+}

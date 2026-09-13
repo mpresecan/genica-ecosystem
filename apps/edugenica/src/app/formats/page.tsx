@@ -84,10 +84,10 @@ export default function Formats() {
     <>
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-16 sm:py-24">
-          <h1 className="t-display mt-8 max-w-[20ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+          <h1 className="t-display rise mt-8 max-w-[20ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
             Five formats, one platform underneath.
           </h1>
-          <p className="t-lede measure mt-7 text-body">
+          <p className="t-lede rise d1 measure mt-7 text-body">
             Start with the one that earns soonest. The platform is built so the
             next four do not require starting again, the same audience, the
             same checkout, the same brand.
@@ -100,10 +100,10 @@ export default function Formats() {
           {DETAIL.map((f) => (
             <section
               key={f.name}
-              className="grid gap-8 border-t border-hair py-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20"
+              className="reveal grid gap-8 border-t border-hair py-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20"
             >
               <div>
-                <h2 className="t-h3 text-[clamp(1.6rem,1.3rem+1vw,2.25rem)]">
+                <h2 className="t-h3 reveal text-[clamp(1.6rem,1.3rem+1vw,2.25rem)]">
                   {f.name}
                 </h2>
                 <p className="t-body mt-4 text-[0.9375rem] text-muted">
@@ -119,11 +119,11 @@ export default function Formats() {
                   {f.build.map((b) => (
                     <li
                       key={b}
-                      className="flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
+                      className="tick-row reveal flex gap-4 border-b border-hair py-3 text-[0.9375rem] text-ink first:border-t"
                     >
                       <span
                         aria-hidden
-                        className="mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
+                        className="tick mt-[0.55em] block size-[9px] shrink-0 rounded-full border-[3px] border-accent"
                       />
                       {b}
                     </li>

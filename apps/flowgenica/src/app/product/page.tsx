@@ -46,12 +46,12 @@ export default function Product() {
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div>
-              <h1 className="t-display mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+              <h1 className="t-display rise mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
                 A project tool holds one project. This holds how you work.
               </h1>
             </div>
             <div className="lg:pt-16">
-              <p className="t-lede measure text-body">
+              <p className="t-lede rise d1 measure text-body">
                 Flowgenica sits one layer above tasks, on the shape of the
                 engagement and the commitments made to the client, the layer
                 most agencies keep in a spreadsheet and a partner’s memory.
@@ -126,8 +126,8 @@ export default function Product() {
                     "You have chat. What you do not have is a shared answer to where this engagement stands.",
                   ],
                 ].map(([h, b]) => (
-                  <li key={h} className="border-b border-hair py-6 first:border-t">
-                    <h3 className="t-h3 text-[1.0625rem]">{h}</h3>
+                  <li key={h} className="row reveal border-b border-hair py-6 first:border-t">
+                    <h3 className="t-h3 row-term text-[1.0625rem]">{h}</h3>
                     <p className="t-body mt-2 text-[0.9375rem] text-body">{b}</p>
                   </li>
                 ))}
@@ -135,7 +135,7 @@ export default function Product() {
             </div>
             <div className="lg:pt-10">
               <SectionHead heading="Where it is." />
-              <div className="t-body measure mt-7 grid gap-4 text-[1.0625rem] text-body">
+              <div className="t-body measure reveal mt-7 grid gap-4 text-[1.0625rem] text-body">
                 <p>
                   The product is being built with a small group of agencies
                   running real engagements on it. We publish no launch date,

@@ -45,12 +45,12 @@ export default function Approach() {
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div>
-              <h1 className="t-display mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
+              <h1 className="t-display rise mt-8 text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
                 Capital is spent on decisions, not on keystrokes.
               </h1>
             </div>
             <div className="lg:pt-16">
-              <p className="t-lede measure text-body">
+              <p className="t-lede rise d1 measure text-body">
                 Most software money is lost before anyone writes bad code. It
                 goes on building the wrong thing carefully, discovering it
                 late, and rebuilding under time pressure. Our sequence exists
@@ -100,7 +100,7 @@ export default function Approach() {
           />
 
           <div className="measure mt-14 border-t border-hair pt-7">
-            <h2 className="t-h3 text-[1.2rem]">On pricing</h2>
+            <h2 className="t-h3 reveal text-[1.2rem]">On pricing</h2>
             <p className="t-body mt-3 text-[0.9688rem] text-body">
               We price an engagement after the scoping call, against a written
               scope, and we do not quote before we understand what is being
@@ -136,8 +136,8 @@ export default function Approach() {
                     "A team is the right answer once the product is proven. Before that it is a payroll with an unresolved specification attached.",
                   ],
                 ].map(([h, b]) => (
-                  <li key={h} className="border-b border-hair py-6 first:border-t">
-                    <h3 className="t-h3 text-[1.0625rem]">{h}</h3>
+                  <li key={h} className="row reveal border-b border-hair py-6 first:border-t">
+                    <h3 className="t-h3 row-term text-[1.0625rem]">{h}</h3>
                     <p className="t-body mt-2 text-[0.9375rem] text-body">
                       {b}
                     </p>
@@ -159,7 +159,7 @@ export default function Approach() {
                 single session. What took us hours before is now a matter of
                 minutes.”
               </Quote>
-              <p className="t-body measure mt-10 border-t border-hair pt-7 text-[0.9375rem] text-body">
+              <p className="t-body measure reveal mt-10 border-t border-hair pt-7 text-[0.9375rem] text-body">
                 That result did not come from a clever sprint. It came from
                 deciding, on paper and early, that the product’s job was to end
                 at a shareable brief, and then refusing to build anything that

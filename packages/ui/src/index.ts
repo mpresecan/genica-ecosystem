@@ -1,5 +1,7 @@
 export * from "./brand/index"
 export * from "./lib/utils"
+export * from "./components/motion"
+export * from "./components/stat"
 export * from "./components/primitives"
 export * from "./components/wordmark"
 export * from "./components/network-rail"

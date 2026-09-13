@@ -10,8 +10,10 @@ import {
   Figure,
   NetworkMap,
   Quote,
+  Roster,
   RouteSteps,
   SectionHead,
+  Stat,
 } from "@genica/ui";
 import { FAQ } from "../content/faq";
 
@@ -71,13 +73,7 @@ export default function Home() {
       <Band tone="paper" className="border-t border-hair">
         <Container className="flex flex-col gap-5 py-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="t-mono">In production with</p>
-          <ul className="flex flex-wrap items-center gap-x-10 gap-y-2">
-            {["Layer Finance", "Layron", "Peakside Projects"].map((n) => (
-              <li key={n} className="text-[1rem] font-medium tracking-[-0.02em] text-body">
-                {n}
-              </li>
-            ))}
-          </ul>
+          <Roster names={["Layer Finance", "Layron", "Peakside Projects"]} />
         </Container>
       </Band>
 
@@ -112,7 +108,7 @@ export default function Home() {
             caption="Scope argued into a specification, the risky joins proved before the rest exists, the product built, then everything usage did not justify taken back out."
           />
           <RouteSteps stops={STOPS} className="mt-20 border-t border-hair" />
-          <p className="mt-12 max-w-[46rem] text-[1rem] leading-[1.6] text-muted">
+          <p className="reveal mt-12 max-w-[46rem] text-[1rem] leading-[1.6] text-muted">
             Built on the Payload App Stack, which we own and maintain in the open
             at{" "}
             <a href="https://payload.solutions" className="link font-medium text-ink">
@@ -130,10 +126,10 @@ export default function Home() {
           <Eyebrow className="text-on-dark-muted">Selected work</Eyebrow>
           <div className="mt-10 grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
             <div>
-              <h2 className="t-h2 text-on-dark">
+              <h2 className="t-h2 reveal text-on-dark">
                 Sourcing to shareable brief, in one session.
               </h2>
-              <p className="t-body mt-6 text-on-dark-body">
+              <p className="t-body reveal mt-6 text-on-dark-body">
                 Layer Finance underwrites real-estate deals. Onboarding one meant
                 hours of reading, extracting and re-typing before anyone could
                 form a view. We built{" "}
@@ -141,11 +137,11 @@ export default function Home() {
                 AI deal workspace that carries a deal from sourcing to a brief
                 the team can circulate, without leaving the screen.
               </p>
-              <dl className="mt-12 flex flex-wrap items-baseline gap-x-14 gap-y-6">
+              <dl className="reveal mt-12 flex flex-wrap items-baseline gap-x-14 gap-y-6">
                 <div>
                   <dt className="t-mono text-on-dark-muted">Time saved in onboarding</dt>
                   <dd className="mt-2 text-[2.75rem] leading-none font-semibold tracking-[-0.04em] text-accent-dark">
-                    80%
+                    <Stat value={80} suffix="%" />
                   </dd>
                 </div>
                 <div>
@@ -191,7 +187,7 @@ export default function Home() {
       <Band tone="sunk" className="border-t border-hair">
         <Container className="py-24">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <h2 className="t-h2 max-w-[16ch]">Questions we are asked before the first call.</h2>
+            <h2 className="t-h2 reveal max-w-[16ch]">Questions we are asked before the first call.</h2>
             <Faq items={FAQ} />
           </div>
         </Container>

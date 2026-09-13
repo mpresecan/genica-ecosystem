@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { cn } from "../../lib/utils"
-import { ChevronDownIcon } from "lucide-react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
 
 function Accordion({
@@ -24,6 +23,12 @@ function AccordionItem({
   )
 }
 
+/**
+ * The disclosure mark is a plus drawn from two hairlines, which is the whole
+ * vocabulary this system has. Opening rotates the upright one down onto the
+ * other, so the plus becomes a minus by moving rather than by being swapped
+ * for a different glyph. A chevron would have been a third shape.
+ */
 function AccordionTrigger({
   className,
   children,
@@ -34,13 +39,15 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+          "flex flex-1 items-start justify-between gap-4 py-4 text-left text-sm font-medium outline-none",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+          "disabled:pointer-events-none disabled:opacity-50",
           className
         )}
         {...props}
       >
-        {children}
-        <ChevronDownIcon className="pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground transition-transform duration-200" />
+        <span className="disclosure-q inline-block">{children}</span>
+        <span aria-hidden className="plus mt-1.5 shrink-0" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
