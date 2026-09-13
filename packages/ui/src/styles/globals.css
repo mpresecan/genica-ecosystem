@@ -105,6 +105,20 @@
   --radius-md: 0px;
   --radius-lg: 0px;
   --radius-xl: 0px;
+
+  /* Required by shadcn's accordion. Without these the panel still opens, but
+     it snaps instead of sliding. */
+  --animate-accordion-down: accordion-down 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-accordion-up: accordion-up 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+
+  @keyframes accordion-down {
+    from { height: 0; opacity: 0; }
+    to { height: var(--radix-accordion-content-height); opacity: 1; }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); opacity: 1; }
+    to { height: 0; opacity: 0; }
+  }
 }
 
 @layer base {
