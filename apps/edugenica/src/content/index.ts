@@ -94,6 +94,6 @@ export const FAQ: QA[] = [
   },
   {
     q: "Who is behind this?",
-    a: "Edugenica is the education practice of Genica, an EU software studio. This work was previously published as sellknow.com; it now runs on the studio’s own product stack rather than on a third-party platform that is no longer maintained.",
+    a: "EduGenica is the education practice of Genica, an EU software studio. This work was previously published as sellknow.com; it now runs on the studio’s own product stack rather than on a third-party platform that is no longer maintained.",
   },
 ];

@@ -33,6 +33,28 @@
 
   /* Written by the motion island: 0 to 1 through the document. */
   --scroll: 0;
+
+  /* --- The grain -------------------------------------------------------
+     One tile of black at varying alpha, the same thing a printed halftone
+     leaves behind. It is turbulence rather than a PNG so it costs no request
+     and no asset in four apps, and it is rasterised once and then tiled.
+     Nothing in this system uses it except the signature.
+     ------------------------------------------------------------------- */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.34 0.34 0.34 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' exponent='2.1' amplitude='0.62'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+
+  /* The signature's two values: the tone pressed into the paper, and the
+     light that finds it. */
+  --sig-ink: color-mix(in oklab, var(--ink) 5%, var(--paper));
+  --sig-light: color-mix(in oklab, var(--accent) 26%, transparent);
+
+  /* The footer's own closing space, which the signature is pulled back
+     through so it lands on the bottom edge of the page, and how far past that
+     edge the lettering itself is then driven. The second is in ems of the
+     signature's own size, so the cut is the same fraction of the letter at
+     every width: a fifth of the em, which is the empty space under the
+     baseline plus a little of the letter. */
+  --sig-pull: 4rem;
+  --sig-cut: 0.2em;
 }
 
 /* Cross-document transitions. The header and footer are named, so they hold
@@ -45,25 +67,76 @@
      `.reveal` is the one entrance. Without scroll-driven animation it plays
      once on load, which is what the system did before. With it, each element
      runs on its own position in the scrollport.
+
+     Three things separate the arrivals from one another, and they are all the
+     order the block is read in rather than decoration:
+
+       - Everything arrives out of focus and resolves: the blur comes off as
+         the opacity comes up, so text settles into legibility rather than
+         sliding into place. Four pixels on a block, three on the line under a
+         heading, five on a heading's own words, because the larger the type
+         the less blur it takes to read as soft.
+       - The heading arrives a word at a time, left to right, because that is
+         the direction it is read.
+       - The line under a heading starts a moment after it and travels half
+         as far, so the pair arrives in reading order rather than together.
+       - Everything settles earlier in its own arrival than it used to, so
+         nothing is still moving by the time it is in front of you.
      -------------------------------------------------------------------- */
   @keyframes reveal {
-    from { opacity: 0; transform: translateY(0.875rem); }
-    to   { opacity: 1; transform: none; }
+    from { opacity: 0; transform: translateY(0.75rem); filter: blur(4px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes reveal-under {
+    from { opacity: 0; transform: translateY(0.5rem); filter: blur(3px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes reveal-word {
+    from { opacity: 0; transform: translateY(0.5rem); filter: blur(5px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
   }
   @keyframes reveal-soft {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { opacity: 0; filter: blur(6px); }
+    to   { opacity: 1; filter: blur(0); }
   }
 
-  .reveal      { animation: reveal 0.7s var(--ease-out) both; }
-  .reveal-soft { animation: reveal-soft 0.9s var(--ease-out) both; }
+  .reveal       { animation: reveal 0.7s var(--ease-out) both; }
+  .reveal-under { animation: reveal-under 0.7s var(--ease-out) both; }
+  .reveal-soft  { animation: reveal-soft 0.9s var(--ease-out) both; }
+
+  /* A heading set a word at a time. The spans are inline-block so they can
+     take a transform, which also means they still wrap and still balance. */
+  .reveal-text > span {
+    display: inline-block;
+    animation: reveal-word 0.62s var(--ease-out) both;
+    animation-delay: calc(min(var(--i, 0), 8) * 45ms);
+  }
 
   @supports (animation-timeline: view()) {
-    .reveal, .reveal-soft {
-      animation-timeline: view();
-      /* Finishes while the element is still arriving, never after, so nothing
-         is mid-fade once it is in front of you. */
-      animation-range: entry 0% entry 72%;
+    .reveal, .reveal-under, .reveal-soft, .reveal-text > span {
+      /* The scrollport is shortened by a sixth at its bottom edge for the
+         purpose of this timeline only. An entrance measured against the
+         actual bottom edge finishes at the actual bottom edge, which is
+         where nobody is looking: the gesture was correct and invisible.
+         Held back by a sixth of the viewport it plays a little way up the
+         page, where it is read. Nothing about the document changes, only
+         where in the scroll the arrival is measured from. */
+      animation-timeline: view(block auto 16%);
+      animation-delay: 0s;
+    }
+    /* Still finishes on the way in, never after: what settles it is the
+       element's own height passing the line, so a row takes longer than a
+       label and a figure longer than either. */
+    .reveal, .reveal-soft { animation-range: entry 0% entry 85%; }
+    .reveal-under         { animation-range: entry 15% entry 100%; }
+    /* The stagger is a shift of each word's own range, not a delay on a
+       clock: scroll back up and the line comes apart in the same order it
+       went together. Capped at six words, so a long heading does not grow a
+       tail that is still arriving after the rest of the block. */
+    .reveal-text > span {
+      animation-range:
+        entry calc(min(var(--i, 0), 6) * 8%)
+        entry calc(50% + min(var(--i, 0), 6) * 8%);
     }
   }
 
@@ -92,6 +165,46 @@
       linear-gradient(var(--accent-dark), var(--accent-dark)),
       linear-gradient(var(--hair-dark), var(--hair-dark));
   }
+
+  /* The label is the network's name, so it takes the network's colour, in the
+     light variant the dark surface needs. It is the one accent that is spent
+     at rest rather than on a hover, and it is spent here because this is the
+     only line on the page that says what the strip above the bar is. Every
+     property's light accent clears 8:1 on the near-black. */
+  .rail-label { color: var(--accent-dark); }
+
+  /* The switcher rail sits on the dark surface, so its links wipe in the
+     property's light accent rather than the ink one. No underline at rest:
+     three permanent hairlines in a 36px strip would read as a rule.
+
+     The links are set in the full light rather than in the quiet tone the
+     rest of the system uses for secondary text. Thirteen pixels reversed out
+     of near-black is the one place where the quiet tone stops being quiet and
+     starts being hard to read, so the hierarchy is carried by the label
+     beside them instead, and the hover has the underline to spend. */
+  .rail-link {
+    color: var(--on-dark);
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent-dark), var(--accent-dark));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 0.35em;
+    transition:
+      background-size var(--t-slow) var(--ease-out),
+      color var(--t-base) var(--ease-out);
+  }
+  .rail-link:hover,
+  .rail-link:focus-visible {
+    color: var(--on-dark);
+    background-size: 100% 1px;
+  }
+  /* Without hover, the underline is the only affordance a pointer gets. */
+  @media (hover: none) {
+    .rail-link { background-size: 100% 1px; }
+  }
+  /* The ink focus ring is invisible on the dark strip. */
+  .network-rail :focus-visible { outline-color: var(--accent-dark); }
 
   /* A nav item's underline grows from the side it is read from. */
   .nav-link { position: relative; }
@@ -309,6 +422,80 @@
     to   { opacity: 1; transform: none; }
   }
   .sheet-item { animation: sheet-item 0.4s var(--ease-out) both; }
+
+  /* --- The signature ----------------------------------------------------
+     The name at the foot of the page, the width of the container.
+
+     The letterforms have no colour of their own. They are a window: behind
+     them sits the paper's tone, the grain over it, and one soft light that
+     follows the pointer across the word. Clipping all three to the text is
+     what makes the name read as pressed into the page rather than printed on
+     it, and it is why the accent can appear here at all, it is a hover, which
+     is where this system already spends colour.
+
+     Size is a container-query width times the name's measured advance width,
+     so every property's name lands on the same two edges.
+     -------------------------------------------------------------------- */
+  .signature {
+    container-type: inline-size;
+    /* Clipped across, so a fallback face can never widen the page. Down is
+       left open on purpose: the footer is what crops it, at the bottom edge
+       of the document. */
+    overflow-x: clip;
+    overflow-y: visible;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Pulled through the footer's closing space so the name sits on the last
+       line of the page rather than floating above it, with whatever hangs
+       below that line, the descender of a g, cut off by the page's own edge.
+       This is the whole gesture: a signature is written on the bottom of the
+       sheet, not in the middle of it. */
+    margin-bottom: calc(var(--sig-pull) * -1);
+  }
+  footer { overflow: hidden; }
+
+  .signature-word {
+    display: block;
+    font-size: calc(var(--fit, 34) * 1cqw);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+
+    background-color: var(--sig-ink);
+    background-image:
+      radial-gradient(
+        26cqw circle at var(--px, 50%) var(--py, 50%),
+        var(--sig-light),
+        transparent 70%
+      ),
+      var(--grain);
+    background-repeat: no-repeat, repeat;
+    background-size: auto, 200px 200px;
+    background-position: 0 0, 0 0;
+
+    /* Driven past the page's edge, so the page cuts the lettering rather than
+       ending under it. */
+    margin-bottom: calc(var(--sig-cut) * -1);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    /* The light arrives with the word rather than snapping on with the first
+       pointer event. */
+    animation: reveal-soft 0.9s var(--ease-out) both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .signature-word {
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+
 }
 
 @layer utilities {
@@ -353,12 +540,16 @@
 --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .reveal,
+  .reveal-under,
   .reveal-soft,
+  .reveal-text > span,
+  .signature-word,
   .sheet-item,
   .figure-readout > span {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
   html { scroll-behavior: auto !important; }
   .site-progress { transition: none !important; }

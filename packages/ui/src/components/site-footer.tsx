@@ -2,6 +2,7 @@ import * as React from "react"
 import { NETWORK, OPEN_SOURCE, LEGAL, CONTACT_EMAIL, type LineId } from "../brand"
 import { Container } from "./primitives"
 import { Arrow } from "./ui/button"
+import { Signature } from "./signature"
 
 /**
  * The footer is the network's index, so every line in it that leads somewhere
@@ -82,6 +83,10 @@ export function SiteFooter({
             <li><a href="/imprint" className="transition-colors hover:text-body">Imprint</a></li>
           </ul>
         </div>
+
+        {/* The signature. Last thing on the page, and the only thing on it
+            that is there for no reason but to be signed. */}
+        <Signature line={line} className="mt-14 sm:mt-20" />
       </Container>
     </footer>
   )

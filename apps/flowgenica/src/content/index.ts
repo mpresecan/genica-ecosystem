@@ -35,16 +35,16 @@ export const CAPABILITIES = [
 
 export const FAQ: QA[] = [
   {
-    q: "Is Flowgenica available today?",
+    q: "Is FlowGenica available today?",
     a: "The product is in build and we are taking a small number of design partners, agencies that get early access, direct influence over the workflow model, and preferential pricing when it launches. The consulting engagement is available now, and it is the more useful starting point for most agencies anyway.",
   },
   {
     q: "How is this different from our project management tool?",
-    a: "A project tool holds tasks for one project. Flowgenica holds the way your agency delivers, and applies it to every client engagement at once. The question it answers is not “what is left on this project” but “does the way we work still hold when eleven engagements are running”.",
+    a: "A project tool holds tasks for one project. FlowGenica holds the way your agency delivers, and applies it to every client engagement at once. The question it answers is not “what is left on this project” but “does the way we work still hold when eleven engagements are running”.",
   },
   {
     q: "Do we have to stop using our current tools?",
-    a: "No. Your team keeps working where it works. Flowgenica sits above the task level, on the shape of the engagement and the commitments to the client, which is exactly the layer most tools leave to a spreadsheet and a partner’s memory.",
+    a: "No. Your team keeps working where it works. FlowGenica sits above the task level, on the shape of the engagement and the commitments to the client, which is exactly the layer most tools leave to a spreadsheet and a partner’s memory.",
   },
   {
     q: "What does the consulting engagement involve?",
@@ -52,7 +52,7 @@ export const FAQ: QA[] = [
   },
   {
     q: "Who is behind it?",
-    a: "Flowgenica is part of Genica, an EU software studio that has run client delivery for long enough to have made every mistake this product exists to prevent.",
+    a: "FlowGenica is part of Genica, an EU software studio that has run client delivery for long enough to have made every mistake this product exists to prevent.",
   },
   {
     q: "What does a design partner commit to?",

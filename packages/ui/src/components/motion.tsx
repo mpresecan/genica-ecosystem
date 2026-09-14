@@ -10,7 +10,7 @@ import * as React from "react"
    the only reason this component exists.
 
      - Where the pointer is inside a control, so the light on a pill can
-       follow it.
+       follow it, and inside the signature, so the light finds the name.
      - How far through the document you are, for the hairline on the bar.
      - Whether the page has been scrolled at all, which is what makes the
        switcher rail give way to the bar.
@@ -31,7 +31,7 @@ export function Motion() {
 
     const onPointerMove = (e: PointerEvent) => {
       const target = e.target as Element | null
-      const el = target?.closest?.("[data-sheen]") as HTMLElement | null
+      const el = target?.closest?.("[data-sheen],[data-signature]") as HTMLElement | null
       if (!el) return
       pending = { el, x: e.clientX, y: e.clientY }
       if (pointerFrame) return

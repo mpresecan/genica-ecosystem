@@ -63,7 +63,11 @@ pills.** No radius on anything else, no shadows, no cards.
 - `RuledList` and `RouteSteps` put one hairline *between* rows, never a border
   above and below each row.
 - `NetworkMap` is a 2x2 field divided by hairlines, not four cards.
-- One dark band per page, carrying the proof.
+- One dark band per page, carrying the proof. The switcher rail is the
+  exception and the reason is the same one: it is not this site's
+  navigation, it is the network the site belongs to, so it is drawn on the
+  network's surface rather than on the page's. It scrolls away on the first
+  movement and the white bar pins in its place.
 
 ## Rules this system enforces
 
@@ -73,6 +77,8 @@ From taste-skill, and they are the reason several things were removed:
   whole corpus was rewritten to commas, colons, parentheses and full stops.
 - **Eyebrows are rationed to one per three sections.** Every page is counted.
 - **No decorative status dots**, no colour swatches before names or nav items.
+  The switcher rail's label is the one coloured piece of text at rest, and it
+  is coloured because it names the network, not to mark or decorate anything.
 - **No section numbering** (`STEP 01`, `01 / 4`), no locale or version strips,
   no scroll cues, no middle-dot as a general separator.
 - **Hero holds four text elements at most**: eyebrow, headline, one subtext
@@ -144,6 +150,41 @@ Adding one is a decision about the section, not about the page: if you cannot
 say in one sentence what the drawing proves that the copy asserts, do not add
 it.
 
+## The signature
+
+Every page ends with the property's name set once, the width of the container,
+the treatment Michael already runs across his Payload sites.
+
+The letterforms carry no ink of their own. Clipped to the text sit three
+things: the paper's own tone, a grain over it, and one soft light in the
+property's accent that follows the pointer across the word. So it reads as an
+impression pressed into the page rather than a second wordmark printed on it,
+which is what a signature is, and it is the only place in the system where the
+accent appears at this size, because it appears there only under the pointer.
+
+It is cut by the bottom of the page. The footer clips, the block is pulled
+back through the footer's closing space, and the lettering is then driven a
+fifth of its own em past that edge, so the page takes the foot of every
+letter. The cut is in ems rather than pixels, which is what keeps it the same
+fraction of the letter at 390 as at 1600.
+
+Three things about it are fixed:
+
+- **The grain is the system's only texture**, it exists nowhere else, and the
+  moment a second surface takes it, it stops being the signature's and becomes
+  a background. It is `feTurbulence` in a data URI rather than an asset, so it
+  costs no request in four apps and cannot be reused by accident.
+- **Size is measured, not guessed.** `FIT` in `components/signature.tsx` is
+  each name's advance width in ems, in Inter at 600 with this tracking. Font
+  size is `100 / that` container-query widths, which lands Genica and
+  FlowGenica on the same two edges. Change the face, the weight or the
+  tracking and the four numbers have to be measured again.
+- **The cut is a fifth of an em**, `--sig-cut`. It is set once, and it is
+  deep enough that a descender is gone entirely rather than half-present,
+  which is the difference between a crop and a mistake.
+- **It is `aria-hidden`.** The footer above it already names the property; a
+  screen reader does not need the name a second time as a stray word.
+
 ## Motion
 
 The client's note was that premium is in the small details. The answer is not
@@ -165,6 +206,22 @@ Three rules, and they are the reason several tempting things are absent:
    scroll-driven animation, the same class degrades to the single opening
    animation the system had before. `.rise` is kept for the hero, which is
    above the fold and therefore has no arrival to run on.
+
+   Every entrance comes out of focus as well as out of nothing: the blur
+   comes off as the opacity comes up, four pixels on a block, three on the
+   line under a heading, five on a heading's own words, six on the signature.
+   Larger type needs less blur to read as soft, and text that resolves into
+   legibility settles rather than slides.
+
+   The timeline takes a sixth off the bottom of the scrollport
+   (`view(block auto 16%)`). Measured against the real bottom edge an
+   entrance both starts and finishes at the real bottom edge, which is the one
+   place nobody is looking: the gesture was correct and invisible. Held back
+   by a sixth it plays a little way up the page, where it is read. Nothing
+   about the document changes, only where in the scroll the arrival is
+   measured from. The word stagger in `.reveal-text` is a shift of each word's
+   own range rather than a delay, capped at six words, so a heading comes
+   apart on the way back up in the order it went together.
 3. **Everything survives `prefers-reduced-motion`**, and what a gesture
    reveals is readable with the gesture removed. The override is an
    `!important` in an earlier layer, because a scroll-driven animation ignores
@@ -175,13 +232,18 @@ What the layer adds, and what each one is for:
 
 | Gesture | Where | What it reports |
 |---|---|---|
-| `.reveal` | Every section-level component | Where the page is under you |
+| `.reveal` | Every section-level component | Where the page is under you, arriving out of focus and resolving |
+| `.reveal-text` | Section and closing headings | The line arriving a word at a time, left to right, each word resolving out of a blur, because that is the order it is read |
+| `.reveal-under` | The line beneath a heading | That it belongs to the heading: it starts after it and travels half as far |
 | `.link` | Every prose link | A hairline underline wiping to the accent |
 | `.nav-link` | Header nav | An underline growing from the side it is read from |
 | `[data-sheen]` | Every pill | A light that follows the pointer across it, and a one-pixel lift |
 | `.arrow` | Anything that leads away | Which way it goes |
 | `.site-header` | Header | The rail scrolls away and the bar pins, by sticking one rail above the viewport, so the document's height never changes and nothing under it jumps |
 | `.site-progress` | Header | How far through the page, as the one accent hairline |
+| `.rail-label` | The switcher rail | What the dark strip is, in the property's light accent: the one accent spent at rest rather than on a hover |
+| `.rail-link` | The switcher rail | The same underline wipe as a prose link, in the light accent, because the rail is the one dark surface above the fold |
+| `Signature` | The foot of every page | Where the pointer is across the name, as the only light that reaches it |
 | `.row` | Every ruled row | The tinted surface out to the gutter, a hairline down the leading edge, the term moved by that hairline's width |
 | `.roster` | Client names | One name at a time: the rest step back |
 | `.tick` | Lists of inclusions | The ring fills, so a list reads as being checked off |

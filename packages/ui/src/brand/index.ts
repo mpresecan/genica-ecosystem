@@ -47,7 +47,7 @@ export const PROPERTIES: Record<LineId, Property> = {
   },
   aigenica: {
     id: "aigenica",
-    name: "Aigenica",
+    name: "AIgenica",
     domain: "aigenica.com",
     url: "https://aigenica.com",
     service: "Agentic delivery pipelines",
@@ -58,7 +58,7 @@ export const PROPERTIES: Record<LineId, Property> = {
   },
   edugenica: {
     id: "edugenica",
-    name: "Edugenica",
+    name: "EduGenica",
     domain: "edugenica.com",
     url: "https://edugenica.com",
     service: "Education & event platforms",
@@ -69,7 +69,7 @@ export const PROPERTIES: Record<LineId, Property> = {
   },
   flowgenica: {
     id: "flowgenica",
-    name: "Flowgenica",
+    name: "FlowGenica",
     domain: "flowgenica.com",
     url: "https://flowgenica.com",
     service: "Client delivery workflow",

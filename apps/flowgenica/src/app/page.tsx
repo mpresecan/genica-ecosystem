@@ -27,7 +27,7 @@ export default function Home() {
 
           <div className="lg:pt-4">
             <p className="t-lede rise d1 max-w-[38ch]">
-              Flowgenica turns the way you deliver into a workflow every client engagement runs on.
+              FlowGenica turns the way you deliver into a workflow every client engagement runs on.
             </p>
             <div className="rise d2 mt-9">
               <Button asChild size="lg">
@@ -206,7 +206,7 @@ export default function Home() {
         heading="Show us how you deliver."
         lede="One call. We will map your delivery as it actually runs and tell you where it leaks, whether you end up a consulting client, a design partner, or neither."
         action="Book a call"
-        detail="Flowgenica is part of Genica, an EU software studio. The consulting engagement runs today; the product is in build."
+        detail="FlowGenica is part of Genica, an EU software studio. The consulting engagement runs today; the product is in build."
       />
     </>
   );

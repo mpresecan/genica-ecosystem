@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "How it works",
   description:
-    "From scoping call to first sale: what happens at each stage, what we need from you, and how an Edugenica engagement is priced.",
+    "From scoping call to first sale: what happens at each stage, what we need from you, and how an EduGenica engagement is priced.",
 };
 
 const ROUTE = [

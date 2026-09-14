@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "../lib/utils"
+import { RevealText } from "./reveal-text"
 
 /** 1200px, matching the reference site. */
 export function Container({ className, ...props }: React.ComponentProps<"div">) {
@@ -57,8 +58,9 @@ export function Rule({ className, ...props }: React.ComponentProps<"div">) {
 /**
  * Heading, and body stacked under it. No floating corner paragraph.
  *
- * It arrives on the scrollport rather than on a clock: the heading first,
- * then the line under it, because that is the order they are read in.
+ * It arrives on the scrollport rather than on a clock, and in the order the
+ * block is read: the heading a word at a time, left to right, then the line
+ * under it, starting a moment later and travelling half as far.
  */
 export function SectionHead({
   heading,
@@ -73,9 +75,11 @@ export function SectionHead({
 }) {
   return (
     <div className={cn("max-w-[34rem]", className)}>
-      <h2 className={cn("t-h2 reveal", onDark && "text-on-dark")}>{heading}</h2>
+      <RevealText as="h2" className={cn("t-h2", onDark && "text-on-dark")}>
+        {heading}
+      </RevealText>
       {lede ? (
-        <p className={cn("t-body reveal mt-5", onDark && "text-on-dark-body")}>{lede}</p>
+        <p className={cn("t-body reveal-under mt-5", onDark && "text-on-dark-body")}>{lede}</p>
       ) : null}
     </div>
   )

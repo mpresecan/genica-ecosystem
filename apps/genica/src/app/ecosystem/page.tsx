@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "The network",
   description:
-    "Genica, Aigenica, Edugenica and Flowgenica, four lines, one studio, and how to tell which one you need.",
+    "Genica, AIgenica, EduGenica and FlowGenica, four lines, one studio, and how to tell which one you need.",
 };
 
 export default function Ecosystem() {
@@ -53,17 +53,17 @@ export default function Ecosystem() {
                   "You have a SaaS product to build, or a half-built one that has stopped moving, and you need someone to own the technical outcome rather than rent you hands.",
               },
               {
-                term: "Aigenica",
+                term: "AIgenica",
                 detail:
                   "You have an engineering organisation and agents in it, and no reliable way to know what they changed, who approved it, or whether the output can be audited. You want a pipeline, not a pilot.",
               },
               {
-                term: "Edugenica",
+                term: "EduGenica",
                 detail:
                   "You teach, train, or run events, and you are tired of splitting your audience across a course tool, a ticketing tool, a webinar tool and a mailing list, none of which carry your brand.",
               },
               {
-                term: "Flowgenica",
+                term: "FlowGenica",
                 detail:
                   "You run an agency or a studio, your delivery process lives in three people’s heads, and clients ask for status because they have no other way to get it.",
               },

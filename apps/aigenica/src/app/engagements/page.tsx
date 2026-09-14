@@ -10,7 +10,7 @@ import {
 export const metadata: Metadata = {
   title: "Engagements",
   description:
-    "Assessment, pilot line and rollout, how an Aigenica engagement is shaped, what each stage delivers, and what it asks of your team.",
+    "Assessment, pilot line and rollout, how an AIgenica engagement is shaped, what each stage delivers, and what it asks of your team.",
 };
 
 export default function Engagements() {

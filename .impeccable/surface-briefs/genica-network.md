@@ -7,7 +7,7 @@ Audience: a founder or agency owner at a laptop mid-morning with three vendor
 tabs open, about to forward one link to a co-founder. Action: book a call.
 Proof available: Layron for Layer Finance, 80% measured onboarding saving, two
 named quotes, and the open-source Payload work. Constraint: no invented
-clients, prices, metrics or dates; never name the vendor stack behind Aigenica.
+clients, prices, metrics or dates; never name the vendor stack behind AIgenica.
 
 Direction: **Quiet** — the category standard, taken deliberately as the
 standing exit after a full direction round (lead was Terms of Engagement;

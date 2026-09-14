@@ -32,7 +32,7 @@ const SITE = PROPERTIES.aigenica;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Aigenica, agentic delivery pipelines for engineering organisations',
+    default: 'AIgenica, agentic delivery pipelines for engineering organisations',
     template: `%s, ${SITE.name}`,
   },
   description: 'We install the pipeline that lets your team ship with agents under real controls: specification, review gates, traceability and a delivery record you can audit.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: 'Aigenica, agentic delivery pipelines for engineering organisations',
+    title: 'AIgenica, agentic delivery pipelines for engineering organisations',
     description: 'We install the pipeline that lets your team ship with agents under real controls: specification, review gates, traceability and a delivery record you can audit.',
   },
   twitter: { card: "summary_large_image" },

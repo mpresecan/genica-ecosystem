@@ -162,7 +162,7 @@ export default function Home() {
         heading="Tell us what you teach."
         lede="We will tell you which format earns fastest, what the platform needs to do, and what it costs. If an off-the-shelf tool would serve you better, we will say that instead."
         action="Book a call"
-        detail="Edugenica is the education practice of Genica, an EU software studio. Previously published as sellknow.com."
+        detail="EduGenica is the education practice of Genica, an EU software studio. Previously published as sellknow.com."
       />
     </>
   );

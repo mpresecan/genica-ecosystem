@@ -13,7 +13,7 @@ import { CAPABILITIES } from "../../content";
 export const metadata: Metadata = {
   title: "Product",
   description:
-    "How Flowgenica models agency delivery: a workflow template, engagements that run on it, dates that move with reality, and a client view worth sending.",
+    "How FlowGenica models agency delivery: a workflow template, engagements that run on it, dates that move with reality, and a client view worth sending.",
 };
 
 const MODEL = [
@@ -52,7 +52,7 @@ export default function Product() {
             </div>
             <div className="lg:pt-16">
               <p className="t-lede rise d1 measure text-body">
-                Flowgenica sits one layer above tasks, on the shape of the
+                FlowGenica sits one layer above tasks, on the shape of the
                 engagement and the commitments made to the client, the layer
                 most agencies keep in a spreadsheet and a partner’s memory.
               </p>
@@ -111,7 +111,7 @@ export default function Product() {
                 {[
                   [
                     "Replace your task tracker",
-                    "Your team keeps working where it works. Flowgenica is not trying to own the checklist inside a stage.",
+                    "Your team keeps working where it works. FlowGenica is not trying to own the checklist inside a stage.",
                   ],
                   [
                     "Time-tracking surveillance",

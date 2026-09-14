@@ -3,6 +3,7 @@ import { cn } from "../lib/utils"
 import { BOOKING_URL, CONTACT_EMAIL } from "../brand"
 import { Button, Arrow } from "./ui/button"
 import { Container } from "./primitives"
+import { RevealText } from "./reveal-text"
 
 /** The close. One action, and one address underneath it. */
 export function CtaBand({
@@ -23,12 +24,12 @@ export function CtaBand({
     <section className={cn("border-t border-hair bg-paper", className)}>
       <Container className="py-24 sm:py-28">
         <div className="max-w-[40rem]">
-          <h2 className="t-display reveal text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)]">
+          <RevealText as="h2" className="t-display text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)]">
             {heading}
-          </h2>
-          {lede ? <p className="t-body reveal mt-7">{lede}</p> : null}
+          </RevealText>
+          {lede ? <p className="t-body reveal-under mt-7">{lede}</p> : null}
 
-          <div className="reveal mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="reveal-under mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button asChild size="lg">
               <a href={BOOKING_URL} target="_blank" rel="noreferrer">
                 {action}

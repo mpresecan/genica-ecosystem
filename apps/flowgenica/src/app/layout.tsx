@@ -32,7 +32,7 @@ const SITE = PROPERTIES.flowgenica;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Flowgenica, client delivery workflow for agencies',
+    default: 'FlowGenica, client delivery workflow for agencies',
     template: `%s, ${SITE.name}`,
   },
   description: 'Define your delivery workflow once. Every client engagement then runs on it, with stages, owners, dates and a status your client can see without asking.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: 'Flowgenica, client delivery workflow for agencies',
+    title: 'FlowGenica, client delivery workflow for agencies',
     description: 'Define your delivery workflow once. Every client engagement then runs on it, with stages, owners, dates and a status your client can see without asking.',
   },
   twitter: { card: "summary_large_image" },

@@ -32,7 +32,7 @@ const SITE = PROPERTIES.edugenica;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Edugenica, branded course, conference and event platforms',
+    default: 'EduGenica, branded course, conference and event platforms',
     template: `%s, ${SITE.name}`,
   },
   description: 'A platform of your own for courses, masterclasses, conferences and streamed events. Marketing, ticketing, access and analytics under your brand.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: 'Edugenica, branded course, conference and event platforms',
+    title: 'EduGenica, branded course, conference and event platforms',
     description: 'A platform of your own for courses, masterclasses, conferences and streamed events. Marketing, ticketing, access and analytics under your brand.',
   },
   twitter: { card: "summary_large_image" },
