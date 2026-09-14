@@ -182,6 +182,22 @@ Three things about it are fixed:
 - **The cut is a fifth of an em**, `--sig-cut`. It is set once, and it is
   deep enough that a descender is gone entirely rather than half-present,
   which is the difference between a crop and a mistake.
+- **It is written, not faded in, and the scroll is what writes it.**
+  Everything else on the site arrives out of focus, resolves, and stays
+  arrived, because an entrance that replayed every time you passed it would
+  be asking to be watched. The signature is the end of the page, so where you
+  are in the last screen of it is a real position and the word is tied to it:
+  it starts a little over a quarter of its own height low and rises into place
+  as the footer comes up, and scrolling back takes it down again. The range is
+  the block's entry, which for something sitting on the document's last pixel
+  is exactly that last stretch of scroll, and the travel is eased out across
+  it, so the word is home a little before the page runs out rather than on its
+  last pixel: stopping short of the bottom still looks finished. Two values
+  own the feel, `--sig-travel` and `--sig-ease`. Nothing about it fades, and it
+  needs no crop of its own, the footer's is the one it comes up through, which
+  is why that crop is `overflow: clip` and not `hidden`: `hidden` would make
+  the footer a scroll container and the word would then be measured against a
+  scrollport that never moves.
 - **It is `aria-hidden`.** The footer above it already names the property; a
   screen reader does not need the name a second time as a stray word.
 
@@ -199,29 +215,51 @@ Three rules, and they are the reason several tempting things are absent:
 1. **Motion reports position or state.** Nothing moves to be noticed. There is
    no parallax, no reveal-on-scroll for its own sake, no hover that only makes
    a thing bigger.
-2. **Entrances run on the scrollport, not on a clock.** `.reveal` uses
-   `animation-timeline: view()`, so a list staggers because it arrives
-   staggered rather than because four delays were written by hand, and an
-   element already on screen is simply already there. Where the browser has no
-   scroll-driven animation, the same class degrades to the single opening
-   animation the system had before. `.rise` is kept for the hero, which is
-   above the fold and therefore has no arrival to run on.
+2. **The scrollport says when an entrance starts. A clock says how long it
+   takes.** The first version of this layer did both with
+   `animation-timeline: view()`, which is the more elegant idea and the wrong
+   one: the length of a `view()` entry range is the element's own height, so a
+   one-line heading resolved over forty pixels of scroll and a row over a
+   hundred and fifty. The gesture was correct, ran to completion, and read as
+   a snap, because how long an arrival takes should not be decided by how tall
+   the thing arriving happens to be. So the trigger is an observer and the
+   playing is a clock: about three-quarters of a second, long enough to be
+   seen and short enough that nobody is waiting on it.
 
-   Every entrance comes out of focus as well as out of nothing: the blur
-   comes off as the opacity comes up, four pixels on a block, three on the
-   line under a heading, five on a heading's own words, six on the signature.
-   Larger type needs less blur to read as soft, and text that resolves into
-   legibility settles rather than slides.
+   Everything arrives out of focus as well as out of nothing: the blur comes
+   off as the opacity comes up, four pixels on a block, three on the line
+   under a heading, five on a heading's own words. Larger type needs less blur
+   to read as soft, and text that resolves into legibility settles rather than
+   slides. The signature is the exception and the only one: it rises into
+   place instead, on the scrollport rather than a clock, because it is the one
+   thing on the page that is written rather than shown, and the only one whose
+   arrival is a position you are still holding. A heading arrives a word at a time,
+   left to right, capped at six words of stagger; the line under it starts a
+   moment later and travels half as far.
 
-   The timeline takes a sixth off the bottom of the scrollport
-   (`view(block auto 16%)`). Measured against the real bottom edge an
-   entrance both starts and finishes at the real bottom edge, which is the one
-   place nobody is looking: the gesture was correct and invisible. Held back
-   by a sixth it plays a little way up the page, where it is read. Nothing
-   about the document changes, only where in the scroll the arrival is
-   measured from. The word stagger in `.reveal-text` is a shift of each word's
-   own range rather than a delay, capped at six words, so a heading comes
-   apart on the way back up in the order it went together.
+   An eighth of the viewport is taken off the bottom edge before an element
+   counts as arrived, because an entrance measured against the real bottom
+   edge plays at the real bottom edge, where nobody is looking.
+
+   **The hold is not allowed to be load-bearing**, and the two ways it could
+   have been are both closed. An element held by a script that never runs
+   would never appear, so the hold is applied by the stylesheet under
+   `[data-motion="on"]` and that attribute is written by an inline script at
+   the top of the body: no script, no attribute, no hold, and every entrance
+   simply plays once on load the way it did before any of this existed. That
+   attribute lands ahead of hydration, which React reads as an attribute the
+   server did not render, so every layout carries `suppressHydrationWarning`
+   on its `<html>`. It is the narrowest answer available: it covers that
+   element's own attributes and nothing else, and the alternative, rendering
+   `data-motion` on the server, is the one thing this must never be. And
+   an observer answers only when the answer changes, which leaves two cases
+   it can never report, something skipped over by a jump longer than the
+   viewport, and something that can never reach the line because it is
+   already against the bottom of the page, as the signature is. So a sweep is
+   the answer of record and the observer is the fast path: it runs on the
+   first frame, on any jump longer than the viewport, and whenever the
+   document runs out underneath you.
+
 3. **Everything survives `prefers-reduced-motion`**, and what a gesture
    reveals is readable with the gesture removed. The override is an
    `!important` in an earlier layer, because a scroll-driven animation ignores
@@ -232,7 +270,7 @@ What the layer adds, and what each one is for:
 
 | Gesture | Where | What it reports |
 |---|---|---|
-| `.reveal` | Every section-level component | Where the page is under you, arriving out of focus and resolving |
+| `.reveal` | Every section-level component | That this block has just come into view, arriving out of focus and resolving |
 | `.reveal-text` | Section and closing headings | The line arriving a word at a time, left to right, each word resolving out of a blur, because that is the order it is read |
 | `.reveal-under` | The line beneath a heading | That it belongs to the heading: it starts after it and travels half as far |
 | `.link` | Every prose link | A hairline underline wiping to the accent |
@@ -243,7 +281,7 @@ What the layer adds, and what each one is for:
 | `.site-progress` | Header | How far through the page, as the one accent hairline |
 | `.rail-label` | The switcher rail | What the dark strip is, in the property's light accent: the one accent spent at rest rather than on a hover |
 | `.rail-link` | The switcher rail | The same underline wipe as a prose link, in the light accent, because the rail is the one dark surface above the fold |
-| `Signature` | The foot of every page | Where the pointer is across the name, as the only light that reaches it |
+| `Signature` | The foot of every page | How far into the last screen you are: the name rises through the edge that cuts it as the footer comes up and goes back down with you, then reports where the pointer is across itself, as the only light that reaches it |
 | `.row` | Every ruled row | The tinted surface out to the gutter, a hairline down the leading edge, the term moved by that hairline's width |
 | `.roster` | Client names | One name at a time: the rest step back |
 | `.tick` | Lists of inclusions | The ring fills, so a list reads as being checked off |

@@ -55,6 +55,26 @@
      baseline plus a little of the letter. */
   --sig-pull: 4rem;
   --sig-cut: 0.2em;
+
+  /* How far the signature is dropped below where it belongs at the start of
+     its travel, as a fraction of its own height. It is also, exactly, how
+     much faster than the page it rises: the scroll that brings it into view
+     is its own height, so a travel of 28% is a word climbing 1.28 pixels for
+     every pixel the page moves. That ratio is the whole feel of it, and it is
+     the one number to change. */
+  --sig-travel: 28%;
+
+  /* And the shape of that travel: eased out, so the word decelerates into
+     place and is already home a little before the page runs out. Stopping
+     short of the bottom then still looks finished rather than caught halfway.
+
+     It is a mild ease on purpose. The system's own `--ease-out` is tuned for
+     entrances played on a clock, and on a scroll timeline it puts four fifths
+     of the travel into the first third of the scroll, which leaves the rest
+     of the gesture standing still while you are still moving. This one keeps
+     the word travelling the whole way down and spends the last of it
+     settling. */
+  --sig-ease: cubic-bezier(0, 0, 0.58, 1);
 }
 
 /* Cross-document transitions. The header and footer are named, so they hold
@@ -64,9 +84,19 @@
 @layer components {
 
   /* --- Arrival ----------------------------------------------------------
-     `.reveal` is the one entrance. Without scroll-driven animation it plays
-     once on load, which is what the system did before. With it, each element
-     runs on its own position in the scrollport.
+     `.reveal` is the one entrance.
+
+     It is triggered by the scrollport and played on a clock, and the split
+     matters. The earlier version was driven by the scrollport as well as
+     triggered by it, `animation-timeline: view()`, which is the more elegant
+     idea and the wrong one: the length of a view() entry range is the
+     element's own height, so a one-line heading resolved over forty pixels of
+     scroll and a row over a hundred and fifty. The gesture was correct, ran
+     to completion, and read as a snap, because how long an arrival takes
+     should not be decided by how tall the thing arriving happens to be. So
+     the scrollport still says when, and a clock says how long: about
+     three-quarters of a second, which is long enough to be seen and short
+     enough that nobody is waiting on it.
 
      Three things separate the arrivals from one another, and they are all the
      order the block is read in rather than decoration:
@@ -78,13 +108,11 @@
          the less blur it takes to read as soft.
        - The heading arrives a word at a time, left to right, because that is
          the direction it is read.
-       - The line under a heading starts a moment after it and travels half
-         as far, so the pair arrives in reading order rather than together.
-       - Everything settles earlier in its own arrival than it used to, so
-         nothing is still moving by the time it is in front of you.
+       - The line under a heading starts a moment after it and travels half as
+         far, so the pair arrives in reading order rather than together.
      -------------------------------------------------------------------- */
   @keyframes reveal {
-    from { opacity: 0; transform: translateY(0.75rem); filter: blur(4px); }
+    from { opacity: 0; transform: translateY(0.875rem); filter: blur(4px); }
     to   { opacity: 1; transform: none; filter: blur(0); }
   }
   @keyframes reveal-under {
@@ -100,44 +128,45 @@
     to   { opacity: 1; filter: blur(0); }
   }
 
-  .reveal       { animation: reveal 0.7s var(--ease-out) both; }
-  .reveal-under { animation: reveal-under 0.7s var(--ease-out) both; }
-  .reveal-soft  { animation: reveal-soft 0.9s var(--ease-out) both; }
+  .reveal       { animation: reveal 0.78s var(--ease-out) both; }
+  .reveal-under { animation: reveal-under 0.78s 0.13s var(--ease-out) both; }
+  .reveal-soft  { animation: reveal-soft 1s var(--ease-out) both; }
 
   /* A heading set a word at a time. The spans are inline-block so they can
-     take a transform, which also means they still wrap and still balance. */
+     take a transform, which also means they still wrap and still balance.
+     The stagger is capped at six words so a long heading does not grow a tail
+     that is still arriving after the rest of the block has settled. */
   .reveal-text > span {
     display: inline-block;
-    animation: reveal-word 0.62s var(--ease-out) both;
-    animation-delay: calc(min(var(--i, 0), 8) * 45ms);
+    animation: reveal-word 0.68s var(--ease-out) both;
+    animation-delay: calc(min(var(--i, 0), 6) * 55ms);
   }
 
-  @supports (animation-timeline: view()) {
-    .reveal, .reveal-under, .reveal-soft, .reveal-text > span {
-      /* The scrollport is shortened by a sixth at its bottom edge for the
-         purpose of this timeline only. An entrance measured against the
-         actual bottom edge finishes at the actual bottom edge, which is
-         where nobody is looking: the gesture was correct and invisible.
-         Held back by a sixth of the viewport it plays a little way up the
-         page, where it is read. Nothing about the document changes, only
-         where in the scroll the arrival is measured from. */
-      animation-timeline: view(block auto 16%);
-      animation-delay: 0s;
-    }
-    /* Still finishes on the way in, never after: what settles it is the
-       element's own height passing the line, so a row takes longer than a
-       label and a figure longer than either. */
-    .reveal, .reveal-soft { animation-range: entry 0% entry 85%; }
-    .reveal-under         { animation-range: entry 15% entry 100%; }
-    /* The stagger is a shift of each word's own range, not a delay on a
-       clock: scroll back up and the line comes apart in the same order it
-       went together. Capped at six words, so a long heading does not grow a
-       tail that is still arriving after the rest of the block. */
-    .reveal-text > span {
-      animation-range:
-        entry calc(min(var(--i, 0), 6) * 8%)
-        entry calc(50% + min(var(--i, 0), 6) * 8%);
-    }
+  /* --- What holds them until they are read ------------------------------
+     With the motion island present, every arrival is held at its first frame
+     and released by the observer when the element reaches the scrollport.
+     The island writes `data-motion` from a script at the top of the body, so
+     the hold is in place before anything below it has painted, and there is
+     no flash of a settled element being taken back.
+
+     With no script at all, none of this applies: the animations simply run
+     once on load, which is what the system did before any of it existed.
+     Nothing here is load-bearing, and an element that is never released is
+     never an element that was never delivered.
+     -------------------------------------------------------------------- */
+  [data-motion="on"] .reveal,
+  [data-motion="on"] .reveal-under,
+  [data-motion="on"] .reveal-soft,
+  [data-motion="on"] .signature-word,
+  [data-motion="on"] .reveal-text > span {
+    animation-play-state: paused;
+  }
+  [data-motion="on"] .reveal[data-in],
+  [data-motion="on"] .reveal-under[data-in],
+  [data-motion="on"] .reveal-soft[data-in],
+  [data-motion="on"] .signature-word[data-in],
+  [data-motion="on"] .reveal-text[data-in] > span {
+    animation-play-state: running;
   }
 
   /* --- Links ------------------------------------------------------------
@@ -452,8 +481,26 @@
        This is the whole gesture: a signature is written on the bottom of the
        sheet, not in the middle of it. */
     margin-bottom: calc(var(--sig-pull) * -1);
+
+    /* The timeline is declared here, on the block, and used by the word
+       inside it. It has to be this box and not the lettering: the lettering
+       is driven past the bottom of the page on purpose, so a range measured
+       against it would finish below the last scrollable pixel and the word
+       would never quite arrive. This box ends exactly where the document
+       does, so its entry range is exactly the last stretch of the scroll. */
+    view-timeline-name: --signature;
+    view-timeline-axis: block;
   }
-  footer { overflow: hidden; }
+  /* `clip`, not `hidden`. They crop identically, but `hidden` makes the
+     footer a scroll container, and the signature's view timeline would then
+     be measured against the footer's own scrollport, which never moves: the
+     word would sit at the end of its travel from the moment it was built. */
+  footer { overflow: clip; }
+
+  @keyframes signature-rise {
+    from { transform: translateY(var(--sig-travel)); }
+    to   { transform: none; }
+  }
 
   .signature-word {
     display: block;
@@ -484,16 +531,41 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
 
-    /* The light arrives with the word rather than snapping on with the first
-       pointer event. */
-    animation: reveal-soft 0.9s var(--ease-out) both;
+    /* It is written onto the page from underneath, and it is the one thing
+       here the scrollport drives rather than triggers.
+
+       Everything else on the site arrives once and stays arrived, because an
+       entrance that replayed every time you passed it would be asking to be
+       watched. The signature is the end of the page, and where you are in the
+       last screen of it is a real position, so the word is tied to it: scroll
+       down and it comes up, scroll back and it goes with you, at whatever
+       speed your hand is moving.
+
+       The range is the block's entry, which for something sitting on the
+       document's last pixel is exactly the stretch of scroll that brings the
+       footer up. Across that stretch it is eased out rather than taken
+       linearly, so the word covers most of its distance while the footer is
+       still arriving and spends the rest settling. Scroll-linked motion is
+       the one place an ease has to be justified, since the hand supplying it
+       is not eased: this one earns it by landing the word before the page
+       runs out instead of on its last pixel.
+
+       Nothing fades. A signature is not revealed, it is made, and the only
+       crop it needs is the one the footer already has. */
+    animation: signature-rise 1.15s var(--ease-out) both;
   }
 
   @supports (animation-timeline: view()) {
     .signature-word {
-      animation-timeline: view();
-      animation-range: entry 0% entry 80%;
+      animation-timeline: --signature;
+      animation-range: entry 0% entry 100%;
+      animation-duration: auto;
+      animation-timing-function: var(--sig-ease);
     }
+    /* The hold belongs to the arrivals that are triggered and then played.
+       This one is neither: the scrollport is its clock, so it must never be
+       parked waiting for an observer to let it go. */
+    [data-motion="on"] .signature-word { animation-play-state: running; }
   }
 
 }

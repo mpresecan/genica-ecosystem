@@ -83,7 +83,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-line="aigenica" className={`${inter.variable} ${jb.variable}`}>
+    /* `suppressHydrationWarning` covers this element's own attributes and
+       nothing else. It is here for one of them: the motion island writes
+       `data-motion` from an inline script at the top of the body, before
+       React hydrates, because the hold on the entrances has to be in place
+       before anything below it paints. The server cannot render that
+       attribute itself, since the whole point of writing it from a script
+       is that no script means no hold. */
+    <html
+      lang="en"
+      data-line="aigenica"
+      className={`${inter.variable} ${jb.variable}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-dvh antialiased">
         <a
           href="#main"
