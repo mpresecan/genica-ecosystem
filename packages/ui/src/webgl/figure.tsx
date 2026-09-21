@@ -27,6 +27,7 @@ const LOADERS = {
   stages: () => import("./figures/stages") as Promise<SceneModule>,
   formats: () => import("./figures/formats") as Promise<SceneModule>,
   clientview: () => import("./figures/clientview") as Promise<SceneModule>,
+  cube: () => import("./figures/cube") as Promise<SceneModule>,
 } as const
 
 export type FigureKind = keyof typeof LOADERS
@@ -84,6 +85,14 @@ export type FigureProps = {
    */
   choices?: { key: string; label?: string; options: string[]; initial?: number }
   className?: string
+  /** The drawing's box, when a surface needs a different height from the default. */
+  boxClassName?: string
+  /**
+   * The drawing alone: no caption row and no reserved readout line. For a
+   * figure that sits beside copy rather than under a heading, where the text
+   * around it is already the reading.
+   */
+  bare?: boolean
 }
 
 const ALIGN = {
@@ -109,6 +118,8 @@ export function Figure({
   toggle,
   choices,
   className,
+  boxClassName,
+  bare = false,
 }: FigureProps) {
   const boxRef = React.useRef<HTMLDivElement | null>(null)
   const [wide, setWide] = React.useState(true)
@@ -160,7 +171,10 @@ export function Figure({
     <figure className={cn("reveal relative", className)}>
       <div
         ref={boxRef}
-        className="figure-box relative h-[300px] w-full sm:h-[340px] lg:h-[380px]"
+        className={cn(
+          "figure-box relative w-full",
+          boxClassName ?? "h-[300px] sm:h-[340px] lg:h-[380px]"
+        )}
         role="img"
         aria-label={alt}
       >
@@ -195,6 +209,8 @@ export function Figure({
           ))}
       </div>
 
+      {bare ? null : (
+        <>
       {choices ? (
         <div className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-2">
           {choices.label ? (
@@ -254,6 +270,8 @@ export function Figure({
       >
         <span key={String(readout ?? "")}>{readout}</span>
       </p>
+        </>
+      )}
     </figure>
   )
 }

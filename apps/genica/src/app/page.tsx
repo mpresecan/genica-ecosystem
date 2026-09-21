@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  Arrow,
   Band,
   BOOKING_URL,
   Button,
@@ -10,6 +11,7 @@ import {
   Figure,
   NetworkMap,
   Quote,
+  RevealText,
   Roster,
   RouteSteps,
   SectionHead,
@@ -45,39 +47,130 @@ const STOPS = [
 export default function Home() {
   return (
     <>
-      {/* 1. Hero: eyebrow, headline, one subtext, one action. Nothing else. */}
+      {/* 1. Hero: the headline at full strength, one subtext, one action with
+          the promise it makes beside it, and the cube: left alone it keeps
+          turning, under the pointer it squares up. */}
       <Band tone="paper">
-        <Container className="grid items-start gap-12 pt-20 pb-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:pt-24 lg:pb-28">
+        <Container className="grid items-center gap-12 pt-20 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pt-24 lg:pb-28">
           <div>
-            <Eyebrow className="rise">Software studio</Eyebrow>
-            <h1 className="t-display rise d1 mt-7">Ship the SaaS you specified.</h1>
-          </div>
-
-          <div className="lg:pt-4">
-            <p className="t-lede rise d1 max-w-[38ch]">
+            <h1 className="t-display rise max-w-[11ch] text-[clamp(2.75rem,1.1rem+5.6vw,5.5rem)]">
+              Ship the SaaS you specified.
+            </h1>
+            <p className="t-lede rise d1 mt-10 max-w-[38ch]">
               Not the one that emerged. Technical direction, product engineering
               and long-term ownership, in one engagement.
             </p>
-            <div className="rise d2 mt-9">
+            <div className="rise d2 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <Button asChild size="lg">
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer">
                   Book a call
                 </a>
               </Button>
+              <p className="t-mono w-full max-w-[36ch] leading-[1.7] text-body sm:w-auto">
+                45 minutes. You leave with a scope, a sequence and a number,
+                whether or not you hire us.
+              </p>
+            </div>
+          </div>
+
+          <Figure
+            kind="cube"
+            bare
+            className="w-full"
+            boxClassName="h-[280px] sm:h-[360px] lg:h-[460px]"
+            alt="A cube of twenty-seven smaller cubes, drawn in outline on the page. Left alone, one layer after another turns and the cube drifts out of square; under the pointer every piece returns to its place and the cube is square again."
+          />
+        </Container>
+      </Band>
+
+      {/* 2. What a buyer checks first, below the hero where it belongs: who
+          it is in production with, who owns the work, who is behind it. A
+          divided field, one hairline between cells. */}
+      <Band tone="paper" className="border-t border-hair">
+        <Container>
+          <dl className="grid sm:grid-cols-[1.25fr_1fr_1fr]">
+            <div className="row reveal py-7 sm:pr-8">
+              <dt className="t-mono">In production with</dt>
+              <dd className="mt-3">
+                <Roster names={["Layer Finance", "Layron", "Peakside Projects"]} />
+              </dd>
+            </div>
+            <div className="row reveal border-t border-hair py-7 sm:border-t-0 sm:border-l sm:pl-8 sm:pr-8">
+              <dt className="t-mono">Ownership</dt>
+              <dd className="mt-3 text-[1rem] font-medium tracking-[-0.02em] text-ink">
+                <span className="block">Yours from the first commit.</span>
+                <span className="block">No equity, ever.</span>
+              </dd>
+            </div>
+            <div className="row reveal border-t border-hair py-7 sm:border-t-0 sm:border-l sm:pl-8">
+              <dt className="t-mono">Operator</dt>
+              <dd className="mt-3 text-[1rem] font-medium tracking-[-0.02em] text-ink">
+                Fortbit d.o.o., EU-registered, founder-led.
+              </dd>
+            </div>
+          </dl>
+        </Container>
+      </Band>
+
+      {/* 3. Proof, on the dark band, before the process: the page states what
+          it has done before it explains how. One dark band per page. */}
+      <Band tone="dark" className="border-t border-hair">
+        <Container className="py-24 lg:py-28">
+          <Eyebrow className="text-on-dark-muted">Selected work</Eyebrow>
+          <RevealText
+            as="h2"
+            className="t-display mt-8 max-w-[16ch] text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)] text-on-dark"
+          >
+            Sourcing to shareable brief, in one session.
+          </RevealText>
+
+          <div className="mt-14 grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+            <div>
+              <p className="t-body reveal-under text-on-dark-body">
+                Layer Finance underwrites real-estate deals. Onboarding one meant
+                hours of reading, extracting and re-typing before anyone could
+                form a view. We built{" "}
+                <strong className="font-medium text-on-dark">Layron</strong>, an
+                AI deal workspace that carries a deal from sourcing to a brief
+                the team can circulate, without leaving the screen.
+              </p>
+              <div className="reveal mt-14 border-t border-hair-dark pt-8">
+                <p className="text-[clamp(4.5rem,3rem+5vw,6rem)] leading-[0.9] font-semibold tracking-[-0.04em] text-accent-dark">
+                  <Stat value={80} suffix="%" />
+                </p>
+                <p className="mt-5 max-w-[26rem] text-[1rem] leading-[1.5] text-on-dark-body">
+                  Time saved in deal onboarding.{" "}
+                  <span className="text-on-dark">Measured and stated by Layer Finance.</span>
+                </p>
+              </div>
+              <p className="reveal mt-10">
+                <a href="/work" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-on-dark">
+                  <span className="link">How Layron was built</span>
+                  <Arrow />
+                </a>
+              </p>
+            </div>
+
+            <div className="grid content-start gap-12 lg:pt-2">
+              <Quote
+                onDark
+                size="lead"
+                by={{ name: "Tim-Julian Hartmann", role: "", org: "Peakside Projects" }}
+              >
+                “Layron moves a deal from sourcing to shareable brief in one
+                single session. What took us hours before is now a matter of
+                minutes.”
+              </Quote>
+              <Quote onDark by={{ name: "Kurt Praszl", role: "", org: "Layer Finance" }}>
+                “We measured 80% time saved during deal onboarding. This is a
+                game changer for us.”
+              </Quote>
             </div>
           </div>
         </Container>
       </Band>
 
-      {/* 2. Trust row, below the hero where it belongs. */}
-      <Band tone="paper" className="border-t border-hair">
-        <Container className="flex flex-col gap-5 py-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="t-mono">In production with</p>
-          <Roster names={["Layer Finance", "Layron", "Peakside Projects"]} />
-        </Container>
-      </Band>
-
-      {/* 3. The route, as a ruled list. */}
+      {/* 4. The route, as a ruled list. */}
       <Band tone="paper" className="border-t border-hair">
         <Container className="py-24">
           <SectionHead
@@ -117,58 +210,6 @@ export default function Home() {
             , so the foundation under your product is proven before your first
             release, and inspectable by anyone you ask to review it.
           </p>
-        </Container>
-      </Band>
-
-      {/* 4. Proof, on the dark band. One per page. */}
-      <Band tone="dark">
-        <Container className="py-24">
-          <Eyebrow className="text-on-dark-muted">Selected work</Eyebrow>
-          <div className="mt-10 grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
-            <div>
-              <h2 className="t-h2 reveal text-on-dark">
-                Sourcing to shareable brief, in one session.
-              </h2>
-              <p className="t-body reveal mt-6 text-on-dark-body">
-                Layer Finance underwrites real-estate deals. Onboarding one meant
-                hours of reading, extracting and re-typing before anyone could
-                form a view. We built{" "}
-                <strong className="font-medium text-on-dark">Layron</strong>, an
-                AI deal workspace that carries a deal from sourcing to a brief
-                the team can circulate, without leaving the screen.
-              </p>
-              <dl className="reveal mt-12 flex flex-wrap items-baseline gap-x-14 gap-y-6">
-                <div>
-                  <dt className="t-mono text-on-dark-muted">Time saved in onboarding</dt>
-                  <dd className="mt-2 text-[2.75rem] leading-none font-semibold tracking-[-0.04em] text-accent-dark">
-                    <Stat value={80} suffix="%" />
-                  </dd>
-                </div>
-                <div>
-                  <dt className="t-mono text-on-dark-muted">Measured by</dt>
-                  <dd className="mt-2 text-[1.125rem] font-medium text-on-dark">
-                    Layer Finance
-                  </dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="grid content-start gap-12 lg:pt-2">
-              <Quote
-                onDark
-                size="lead"
-                by={{ name: "Tim-Julian Hartmann", role: "", org: "Peakside Projects" }}
-              >
-                “Layron moves a deal from sourcing to shareable brief in one
-                single session. What took us hours before is now a matter of
-                minutes.”
-              </Quote>
-              <Quote onDark by={{ name: "Kurt Praszl", role: "", org: "Layer Finance" }}>
-                “We measured 80% time saved during deal onboarding. This is a
-                game changer for us.”
-              </Quote>
-            </div>
-          </div>
         </Container>
       </Band>
 

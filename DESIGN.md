@@ -95,12 +95,13 @@ The client asked for something as interesting as Stripe's. The first answer,
 moving fields behind every band, was decoration: it was on every page, it was
 the same on every page, and it said nothing. It was removed.
 
-What replaced it is eight figures, two per property, each placed inside the
-section whose claim it makes and nowhere else. A page with no argument to draw
+What replaced it is nine figures, two per property and one in the studio's
+hero, each placed inside the section whose claim it makes and nowhere else. A page with no argument to draw
 does not get one.
 
 | Property | Section | The figure | What using it does |
 |---|---|---|---|
+| genica.org | Hero, "Ship the SaaS you specified" | A cube of twenty-seven pieces, white lacquer over a softened edge, in true perspective from a little above, lit by one key light and a studio the scene builds for itself, so each face carries a moving reflection and every piece shades the one behind it. It sways about its three-quarter view and, left alone, is turned layer by layer the way a puzzle cube is; the tone each piece keeps on its home sides shows the cube drifting out of square. It is the one figure rendered as an object rather than drawn with a hairline, spent here because the hero is the one place the argument is made by a thing rather than a diagram | Hold the pointer on it (or tap it) and every piece returns to its place: the one that emerged, and the one that was specified. It sits beside copy rather than under a heading, so it is `bare`: no caption, no readout |
 | genica.org | "Every engagement runs the same four stops" | The work at each stop: scope argued into lines of specification, the risky joins proved with nothing else built, the product solid, then refined with what usage did not justify taken out | Point at a stop and the other three recede |
 | genica.org/work | "What we built" | Four documents arriving with a deal, and the few lines in each that reach the brief | Point at a document and its lines in the brief light up, which is the traceability claim |
 | aigenica.com | "What we install" | The pipeline: a queue, a scoped agent, a gate, and the record each passing change writes | Switch the gate off. Work still ships and the record stops |
