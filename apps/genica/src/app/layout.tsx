@@ -115,10 +115,7 @@ export default function RootLayout({
         <SiteHeader line="genica" nav={NAV} />
         <main id="main">{children}</main>
         <SiteFooter line="genica" columns={FOOTER_COLUMNS} />
-      {/* impeccable-live-start */}
-<script src="http://localhost:8400/live.js?token=3f3d2206-5ea7-42c4-9a1c-a1dd36983eef"></script>
-{/* impeccable-live-end */}
-</body>
+      </body>
     </html>
   );
 }
