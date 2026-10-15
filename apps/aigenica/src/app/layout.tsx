@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { SiteHeader, SiteFooter, Motion, PROPERTIES } from "@genica/ui";
+import { SiteHeader, SiteFooter, Motion, PROPERTIES, Button } from "@genica/ui";
+import { QrCodeIcon } from "lucide-react";
 import "./globals.css";
 import { ContactCard } from "../components/contact-card";
 
@@ -105,7 +106,18 @@ export default function RootLayout({
           Skip to content
         </a>
         <Motion />
-        <SiteHeader line="aigenica" nav={NAV} />
+        <SiteHeader
+          line="aigenica"
+          nav={NAV}
+          extra={
+            <Button asChild variant="outline" size="sm">
+              <a href="#card">
+                <QrCodeIcon />
+                Contact
+              </a>
+            </Button>
+          }
+        />
         <main id="main">{children}</main>
         <SiteFooter line="aigenica" columns={FOOTER_COLUMNS} />
         <ContactCard />
