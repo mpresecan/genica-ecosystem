@@ -32,16 +32,16 @@ const SITE = PROPERTIES.aigenica;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'AIgenica, agentic delivery pipelines for engineering organisations',
+    default: 'AIgenica, AI automation for European companies',
     template: `%s, ${SITE.name}`,
   },
-  description: 'We install the pipeline that lets your team ship with agents under real controls: specification, review gates, traceability and a delivery record you can audit.',
+  description: 'AI automation agency working across Europe. We automate the repetitive work in your documents, inboxes and systems, with human review where it matters and GDPR built in.',
   openGraph: {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: 'AIgenica, agentic delivery pipelines for engineering organisations',
-    description: 'We install the pipeline that lets your team ship with agents under real controls: specification, review gates, traceability and a delivery record you can audit.',
+    title: 'AIgenica, AI automation for European companies',
+    description: 'AI automation agency working across Europe. We automate the repetitive work in your documents, inboxes and systems, with human review where it matters and GDPR built in.',
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
@@ -54,8 +54,8 @@ export const viewport: Viewport = {
 
 const NAV = [
   {
-    "label": "The pipeline",
-    "href": "/pipeline"
+    "label": "How it works",
+    "href": "/how-it-works"
   },
   {
     "label": "Engagements",
@@ -68,8 +68,8 @@ const FOOTER_COLUMNS = [
     "title": "This site",
     "links": [
       {
-        "label": "The pipeline",
-        "href": "/pipeline"
+        "label": "How it works",
+        "href": "/how-it-works"
       },
       {
         "label": "Engagements",

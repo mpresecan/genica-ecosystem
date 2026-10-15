@@ -11,7 +11,7 @@ import {
   SectionHead,
   SpecTable,
 } from "@genica/ui";
-import { FAQ, PIPELINE } from "../content";
+import { FAQ } from "../content";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -21,18 +21,20 @@ export default function Home() {
       <Band tone="paper">
         <Container className="grid items-start gap-12 pt-20 pb-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:pt-24 lg:pb-28">
           <div>
-            <Eyebrow className="rise">Agentic delivery</Eyebrow>
-            <h1 className="t-display rise d1 mt-7">Who approved what your agents ship?</h1>
+            <Eyebrow className="rise">AI automation across Europe</Eyebrow>
+            <h1 className="t-display rise d1 mt-7">Hand the repetitive work to AI. Keep the decisions.</h1>
           </div>
 
           <div className="lg:pt-4">
             <p className="t-lede rise d1 max-w-[38ch]">
-              We install the pipeline that puts specification, approval and traceability around agentic work.
+              We find the processes that eat your team’s week, automate them
+              inside the tools you already use, and keep a person in the loop
+              wherever a mistake would cost you.
             </p>
             <div className="rise d2 mt-9">
               <Button asChild size="lg">
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer">
-                  Book a technical call
+                  Book an automation call
                 </a>
               </Button>
             </div>
@@ -44,8 +46,8 @@ export default function Home() {
         <Container className="flex flex-wrap items-center gap-x-10 gap-y-4 py-6">
           <Eyebrow className="text-muted">Built and run by</Eyebrow>
           <p className="t-h3 text-[1.0625rem] text-body">
-            the studio behind Layron, an AI deal workspace in daily production
-            use at Layer Finance.
+            the studio behind Layron, the AI deal workspace at Layer Finance,
+            where the client measured 80% time saved during deal onboarding.
           </p>
         </Container>
       </Band>
@@ -53,87 +55,163 @@ export default function Home() {
       <Band tone="paper">
         <Container className="py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            <SectionHead heading="The pilot worked. The rollout is where it dies." />
+            <SectionHead heading="Most AI projects stop at the demo." />
             <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
-                Almost every organisation has now proved that an agent can
-                write a useful change. Very few can answer the questions that
-                follow: which issue was this for, who approved the approach,
-                what did the agent have access to, and what evidence exists
-                that it is correct.
+                Everyone has now seen an AI read a document or draft a reply.
+                Far fewer companies have an automation that does it every day,
+                on real invoices, real emails and real customer files, without
+                someone watching over it.
               </p>
               <p>
-                Without answers, the sensible response is to slow agents down:
-                more review, more caution, more meetings, until they cost more
-                than they save. The answer is not more caution. It is a
-                pipeline that produces the answers automatically.
+                The gap is rarely the model. It is everything around it: where
+                the data comes from, what the automation is allowed to touch,
+                who checks its work, what happens on the strange case, and how
+                you find out later what it did.
               </p>
               <p>
-                That pipeline is a control problem, not a model problem. It is
-                the same problem every serious delivery organisation solved for
-                human engineers, restated for a contributor that works faster,
-                remembers nothing, and never pushes back.
+                That is what we build. The AI is one component, chosen last and
+                replaceable. The process around it is the part that makes the
+                saving real, and the part you keep.
               </p>
             </div>
           </div>
         </Container>
       </Band>
 
+      <Band tone="paper" className="border-t border-hair">
+        <Container className="py-20 sm:py-28">
+          <SectionHead
+            heading="What we automate."
+            lede="Work that follows a pattern your team could explain to a new hire in an afternoon. These are the processes we are asked about most."
+          />
+          <SpecTable
+            className="mt-14"
+            rows={[
+              {
+                term: "Documents in, data out",
+                detail:
+                  "Invoices, contracts, applications, delivery notes and forms read, checked against your rules, and entered into the system they belong in.",
+              },
+              {
+                term: "Inboxes and requests",
+                detail:
+                  "Incoming email and tickets sorted, routed to the right person, and answered in draft for someone to approve, in the language the customer wrote in.",
+              },
+              {
+                term: "Onboarding and intake",
+                detail:
+                  "Customer, supplier and deal onboarding: information gathered, validated, filed and chased automatically. This is the work Layron does at Layer Finance.",
+              },
+              {
+                term: "Reports",
+                detail:
+                  "The weekly or monthly report someone assembles by hand from four systems, produced on schedule and checked before it goes out.",
+              },
+              {
+                term: "Answers from your own knowledge",
+                detail:
+                  "Assistants that answer staff or customer questions from your own documents and policies, with the source shown, and a handover to a person when they do not know.",
+              },
+              {
+                term: "The glue between systems",
+                detail:
+                  "CRM, ERP, accounting and spreadsheets kept in step without anyone re-typing a record from one into another.",
+              },
+            ]}
+          />
+        </Container>
+      </Band>
+
       <Band tone="paper" className="border-t border-b border-hair">
         <Container className="py-20 sm:py-28">
           <SectionHead
-            heading="What we install."
-            lede="Six components. None of them is a product you rent from us. Each is configuration, written contracts and automation inside systems you already own."
+            heading="What every automation ships with."
+            lede="None of it is a product you rent from us. It is configuration, code and documentation inside accounts you own."
           />
 
           <Figure
             className="mt-14"
             kind="gate"
-            alt="Work leaves a queue, passes a scoped agent that writes the change, and meets a gate. Most changes pass; the ones requiring a named approval wait at the gate and are marked. Everything that passes writes a line into a record below."
+            alt="Work arrives in a queue, passes an automation that prepares it, and meets a review step. Most items pass; the ones that need a person wait at the review and are marked. Everything that passes writes a line into a log below."
             labels={[
-              { x: 0.05, y: 0.86, text: "Queue" },
-              { x: 0.4, y: 0.86, text: "Scoped agent", align: "center", only: "wide" },
-              { x: 0.4, y: 0.9, text: "Agent", align: "center", only: "narrow" },
-              { x: 0.66, y: 0.92, text: "Gate", align: "center", only: "wide" },
-              { x: 0.68, y: 0.14, text: "Gate", align: "center", only: "narrow" },
-              { x: 0.05, y: 0.09, text: "The delivery record", only: "wide" },
-              { x: 0.05, y: 0.05, text: "The record", only: "narrow" },
+              { x: 0.05, y: 0.86, text: "Incoming" },
+              { x: 0.4, y: 0.86, text: "Automation", align: "center", only: "wide" },
+              { x: 0.4, y: 0.9, text: "AI", align: "center", only: "narrow" },
+              { x: 0.66, y: 0.92, text: "Review", align: "center", only: "wide" },
+              { x: 0.68, y: 0.14, text: "Review", align: "center", only: "narrow" },
+              { x: 0.05, y: 0.09, text: "The log", only: "wide" },
+              { x: 0.05, y: 0.05, text: "The log", only: "narrow" },
             ]}
-            toggle={{ key: "enforced", on: "Gate enforced", off: "Gate off", initial: true }}
-            caption="Switch the gate off and the work still ships. Nothing is written down."
+            toggle={{ key: "enforced", on: "Review on", off: "Review off", initial: true }}
+            caption="Switch the review off and the work still goes out. Nothing is checked and nothing is written down."
           />
           <SpecTable
             className="mt-20"
             rows={[
               {
-                term: "A control plane",
+                term: "A defined scope",
                 detail:
-                  "Your issue tracker becomes the single queue for agentic and human work alike. States and labels drive the automation, so the board is the truth rather than a reflection of it.",
+                  "What the automation does, what it never does, and what counts as done, written down and agreed before anything is built.",
               },
               {
-                term: "Contracts in the repository",
+                term: "Your systems",
                 detail:
-                  "The written artefacts agents read before acting: the architecture, the decisions and their rationale, and a map of the system. Versioned with the code, reviewed like code.",
+                  "Built into the email, CRM, ERP, accounting and storage you already run, with access limited to exactly what the process needs.",
               },
               {
-                term: "Scoped agents",
+                term: "Human review",
                 detail:
-                  "Narrow roles with narrow mandates instead of one general assistant with broad credentials. A mandate small enough to review is the whole point.",
+                  "Explicit rules for what runs on its own and what waits for a named person. Decided by rule, not by whoever happens to notice.",
               },
               {
-                term: "Gates",
+                term: "Exception handling",
                 detail:
-                  "What must pass before a change advances, and which changes require a named human approval. Explicit, enforced in CI, and impossible to skip quietly.",
+                  "When the input is unusual, incomplete or uncertain, the automation hands it to a person instead of guessing.",
               },
               {
-                term: "The delivery record",
+                term: "A log",
                 detail:
-                  "Issue, plan, change, approval, deployment: linked, queryable, and produced as a by-product of the work rather than assembled afterwards for an audit.",
+                  "Every item it handled, what it did, and who approved it, so you can answer a customer, an auditor or yourself six months later.",
               },
               {
                 term: "Handover",
                 detail:
-                  "Documentation and working sessions for the engineers who will run it after we step back. An engagement that leaves you dependent on us has failed on its own terms.",
+                  "Documentation and working sessions for the people who will run it after we step back. An automation that leaves you dependent on us has failed on its own terms.",
+              },
+            ]}
+          />
+        </Container>
+      </Band>
+
+      <Band tone="paper" className="border-b border-hair">
+        <Container className="py-20 sm:py-28">
+          <SectionHead
+            heading="Built for European companies."
+            lede="We are an EU company working with clients across Europe, and the rules your business runs under are part of the design, not an afterthought."
+          />
+          <SpecTable
+            className="mt-14"
+            rows={[
+              {
+                term: "GDPR from the first sketch",
+                detail:
+                  "Personal data mapped before the build, kept to what the process needs, and covered by a data processing agreement as standard.",
+              },
+              {
+                term: "Data where it has to be",
+                detail:
+                  "EU-hosted models and infrastructure where your data requires it, and a plain statement of which step sends what, where.",
+              },
+              {
+                term: "Decisions you can explain",
+                detail:
+                  "Each automation documents what it decides on its own and where a person decides instead, so the answer is ready when a customer or regulator asks.",
+              },
+              {
+                term: "Contracting",
+                detail:
+                  "Fortbit d.o.o., registered in Croatia and operating from Poland. EU invoicing, reverse-charge VAT for EU businesses, and work in English on Central European time.",
               },
             ]}
           />
@@ -150,10 +228,10 @@ export default function Home() {
       </Band>
 
       <CtaBand
-        heading="Bring the repository. We will bring the questions."
-        lede="A technical call, not a discovery call. By the end you will know which of the six components you already have, which you are missing, and what the first one costs."
-        action="Book a technical call"
-        detail="You will be talking to the engineer who would run the work, not to a salesperson with an engineer on standby."
+        heading="Bring one process. We will bring the questions."
+        lede="A working call, not a sales pitch. By the end you will know whether that process is worth automating, what it would involve, and what the first step costs."
+        action="Book an automation call"
+        detail="You will be talking to the engineer who would build it, not to a salesperson with an engineer on standby."
       />
     </>
   );

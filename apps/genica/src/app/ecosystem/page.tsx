@@ -55,7 +55,7 @@ export default function Ecosystem() {
               {
                 term: "AIgenica",
                 detail:
-                  "You have an engineering organisation and agents in it, and no reliable way to know what they changed, who approved it, or whether the output can be audited. You want a pipeline, not a pilot.",
+                  "Your team spends hours every week reading documents, re-typing data between systems or answering the same requests. You want that work automated inside the tools you already use, with a person checking what matters.",
               },
               {
                 term: "EduGenica",

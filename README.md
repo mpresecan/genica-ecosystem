@@ -6,7 +6,7 @@ locked contract and the finish conditions live in `.impeccable/surface-briefs/`.
 | App | Domain | Line |
 |---|---|---|
 | `apps/genica` | genica.org | Indigo — the studio |
-| `apps/aigenica` | aigenica.com | Rust — agentic delivery pipelines |
+| `apps/aigenica` | aigenica.com | Rust — AI automation agency |
 | `apps/edugenica` | edugenica.com | Pine — education & event platforms |
 | `apps/flowgenica` | flowgenica.com | Bronze — client delivery workflow |
 

@@ -3,7 +3,7 @@ import type { SceneFactory } from "../types"
 import { Squares, Hairlines, ortho, palette3, rng, clamp01 } from "./lib"
 
 /* ---------------------------------------------------------------------------
-   Where the gate sits                     aigenica.com/pipeline, "Four stages"
+   Where the gate sits                     aigenica.com/how-it-works, "Four stages"
 
    The page says the human gate belongs on the plan, where changing direction
    is still cheap. That is an assertion until you can move the gate and see
