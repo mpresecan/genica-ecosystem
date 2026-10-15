@@ -218,7 +218,7 @@ export default function Home() {
         <Container className="py-24">
           <SectionHead
             heading="Four lines. One studio behind them."
-            lede="Genica builds the product. The rest of the network covers what founders and agencies ask us for next: the agentic pipeline, the education platform, the delivery workflow."
+            lede="Genica builds the product. The rest of the network covers what founders and agencies ask us for next: AI automation, the education platform, the delivery workflow."
           />
           <NetworkMap current="genica" className="mt-14" />
         </Container>

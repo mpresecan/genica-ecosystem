@@ -50,9 +50,9 @@ export const PROPERTIES: Record<LineId, Property> = {
     name: "AIgenica",
     domain: "aigenica.com",
     url: "https://aigenica.com",
-    service: "Agentic delivery pipelines",
+    service: "AI automation",
     summary:
-      "The consultancy. We install the pipeline that lets your engineering organisation ship with agents under real controls, specification, review gates, traceability.",
+      "The automation agency. We automate the repetitive work in European companies' documents, inboxes and systems, with a person in the loop where it matters.",
     hex: "#d1452a",
     hexInk: "#b0341c",
   },
