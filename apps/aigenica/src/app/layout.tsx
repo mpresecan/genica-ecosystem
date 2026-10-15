@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { SiteHeader, SiteFooter, Motion, PROPERTIES } from "@genica/ui";
 import "./globals.css";
+import { ContactCard } from "../components/contact-card";
 
 /* Inter + JetBrains Mono, self-hosted variable subsets. Inter is the
    reference site's face and the user named Linear as the craft bar, which is
@@ -107,6 +108,7 @@ export default function RootLayout({
         <SiteHeader line="aigenica" nav={NAV} />
         <main id="main">{children}</main>
         <SiteFooter line="aigenica" columns={FOOTER_COLUMNS} />
+        <ContactCard />
       </body>
     </html>
   );
