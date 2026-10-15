@@ -25,10 +25,13 @@ export function SiteHeader({
   line,
   nav,
   cta = "Book a call",
+  extra,
 }: {
   line: LineId
   nav: NavItem[]
   cta?: string
+  /** An optional secondary control shown beside the CTA at every width. */
+  extra?: React.ReactNode
 }) {
   const [open, setOpen] = React.useState(false)
   const [here, setHere] = React.useState<string | null>(null)
@@ -64,6 +67,7 @@ export function SiteHeader({
           </nav>
 
           <div className="ml-auto flex items-center gap-2 md:ml-8">
+            {extra}
             <Button asChild size="sm" className="hidden sm:inline-flex">
               <a href={BOOKING_URL} target="_blank" rel="noreferrer">
                 {cta}
