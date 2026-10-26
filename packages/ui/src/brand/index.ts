@@ -3,7 +3,7 @@
  * Every outbound action in the ecosystem resolves to a single booking URL.
  */
 
-export const BOOKING_URL = "https://cal.com/genica/intro";
+export const BOOKING_URL = "https://calendly.com/mpresecan";
 
 export const CONTACT_EMAIL = "hello@genica.org";
 
