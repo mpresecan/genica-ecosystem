@@ -21,7 +21,7 @@ Works in English, across EU and US time zones.
 | Line | Domain | Sells | To |
 |---|---|---|---|
 | Genica | genica.org | SaaS product engineering, MVP→MLP, fractional technical direction | Founders, pre-seed to Series A; operators building outside the roadmap |
-| AIgenica | aigenica.com | AI automation agency: automating repetitive business processes, across Europe | European companies whose teams lose hours each week to repetitive, pattern-based work |
+| AIgenica | aigenica.com | AI agents built on SuperCognit (certified partner): website, WhatsApp and Telegram agents, bookings, leads, internal assistants, MCP servers, across Europe | European businesses that answer the same customer questions every day |
 | EduGenica | edugenica.com | Branded course / conference / event platforms | Consultants, trainers, experts, event organisers |
 | FlowGenica | flowgenica.com | Agency delivery workflow — consulting now, SaaS in build | Agency and studio owners past ~8 people |
 
@@ -44,11 +44,13 @@ Per line:
 - **Genica:** founders and small teams building SaaS, pre-seed to Series A;
   operators inside larger companies who need something built outside the
   roadmap queue. Often arriving with a sketch or a half-built product.
-- **AIgenica:** owners, operations leads and department heads at companies
-  across Europe whose teams spend hours every week reading documents,
-  re-typing data between systems, answering the same requests, or assembling
-  the same reports. Repositioned from agentic delivery pipelines on 15 Oct
-  2026.
+- **AIgenica:** owners and managers of small and medium businesses across
+  Europe (clinics and dental practices, law/tax/accounting firms, online
+  shops, hotels and restaurants, education, fitness, software companies)
+  whose staff answer the same customer questions every day, often after
+  hours, in several languages, on WhatsApp. Repositioned from agentic
+  delivery pipelines on 15 Oct 2026, then on 26 Oct 2026 to focus solely on
+  agents built on SuperCognit, after Michael became a certified partner.
 - **EduGenica:** consultants, trainers, experts and event organisers whose
   format no longer fits a rented platform (applications before enrolment, a
   conference and a course sharing one audience, pricing rules a template
@@ -72,10 +74,14 @@ carries its own mechanism under that claim:
   arrives before the code, in the sequence and the decisions about what not
   to build. If a client only needs hands against a spec they already trust,
   an agency is cheaper, and the site says so.
-- AIgenica automates repetitive business processes (intake, prepare, act,
-  report) inside the client's existing tools, with explicit rules for what
-  runs alone and what a named person reviews before it acts, and a log
-  written as a by-product. GDPR and EU data location are part of the design.
+- AIgenica builds AI agents on SuperCognit, as a certified partner: answers
+  from approved, cited knowledge; written boundaries; actions in the client's
+  systems only where agreed (bookings, CRM leads, Stripe checkout, browser
+  tasks); handover to a person before the agent acts; every conversation in
+  a shared inbox; cost caps. GDPR is part of the design. The platform is a
+  monthly service, so AIgenica is the exception to "no component the client
+  keeps paying for": the knowledge and conversations are the client's, the
+  platform is rented, and the site says so.
 - EduGenica builds the platform on the client's brand, domain and database,
   so the audience list is the client's asset rather than the platform's.
 - FlowGenica holds the way an agency delivers, defined once and applied to
@@ -93,8 +99,9 @@ never a condition of the build.
 - **The call.** One booking link for all four properties (`BOOKING_URL`, a
   cal.com intro). The Genica promise is "45 minutes; you leave with a scope, a
   sequence and a number, whether or not you hire us." AIgenica's is a
-  working call about one process: whether it is worth automating, what it
-  would involve, and what the first step costs. EduGenica
+  working call about the ten questions the business answers most: which an
+  agent can answer from its own content, which belong with the team, and
+  what the first month would look like. EduGenica
   and FlowGenica each promise a plain answer, including "use an off-the-shelf
   tool instead" or "neither" when that is the honest one.
 - **Genica's engagement shape.** Four stops: specification, proof of the
@@ -106,13 +113,12 @@ never a condition of the build.
 - **Genica's stack, stated on the site:** TypeScript end to end, Next.js,
   Payload CMS, Postgres, and the Payload App Stack maintained in the open.
   Boring infrastructure chosen deliberately.
-- **AIgenica's engagement shape.** Process audit, then a first automation
-  (one process, end to end, in production), then scale-up. The process is
-  measured before and after (volume, time taken, error rate). Built into the
-  client's existing email, CRM, ERP, accounting and storage; the AI model is
-  chosen last and is replaceable. Typical areas: documents to data, inboxes
-  and requests, onboarding and intake, reports, answers from internal
-  knowledge, sync between systems.
+- **AIgenica's engagement shape.** Four weeks to launch (week 1 scope and
+  knowledge, weeks 2-3 connect and test on real questions, week 4 launch and
+  review), then looked after monthly. Commercial shape stated on the site:
+  one-off build fee plus a monthly fee per agent, usage capped, cancel any
+  month (to be confirmed by Michael). SuperCognit runs the platform; AIgenica
+  designs, builds, connects and maintains; one invoice from AIgenica.
 - **EduGenica's formats:** webinars, courses, masterclasses, conferences,
   streamed events. Included in every build: the client's brand and domain,
   ticketing and checkout with EU VAT, access control, participant management,
@@ -129,7 +135,7 @@ never a condition of the build.
 - **Timelines are not product facts.** Confirmed 21 Sep 2026: every project
   is different, and the number for a given scope is given on the call. The
   FAQs currently carry indicative ranges (specification one to two weeks, MVP
-  eight to fourteen, AIgenica audit about two weeks and first automation four to eight,
+  eight to fourteen, AIgenica four weeks to launch an agent,
   EduGenica single-format launch four to six); treat these as revisable copy,
   never as commitments to keep consistent or to build features around.
 
@@ -140,8 +146,10 @@ never a condition of the build.
 - One action across all four sites: book a call. Email is a quiet fallback,
   never a competing button. No contact forms, no newsletter, no gated PDFs.
 - Every call promise is specific and keepable.
-- Never name the vendor stack behind AIgenica's automation work. The offer
-  is the automation service, and it is deliberately vendor-neutral.
+- AIgenica names SuperCognit openly and shows the certified-partner badge
+  (SuperCognit's own SVGs, linked to supercognit.com/partners). This
+  replaces the earlier vendor-neutral rule (changed 26 Oct 2026). Never
+  publish SuperCognit's prices or wholesale terms.
 - No invented prices, clients, metrics, launch dates or testimonials.
 - FlowGenica states in the first viewport that the software is in build.
 - **Undecided / pending before launch:** the imprint values marked

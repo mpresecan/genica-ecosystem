@@ -5,7 +5,10 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@genica/ui"],
   poweredByHeader: false,
   async redirects() {
-    return [{ source: "/pipeline", destination: "/how-it-works", permanent: true }];
+    return [
+      { source: "/pipeline", destination: "/how-it-works", permanent: true },
+      { source: "/agents", destination: "/", permanent: true },
+    ];
   },
 };
 

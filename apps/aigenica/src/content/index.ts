@@ -2,47 +2,12 @@ import type { QA } from "@genica/ui";
 
 export const FAQ: QA[] = [
   {
-    q: "What kind of companies do you work with?",
-    a: "Companies across Europe where a team spends hours every week on work that follows a pattern: reading documents, re-typing data between systems, answering the same requests, assembling the same report. Size matters less than having one process repetitive enough to describe to a new hire in an afternoon.",
-  },
-  {
-    q: "Which tools do you use?",
-    a: "For back-office automation, yours, wherever possible: we build inside the email, CRM, ERP, accounting and storage you already run, and the AI model is chosen last and can be replaced later. For agents your customers talk to, on your website, WhatsApp or Telegram, we build on SuperCognit, an EU platform we are a certified partner of, because hosting a chat agent well is not something you should be paying to have rebuilt.",
-  },
-  {
-    q: "Do we have to replace our systems?",
-    a: "No. If someone asks you to move onto a new platform before they can automate anything, they are selling the platform. We connect to what you have, and we say plainly when an existing system genuinely cannot carry the job.",
-  },
-  {
-    q: "What about GDPR and where our data goes?",
-    a: "We map what personal data each automation touches before we build it, keep it to what the process actually needs, and tell you which step sends what, where. Where your data has to stay in the EU, we use EU-hosted models and infrastructure. We sign a data processing agreement as standard.",
-  },
-  {
-    q: "What happens when the AI gets it wrong?",
-    a: "It is caught before it matters. Each automation has explicit rules for what it may do on its own and what goes to a person first, and anything unusual is routed to someone rather than guessed at. Errors are designed for, not hoped away.",
-  },
-  {
-    q: "What happens to the people doing this work now?",
-    a: "Their week changes. The copying, checking and chasing goes; the exceptions, the judgment calls and the customer conversations stay with them. Automations work best with the people who know the process reviewing them, so we build with that team, not around it.",
-  },
-  {
-    q: "How long does it take?",
-    a: "A process audit takes about two weeks. A first automation running in production typically takes four to eight weeks, depending on how many systems it has to touch. The number for your process is given on the call.",
-  },
-  {
-    q: "When is automation not worth it?",
-    a: "When the process runs a few times a month, when it changes every time it runs, or when nobody can agree how it should work. In those cases a checklist or an off-the-shelf tool is cheaper, and we will tell you so on the first call.",
-  },
-  {
-    q: "Who owns it when you leave?",
-    a: "For automations built in your systems, you do, entirely: they run in your accounts, the configuration and code live in your systems, and the handover is documented for the people who will run it. Agents on SuperCognit are different by design and we say so up front: the platform is a monthly service, while the knowledge it answers from and the conversations it has are yours, and you can cancel any month.",
-  },
-];
-
-export const AGENT_FAQ: QA[] = [
-  {
     q: "What is SuperCognit, and why build on it?",
     a: "An EU platform for AI agents and MCP servers: knowledge with cited answers, a website widget, WhatsApp and Telegram, a shared inbox, connections to your systems, and cost caps. We are a certified partner. Building on it means your money goes into what your agent knows and does, not into hosting and maintaining chat infrastructure.",
+  },
+  {
+    q: "What kind of businesses is this for?",
+    a: "Businesses across Europe that answer the same questions every day, by phone, email, website chat or WhatsApp: clinics, law and accounting firms, shops, hotels and restaurants, schools, gyms, software companies. If your team can list the twenty questions it answers most, an agent can usually take most of them.",
   },
   {
     q: "Will it make things up?",
@@ -61,7 +26,19 @@ export const AGENT_FAQ: QA[] = [
     a: "Usually, yes. Anything with an API can be connected, and Pipedrive, HubSpot and Stripe are supported directly. Systems with no API can often be driven through a managed browser. We confirm what your systems allow before we quote.",
   },
   {
+    q: "What about GDPR?",
+    a: "Before launch we write down what the agent may ask for, why, and where it goes. It collects contact details only with consent, and only what the next step needs. Each client runs in a workspace of its own, separate from every other.",
+  },
+  {
     q: "What does it cost?",
-    a: "A one-off fee to build and launch, then a monthly fee per agent that covers the platform, the AI usage and our maintenance. Usage is capped so it cannot run away with your budget. The figures for your case are given on the call.",
+    a: "A one-off fee to build and launch, then a monthly fee per agent that covers the platform, the AI usage and our looking after it. Usage is capped so it cannot run away with your budget, and you can cancel any month. The figures for your case are given on the call.",
+  },
+  {
+    q: "What do we own?",
+    a: "The knowledge the agent answers from is your own website and documents, and the conversations it has are yours. The platform underneath is a monthly service, which is why there is nothing for you to host, patch or upgrade.",
+  },
+  {
+    q: "When is an agent not worth it?",
+    a: "When you receive a handful of questions a week, when nearly every question needs a professional's judgment, or when a clear page on your website would answer them. We will tell you so on the first call.",
   },
 ];

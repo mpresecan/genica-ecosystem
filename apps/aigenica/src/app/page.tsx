@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  Arrow,
   Band,
   BOOKING_URL,
   Button,
@@ -8,10 +9,9 @@ import {
   Eyebrow,
   Faq,
   Figure,
+  RevealText,
   SectionHead,
   SpecTable,
-  Arrow,
-  RevealText,
 } from "@genica/ui";
 import { FAQ } from "../content";
 import { PartnerBadge } from "../components/partner-badge";
@@ -24,20 +24,22 @@ export default function Home() {
       <Band tone="paper">
         <Container className="grid items-start gap-12 pt-20 pb-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:pt-24 lg:pb-28">
           <div>
-            <Eyebrow className="rise">AI automation across Europe</Eyebrow>
-            <h1 className="t-display rise d1 mt-7">Hand the repetitive work to AI. Keep the decisions.</h1>
+            <Eyebrow className="rise">AI agents, built on SuperCognit</Eyebrow>
+            <h1 className="t-display rise d1 mt-7">
+              Answer every customer, in their language, at any hour.
+            </h1>
           </div>
 
           <div className="lg:pt-4">
             <p className="t-lede rise d1 max-w-[38ch]">
-              We find the processes that eat your team’s week, automate them
-              inside the tools you already use, and keep a person in the loop
-              wherever a mistake would cost you.
+              Agents for your website, WhatsApp and Telegram that answer from
+              your own content, take the booking or the lead, and pass the
+              conversation to your team the moment it needs a person.
             </p>
             <div className="rise d2 mt-9">
               <Button asChild size="lg">
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer">
-                  Book an automation call
+                  Book an agent call
                 </a>
               </Button>
             </div>
@@ -45,12 +47,19 @@ export default function Home() {
         </Container>
       </Band>
 
-      <Band tone="sunk" className="border-b border-hair">
-        <Container className="flex flex-wrap items-center gap-x-10 gap-y-4 py-6">
-          <Eyebrow className="text-muted">Built and run by</Eyebrow>
-          <p className="t-h3 text-[1.0625rem] text-body">
-            the studio behind Layron, the AI deal workspace at Layer Finance,
-            where the client measured 80% time saved during deal onboarding.
+      <Band tone="sunk" className="border-y border-hair">
+        <Container className="grid items-center gap-8 py-10 sm:grid-cols-[auto_1fr] sm:gap-14">
+          <PartnerBadge tone="light" />
+          <p className="t-body measure text-[1rem] text-body">
+            AIgenica is a certified partner of{" "}
+            <a href="https://supercognit.com" target="_blank" rel="noreferrer" className="link">
+              SuperCognit
+            </a>
+            , the EU platform for AI agents and MCP servers. SuperCognit runs
+            the infrastructure: hosting, models, domains, metering. We design,
+            build, connect and look after your agent, and you deal with one
+            company and receive one invoice. Built by the studio behind Layron,
+            the AI deal workspace at Layer Finance.
           </p>
         </Container>
       </Band>
@@ -58,24 +67,26 @@ export default function Home() {
       <Band tone="paper">
         <Container className="py-20 sm:py-28">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            <SectionHead heading="Most AI projects stop at the demo." />
+            <SectionHead heading="The questions arrive when you are closed." />
             <div className="t-body measure reveal grid gap-4 text-[1.0625rem] text-body">
               <p>
-                Everyone has now seen an AI read a document or draft a reply.
-                Far fewer companies have an automation that does it every day,
-                on real invoices, real emails and real customer files, without
-                someone watching over it.
+                What does it cost, are you open on Saturday, do you have a
+                free slot this week, can I pay by card, what should I bring.
+                Most of what customers ask has been answered a hundred times,
+                and most of it arrives in the evening, on WhatsApp, in a
+                language somebody on your team may not speak.
               </p>
               <p>
-                The gap is rarely the model. It is everything around it: where
-                the data comes from, what the automation is allowed to touch,
-                who checks its work, what happens on the strange case, and how
-                you find out later what it did.
+                A website chatbot that guesses is worse than none. What works
+                is an agent that answers only from what you have approved,
+                shows where the answer came from, does the next step itself
+                when it is allowed to, and hands everything else to a person
+                with the conversation attached.
               </p>
               <p>
-                That is what we build. The AI is one component, chosen last and
-                replaceable. The process around it is the part that makes the
-                saving real, and the part you keep.
+                That is what we build on SuperCognit. The platform carries the
+                hosting, the models and the channels. We carry what your agent
+                knows, what it may do, and where it must stop.
               </p>
             </div>
           </div>
@@ -85,66 +96,74 @@ export default function Home() {
       <Band tone="paper" className="border-t border-hair">
         <Container className="py-20 sm:py-28">
           <SectionHead
-            heading="What we automate."
-            lede="Work that follows a pattern your team could explain to a new hire in an afternoon. These are the processes we are asked about most."
+            heading="What we build on it."
+            lede="Each of these is one agent, or one part of one. The first two are where to start; the rest are worth adding once the conversations show where they would pay."
           />
           <SpecTable
             className="mt-14"
             rows={[
               {
-                term: "Documents in, data out",
+                term: "A website agent, open all night",
                 detail:
-                  "Invoices, contracts, applications, delivery notes and forms read, checked against your rules, and entered into the system they belong in.",
+                  "Answers questions about your services, prices, opening hours and policies from your own website and documents, and shows the source it answered from. Added to your site with one line of code, or on its own address.",
               },
               {
-                term: "Inboxes and requests",
+                term: "WhatsApp and Telegram",
                 detail:
-                  "Incoming email and tickets sorted, routed to the right person, and answered in draft for someone to approve, in the language the customer wrote in.",
+                  "The same agent, with the same knowledge, on the channels your customers already message you on. Change a price once and every channel answers with the new one.",
               },
               {
-                term: "Onboarding and intake",
+                term: "Bookings and intake",
                 detail:
-                  "Customer, supplier and deal onboarding: information gathered, validated, filed and chased automatically. This is the work Layron does at Layer Finance.",
+                  "Asks what your team would ask (which service, how urgent, which day suits) and creates the request in your booking system, with the details attached, so nobody has to call back to find out.",
               },
               {
-                term: "Reports",
+                term: "Leads into your CRM",
                 detail:
-                  "The weekly or monthly report someone assembles by hand from four systems, produced on schedule and checked before it goes out.",
+                  "Qualifies the enquiry in the conversation, collects contact details with consent, and puts the lead into Pipedrive, HubSpot or your inbox with the whole conversation behind it.",
               },
               {
-                term: "Answers from your own knowledge",
+                term: "Payment in the conversation",
                 detail:
-                  "Agents that answer customers on your website, WhatsApp and Telegram, or staff internally, from your own documents and policies, with the source shown, and a handover to a person when they do not know.",
+                  "A deposit, a consultation fee or an order paid through a Stripe checkout link the agent raises itself, confirmed in the same thread when it clears.",
               },
               {
-                term: "The glue between systems",
+                term: "Your team's own assistant",
                 detail:
-                  "CRM, ERP, accounting and spreadsheets kept in step without anyone re-typing a record from one into another.",
+                  "Procedures, policies, price rules and product details answered for staff, with the source shown. It also works inside Claude, Cursor and other AI assistants your team uses, as a private MCP server.",
+              },
+              {
+                term: "Work in systems with no API",
+                detail:
+                  "Supplier portals and older systems driven by a managed browser: the lookup, the form, the booking. Passwords are kept in an encrypted vault and never appear in the conversation.",
+              },
+              {
+                term: "An MCP server for your product",
+                detail:
+                  "For software companies and consultancies: your API or your method packaged as tools any AI assistant can call, sold per seat with subscriptions and invoicing handled.",
               },
             ]}
           />
         </Container>
       </Band>
 
-      {/* The one dark band on the page: the agents line, built on SuperCognit,
-          with the partner badge as the proof. */}
+      {/* The one dark band on the page: the industries, with the partner
+          badge as the proof that the platform underneath is SuperCognit's. */}
       <Band tone="dark" className="border-t border-hair">
         <Container className="py-24 lg:py-28">
           <div className="flex flex-wrap items-start justify-between gap-x-12 gap-y-10">
             <div className="max-w-[40rem]">
-              <p className="t-eyebrow text-on-dark-muted">AI agents, built on SuperCognit</p>
+              <p className="t-eyebrow text-on-dark-muted">By industry</p>
               <RevealText
                 as="h2"
                 className="t-display mt-8 max-w-[18ch] text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)] text-on-dark"
               >
-                An agent for your customers, live in a month.
+                Same platform. Different boundaries.
               </RevealText>
               <p className="t-body reveal-under mt-7 text-on-dark-body">
-                Not every job is back-office. For the questions customers ask
-                all day, we build agents on SuperCognit that answer from your
-                own content on your website, WhatsApp and Telegram, take the
-                booking or the lead, and hand over to your team when a person
-                is needed.
+                What changes from one business to the next is what the agent
+                knows, what it is allowed to do, and what it must always hand
+                to a person.
               </p>
             </div>
             <div className="reveal">
@@ -157,12 +176,12 @@ export default function Home() {
             className="mt-16"
             rows={[
               {
-                term: "Clinics and practices",
+                term: "Clinics and dental practices",
                 detail:
                   "Services, prices and preparation answered; appointment requests reach the front desk complete. Anything clinical goes to your team.",
               },
               {
-                term: "Professional services",
+                term: "Law, tax and accounting",
                 detail:
                   "Intake that gathers the matter before anyone picks up, and a copilot over your own precedents and checklists.",
               },
@@ -175,69 +194,69 @@ export default function Home() {
           />
 
           <p className="reveal mt-12">
-            <a href="/agents" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-on-dark">
-              <span className="link">What we build on SuperCognit</span>
+            <a href="/industries" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-on-dark">
+              <span className="link">Every industry we build for</span>
               <Arrow />
             </a>
           </p>
         </Container>
       </Band>
 
-      <Band tone="paper" className="border-t border-b border-hair">
+      <Band tone="paper" className="border-b border-hair">
         <Container className="py-20 sm:py-28">
           <SectionHead
-            heading="What every automation ships with."
-            lede="For automations built in your systems, none of it is a product you rent from us. It is configuration, code and documentation inside accounts you own."
+            heading="What every agent ships with."
+            lede="The difference between an agent and a chatbot on a website is everything around the answer."
           />
 
           <Figure
             className="mt-14"
             kind="gate"
-            alt="Work arrives in a queue, passes an automation that prepares it, and meets a review step. Most items pass; the ones that need a person wait at the review and are marked. Everything that passes writes a line into a log below."
+            alt="Questions arrive in a queue and pass the agent. Most are answered and go through; the ones outside the agent's boundaries stop and wait for the team, and are marked. Every conversation that passes writes a line into the inbox below."
             labels={[
-              { x: 0.05, y: 0.86, text: "Incoming" },
-              { x: 0.4, y: 0.86, text: "Automation", align: "center", only: "wide" },
-              { x: 0.4, y: 0.9, text: "AI", align: "center", only: "narrow" },
-              { x: 0.66, y: 0.92, text: "Review", align: "center", only: "wide" },
-              { x: 0.68, y: 0.14, text: "Review", align: "center", only: "narrow" },
-              { x: 0.05, y: 0.09, text: "The log", only: "wide" },
-              { x: 0.05, y: 0.05, text: "The log", only: "narrow" },
+              { x: 0.05, y: 0.86, text: "Questions" },
+              { x: 0.4, y: 0.86, text: "Agent", align: "center", only: "wide" },
+              { x: 0.4, y: 0.9, text: "Agent", align: "center", only: "narrow" },
+              { x: 0.66, y: 0.92, text: "Boundary", align: "center", only: "wide" },
+              { x: 0.68, y: 0.14, text: "Boundary", align: "center", only: "narrow" },
+              { x: 0.05, y: 0.09, text: "The inbox", only: "wide" },
+              { x: 0.05, y: 0.05, text: "The inbox", only: "narrow" },
             ]}
-            toggle={{ key: "enforced", on: "Review on", off: "Review off", initial: true }}
-            caption="Switch the review off and the work still goes out. Nothing is checked and nothing is written down."
+            toggle={{ key: "enforced", on: "Boundaries on", off: "Boundaries off", initial: true }}
+            caption="Switch the boundaries off and the agent still answers everything, including what belonged to your team. Nothing waits for a person and nothing is written down. That is a chatbot."
           />
           <SpecTable
             className="mt-20"
             rows={[
               {
-                term: "A defined scope",
+                term: "Approved knowledge",
                 detail:
-                  "What the automation does, what it never does, and what counts as done, written down and agreed before anything is built.",
+                  "Your website, price lists, policies and documents, re-synced on a schedule, so the agent answers with today's prices rather than last year's. Every answer shows its source.",
               },
               {
-                term: "Your systems",
+                term: "Written boundaries",
                 detail:
-                  "Built into the email, CRM, ERP, accounting and storage you already run, with access limited to exactly what the process needs.",
+                  "What it answers, what it never answers, and the moment it hands over, in plain language you can read and change. Agreed before launch.",
               },
               {
-                term: "Human review",
+                term: "Handover to your team",
                 detail:
-                  "Explicit rules for what runs on its own and what waits for a named person. Decided by rule, not by whoever happens to notice.",
+                  "When it reaches a boundary or the customer asks for a person, the conversation goes to your team with the whole thread attached. Nobody starts from zero.",
               },
               {
-                term: "Exception handling",
+                term: "A shared inbox",
                 detail:
-                  "When the input is unusual, incomplete or uncertain, the automation hands it to a person instead of guessing.",
+                  "Every conversation your agent has, readable by your team, with the option to step in at any point. The record exists without anyone assembling it.",
               },
               {
-                term: "A log",
+                term: "Cost caps",
                 detail:
-                  "Every item it handled, what it did, and who approved it, so you can answer a customer, an auditor or yourself six months later.",
+                  "Usage is metered and capped per agent, so a busy week or a burst of spam cannot turn into a surprise bill.",
               },
               {
-                term: "Handover",
+                term: "Looked after",
                 detail:
-                  "Documentation and working sessions for the people who will run it after we step back. An automation that leaves you dependent on us has failed on its own terms.",
+                  "Knowledge refreshed when your business changes, the conversations it struggled with reviewed every month, and the agent corrected where it fell short.",
               },
             ]}
           />
@@ -247,8 +266,8 @@ export default function Home() {
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-20 sm:py-28">
           <SectionHead
-            heading="Built for European companies."
-            lede="We are an EU company working with clients across Europe, and the rules your business runs under are part of the design, not an afterthought."
+            heading="Built for European businesses."
+            lede="We are an EU company working with clients across Europe, on an EU platform, and the rules your business runs under are part of the design."
           />
           <SpecTable
             className="mt-14"
@@ -256,17 +275,17 @@ export default function Home() {
               {
                 term: "GDPR from the first sketch",
                 detail:
-                  "Personal data mapped before the build, kept to what the process needs, and covered by a data processing agreement as standard.",
+                  "Before launch we write down what the agent may ask for, why, and where it goes. Contact details are collected only with consent, and only what the next step needs.",
               },
               {
-                term: "Data where it has to be",
+                term: "One workspace per client",
                 detail:
-                  "EU-hosted models and infrastructure where your data requires it, and a plain statement of which step sends what, where.",
+                  "Your knowledge, conversations and contacts are kept in a workspace of your own, separate from every other client's.",
               },
               {
-                term: "Decisions you can explain",
+                term: "Your customers' languages",
                 detail:
-                  "Each automation documents what it decides on its own and where a person decides instead, so the answer is ready when a customer or regulator asks.",
+                  "One agent answers in the language each customer writes in, so you do not run a separate one for every market.",
               },
               {
                 term: "Contracting",
@@ -288,9 +307,9 @@ export default function Home() {
       </Band>
 
       <CtaBand
-        heading="Bring one process. We will bring the questions."
-        lede="A working call, not a sales pitch. By the end you will know whether that process is worth automating, what it would involve, and what the first step costs."
-        action="Book an automation call"
+        heading="Bring the ten questions you answer most."
+        lede="On the call we go through which of them an agent can answer from your own content, which belong with your team, and what the first month would look like."
+        action="Book an agent call"
         detail="You will be talking to the engineer who would build it, not to a salesperson with an engineer on standby."
       />
     </>

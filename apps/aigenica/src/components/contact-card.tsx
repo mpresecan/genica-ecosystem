@@ -61,7 +61,7 @@ export function ContactCard() {
           <p className="text-[0.75rem] font-medium tracking-[0.08em] text-accent uppercase">AIgenica</p>
           <Dialog.Title className="t-h3 mt-3 text-[1.5rem] leading-tight">Michael Presecan</Dialog.Title>
           <Dialog.Description className="t-body mt-1 text-[0.9375rem] text-body">
-            AI automation across Europe
+            AI agents, SuperCognit certified partner
           </Dialog.Description>
 
           <a

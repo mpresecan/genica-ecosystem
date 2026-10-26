@@ -50,9 +50,9 @@ export const PROPERTIES: Record<LineId, Property> = {
     name: "AIgenica",
     domain: "aigenica.com",
     url: "https://aigenica.com",
-    service: "AI automation",
+    service: "AI agents on SuperCognit",
     summary:
-      "The automation agency. We automate the repetitive work in European companies' documents, inboxes and systems, with a person in the loop where it matters.",
+      "The agent practice. AI agents that answer customers on the website, WhatsApp and Telegram, take bookings and leads, and hand over to a person, built on SuperCognit as a certified partner.",
     hex: "#d1452a",
     hexInk: "#b0341c",
   },

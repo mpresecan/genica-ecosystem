@@ -55,7 +55,7 @@ export default function Ecosystem() {
               {
                 term: "AIgenica",
                 detail:
-                  "Your team spends hours every week reading documents, re-typing data between systems or answering the same requests. You want that work automated inside the tools you already use, with a person checking what matters.",
+                  "Your team answers the same customer questions every day, by phone, email and WhatsApp, often after hours and in more than one language. You want an agent that answers from your own content, takes the booking or the lead, and hands the rest to a person. We build it on SuperCognit, as a certified partner.",
               },
               {
                 term: "EduGenica",

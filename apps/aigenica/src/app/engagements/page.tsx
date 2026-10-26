@@ -5,14 +5,13 @@ import {
   CtaBand,
   SectionHead,
   SpecTable,
-  Arrow,
 } from "@genica/ui";
 import { PartnerBadge } from "../../components/partner-badge";
 
 export const metadata: Metadata = {
   title: "Engagements",
   description:
-    "Process audit, first automation and scale-up: how an AIgenica engagement is shaped, what each stage delivers, and what it asks of your team.",
+    "How an AIgenica agent engagement runs: a month to launch on SuperCognit, then looked after monthly. What each stage delivers, what it costs in shape, and what it asks of your team.",
 };
 
 export default function Engagements() {
@@ -21,12 +20,13 @@ export default function Engagements() {
       <Band tone="paper" className="border-b border-hair">
         <Container className="py-16 sm:py-24">
           <h1 className="t-display rise mt-8 max-w-[20ch] text-[clamp(2.35rem,1.45rem+3.5vw,3.9rem)]">
-            Three stages, and you can stop after any of them.
+            A month to launch. Then it is looked after.
           </h1>
           <p className="t-lede rise d1 measure mt-7 text-body">
-            Every stage produces something you keep and can act on without us.
-            That is deliberate: an agency whose first deliverable is a
-            dependency on the agency has misunderstood the job.
+            Four weeks from the first call to an agent answering your
+            customers, with your team testing it on real questions before
+            anyone outside sees it. After that, a monthly fee and an agent
+            that gets better rather than older.
           </p>
         </Container>
       </Band>
@@ -36,29 +36,47 @@ export default function Engagements() {
           <SpecTable
             rows={[
               {
-                term: "Process audit: about two weeks",
+                term: "Week 1: Scope and knowledge",
                 detail:
-                  "We sit with the people who do the work, map the processes that take their time, and measure them: how often they run, how long they take, where errors happen. You receive a written audit ranking which processes are worth automating, in what order, and what each would save.",
-                note: "Fixed scope, fixed fee. Yours to act on with or without us.",
+                  "We agree what the agent answers, what it never answers, and the moment it hands a conversation to your team. Your website, price lists, policies and documents become its knowledge, and the boundaries are written in plain language you can read and change.",
+                note: "Ends with a working draft, answering from your own content, sources shown.",
               },
               {
-                term: "First automation: typically four to eight weeks",
+                term: "Weeks 2 and 3: Connect and test",
                 detail:
-                  "One process, end to end, in production. We connect your systems, set the rules and the review steps with your team, and run real work through it while we are still there to fix what breaks.",
-                note: "Ends with the same measurements taken again, so the saving is a number rather than a claim.",
+                  "We connect it to the systems the conversation should end in: your booking system, CRM, shop or inbox, and the channels you chose. Your team puts real questions to it, the ones customers actually ask, and we correct everything it gets wrong.",
+                note: "Ends with the connections live and tested on real conversations.",
               },
               {
-                term: "Scale-up: scoped after the first",
+                term: "Week 4: Launch and review",
                 detail:
-                  "The next processes on the list, built on what the first one put in place. We work alongside someone on your side from the first day, because running the automations is theirs once we step back.",
-                note: "Scoped only once the first automation has produced numbers worth extending.",
+                  "Live on your website, WhatsApp or Telegram. At the end of the month we go through the conversations together: what it answered, what it handed over, what it missed.",
+                note: "Ends with a launch review: the numbers and the next step.",
+              },
+              {
+                term: "Every month after: Looked after",
+                detail:
+                  "Knowledge refreshed when your prices, hours or services change, the conversations it struggled with reviewed, new connections or channels added as you find uses for them.",
+                note: "One monthly invoice from us. Cancel any month.",
               },
             ]}
           />
         </Container>
       </Band>
 
-      <Band tone="paper" className="border-t border-b border-hair">
+      <Band tone="sunk" className="border-t border-b border-hair">
+        <Container className="grid items-start gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_auto] lg:gap-20">
+          <SectionHead
+            heading="Who does what."
+            lede="SuperCognit runs the platform: hosting, models, channels, domains, metering. We are a certified partner, and we design, build, connect and maintain your agent. Your team owns the answers and reads the inbox. You deal with one company, and receive one invoice."
+          />
+          <div className="reveal lg:pt-2">
+            <PartnerBadge tone="light" />
+          </div>
+        </Container>
+      </Band>
+
+      <Band tone="paper" className="border-b border-hair">
         <Container className="py-20 sm:py-24">
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
             <div>
@@ -66,20 +84,20 @@ export default function Engagements() {
               <ul className="mt-10 grid gap-px">
                 {[
                   [
-                    "Someone who owns the process",
-                    "A person who can say how the work should be done and decide when the automation has it right. Without them the engagement becomes a document.",
+                    "Someone who owns the answers",
+                    "A person who can say what the right answer is and decide when the agent has it right. Without them, the agent answers with nobody's authority.",
+                  ],
+                  [
+                    "Your most-asked questions",
+                    "The real ones, from your inbox, your phone and your WhatsApp, including the awkward ones. An agent tested on made-up questions proves nothing.",
                   ],
                   [
                     "Access, early",
-                    "Access to the systems the process touches in the first week. We will work to your IT and data protection review; we cannot work around it.",
+                    "To your booking system, CRM or shop in the first week, if the agent is to act in them. We work to your IT and data protection review, not around it.",
                   ],
                   [
-                    "A real process",
-                    "An automation tested on made-up examples proves nothing. It needs real volume, real documents and the real strange cases.",
-                  ],
-                  [
-                    "Permission to measure",
-                    "The baseline is taken before anything changes. Without it, every claim afterwards, ours included, is a story.",
+                    "Permission to read the conversations",
+                    "The monthly review is how the agent improves. It needs someone on your side to look at what it missed.",
                   ],
                 ].map(([h, b]) => (
                   <li key={h} className="row reveal border-b border-hair py-6 first:border-t">
@@ -96,19 +114,19 @@ export default function Engagements() {
                 {[
                   [
                     "The volume is too low",
-                    "A task that runs a few times a month rarely repays an automation. A checklist or a template is cheaper, and we will say so.",
+                    "A handful of questions a week rarely repays an agent. A clear page on your website is cheaper, and we will say so.",
                   ],
                   [
-                    "Nobody agrees how the process works",
-                    "Automating a process that changes every time it runs makes the confusion faster. Agree the process first; we can help with that, and it may be all you need.",
+                    "Every question needs a professional",
+                    "If nearly everything customers ask needs a doctor's, lawyer's or engineer's judgment, an agent can only take messages. A good contact form does that for less.",
                   ],
                   [
-                    "An off-the-shelf tool already does it",
-                    "If a product you can subscribe to this week covers the job, buy it. We build where the work is specific to your business.",
+                    "Nobody agrees on the answers",
+                    "An agent repeats your answers faster and more often. If your team gives different ones, agree them first; that may be all you need.",
                   ],
                   [
                     "You want a demo for the board",
-                    "We do not build showcases. If the deadline is a board meeting rather than a real process, an automation will look impressive and change nothing.",
+                    "We do not build showcases. An agent nobody's customers talk to will look impressive and change nothing.",
                   ],
                 ].map(([h, b]) => (
                   <li key={h} className="row reveal border-b border-hair py-6 first:border-t">
@@ -122,30 +140,10 @@ export default function Engagements() {
         </Container>
       </Band>
 
-      <Band tone="sunk" className="border-b border-hair">
-        <Container className="grid items-start gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_auto] lg:gap-20">
-          <div>
-            <SectionHead
-              heading="Or start with an agent."
-              lede="If the work is answering customers rather than processing documents, the shape is different: a month from first call to an agent live on your website, WhatsApp or Telegram, built on SuperCognit, then a monthly fee for running and looking after it."
-            />
-            <p className="reveal mt-8">
-              <a href="/agents" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
-                <span className="link">How an agent launch runs</span>
-                <Arrow />
-              </a>
-            </p>
-          </div>
-          <div className="reveal lg:pt-2">
-            <PartnerBadge tone="light" />
-          </div>
-        </Container>
-      </Band>
-
       <CtaBand
-        heading="Start with the audit."
-        lede="About two weeks, fixed fee, and a written answer about which of your processes are worth automating, useful whether or not you ever hire us again."
-        action="Book an automation call"
+        heading="Start with your ten most-asked questions."
+        lede="On the call we go through which an agent can answer from your own content, which belong with your team, and what the first month would cost."
+        action="Book an agent call"
       />
     </>
   );
