@@ -25,11 +25,9 @@ pnpm typecheck
 
 ## Before launch
 
-Two things are deliberately unfinished, and both are one-line changes:
+One thing is deliberately unfinished, and it is a one-line change:
 
-1. `BOOKING_URL` in `packages/ui/src/brand/index.ts` — every CTA on all four
-   sites resolves to it.
-2. The values marked `TO CONFIRM` in `packages/ui/src/components/legal.tsx` —
+1. The values marked `TO CONFIRM` in `packages/ui/src/components/legal.tsx` —
    registered address, OIB, MBS and share capital for the imprint.
 
 ## Impeccable

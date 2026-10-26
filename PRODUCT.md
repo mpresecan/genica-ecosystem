@@ -96,8 +96,8 @@ never a condition of the build.
 
 ## Operating Context
 
-- **The call.** One booking link for all four properties (`BOOKING_URL`, a
-  cal.com intro). The Genica promise is "45 minutes; you leave with a scope, a
+- **The call.** One booking link for all four properties (`BOOKING_URL`,
+  calendly.com/mpresecan). The Genica promise is "45 minutes; you leave with a scope, a
   sequence and a number, whether or not you hire us." AIgenica's is a
   working call about the ten questions the business answers most: which an
   agent can answer from its own content, which belong with the team, and
