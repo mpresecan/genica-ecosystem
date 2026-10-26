@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     default: 'AIgenica, AI automation for European companies',
     template: `%s, ${SITE.name}`,
   },
-  description: 'AI automation agency working across Europe. We automate the repetitive work in your documents, inboxes and systems, with human review where it matters and GDPR built in.',
+  description: 'AI automation agency working across Europe and certified SuperCognit partner. We automate the repetitive work in your documents, inboxes and systems, and build AI agents that answer your customers, with human review where it matters and GDPR built in.',
   openGraph: {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
     title: 'AIgenica, AI automation for European companies',
-    description: 'AI automation agency working across Europe. We automate the repetitive work in your documents, inboxes and systems, with human review where it matters and GDPR built in.',
+    description: 'AI automation agency working across Europe and certified SuperCognit partner. We automate the repetitive work in your documents, inboxes and systems, and build AI agents that answer your customers, with human review where it matters and GDPR built in.',
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
@@ -55,6 +55,10 @@ export const viewport: Viewport = {
 };
 
 const NAV = [
+  {
+    "label": "AI agents",
+    "href": "/agents"
+  },
   {
     "label": "How it works",
     "href": "/how-it-works"
@@ -69,6 +73,10 @@ const FOOTER_COLUMNS = [
   {
     "title": "This site",
     "links": [
+      {
+        "label": "AI agents",
+        "href": "/agents"
+      },
       {
         "label": "How it works",
         "href": "/how-it-works"

@@ -7,7 +7,7 @@ export const FAQ: QA[] = [
   },
   {
     q: "Which tools do you use?",
-    a: "Yours, wherever possible. We build inside the email, CRM, ERP, accounting and storage you already run. The AI model is chosen last, for the job in front of it, and can be replaced later without rebuilding anything around it.",
+    a: "For back-office automation, yours, wherever possible: we build inside the email, CRM, ERP, accounting and storage you already run, and the AI model is chosen last and can be replaced later. For agents your customers talk to, on your website, WhatsApp or Telegram, we build on SuperCognit, an EU platform we are a certified partner of, because hosting a chat agent well is not something you should be paying to have rebuilt.",
   },
   {
     q: "Do we have to replace our systems?",
@@ -35,6 +35,33 @@ export const FAQ: QA[] = [
   },
   {
     q: "Who owns it when you leave?",
-    a: "You do, entirely. The automations run in your accounts, the configuration and code live in your systems, and the handover is documented for the people who will run it. We do not hold a component you have to keep paying for.",
+    a: "For automations built in your systems, you do, entirely: they run in your accounts, the configuration and code live in your systems, and the handover is documented for the people who will run it. Agents on SuperCognit are different by design and we say so up front: the platform is a monthly service, while the knowledge it answers from and the conversations it has are yours, and you can cancel any month.",
+  },
+];
+
+export const AGENT_FAQ: QA[] = [
+  {
+    q: "What is SuperCognit, and why build on it?",
+    a: "An EU platform for AI agents and MCP servers: knowledge with cited answers, a website widget, WhatsApp and Telegram, a shared inbox, connections to your systems, and cost caps. We are a certified partner. Building on it means your money goes into what your agent knows and does, not into hosting and maintaining chat infrastructure.",
+  },
+  {
+    q: "Will it make things up?",
+    a: "It answers from the knowledge you approve and shows the source it used. Where that knowledge does not cover the question, it says so and hands the conversation to your team instead of guessing. The boundaries are written in plain language, and you can read every one.",
+  },
+  {
+    q: "Which languages does it speak?",
+    a: "It answers in the language the customer writes in, so a clinic in Białystok, a hotel in Split and a shop selling across Europe can run one agent rather than one per language. We check the languages that matter to you before launch.",
+  },
+  {
+    q: "What happens when a customer needs a person?",
+    a: "Every conversation appears in a shared inbox. The agent hands over when it reaches a boundary you set, or when the customer asks for a person, and your team picks it up with the whole thread in front of them.",
+  },
+  {
+    q: "Can it work with our booking system or CRM?",
+    a: "Usually, yes. Anything with an API can be connected, and Pipedrive, HubSpot and Stripe are supported directly. Systems with no API can often be driven through a managed browser. We confirm what your systems allow before we quote.",
+  },
+  {
+    q: "What does it cost?",
+    a: "A one-off fee to build and launch, then a monthly fee per agent that covers the platform, the AI usage and our maintenance. Usage is capped so it cannot run away with your budget. The figures for your case are given on the call.",
   },
 ];

@@ -5,7 +5,9 @@ import {
   CtaBand,
   SectionHead,
   SpecTable,
+  Arrow,
 } from "@genica/ui";
+import { PartnerBadge } from "../../components/partner-badge";
 
 export const metadata: Metadata = {
   title: "Engagements",
@@ -116,6 +118,26 @@ export default function Engagements() {
                 ))}
               </ul>
             </div>
+          </div>
+        </Container>
+      </Band>
+
+      <Band tone="sunk" className="border-b border-hair">
+        <Container className="grid items-start gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_auto] lg:gap-20">
+          <div>
+            <SectionHead
+              heading="Or start with an agent."
+              lede="If the work is answering customers rather than processing documents, the shape is different: a month from first call to an agent live on your website, WhatsApp or Telegram, built on SuperCognit, then a monthly fee for running and looking after it."
+            />
+            <p className="reveal mt-8">
+              <a href="/agents" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
+                <span className="link">How an agent launch runs</span>
+                <Arrow />
+              </a>
+            </p>
+          </div>
+          <div className="reveal lg:pt-2">
+            <PartnerBadge tone="light" />
           </div>
         </Container>
       </Band>

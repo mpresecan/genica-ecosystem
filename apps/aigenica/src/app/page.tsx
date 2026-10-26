@@ -10,8 +10,11 @@ import {
   Figure,
   SectionHead,
   SpecTable,
+  Arrow,
+  RevealText,
 } from "@genica/ui";
 import { FAQ } from "../content";
+import { PartnerBadge } from "../components/partner-badge";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -111,7 +114,7 @@ export default function Home() {
               {
                 term: "Answers from your own knowledge",
                 detail:
-                  "Assistants that answer staff or customer questions from your own documents and policies, with the source shown, and a handover to a person when they do not know.",
+                  "Agents that answer customers on your website, WhatsApp and Telegram, or staff internally, from your own documents and policies, with the source shown, and a handover to a person when they do not know.",
               },
               {
                 term: "The glue between systems",
@@ -123,11 +126,68 @@ export default function Home() {
         </Container>
       </Band>
 
+      {/* The one dark band on the page: the agents line, built on SuperCognit,
+          with the partner badge as the proof. */}
+      <Band tone="dark" className="border-t border-hair">
+        <Container className="py-24 lg:py-28">
+          <div className="flex flex-wrap items-start justify-between gap-x-12 gap-y-10">
+            <div className="max-w-[40rem]">
+              <p className="t-eyebrow text-on-dark-muted">AI agents, built on SuperCognit</p>
+              <RevealText
+                as="h2"
+                className="t-display mt-8 max-w-[18ch] text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)] text-on-dark"
+              >
+                An agent for your customers, live in a month.
+              </RevealText>
+              <p className="t-body reveal-under mt-7 text-on-dark-body">
+                Not every job is back-office. For the questions customers ask
+                all day, we build agents on SuperCognit that answer from your
+                own content on your website, WhatsApp and Telegram, take the
+                booking or the lead, and hand over to your team when a person
+                is needed.
+              </p>
+            </div>
+            <div className="reveal">
+              <PartnerBadge tone="dark" />
+            </div>
+          </div>
+
+          <SpecTable
+            onDark
+            className="mt-16"
+            rows={[
+              {
+                term: "Clinics and practices",
+                detail:
+                  "Services, prices and preparation answered; appointment requests reach the front desk complete. Anything clinical goes to your team.",
+              },
+              {
+                term: "Professional services",
+                detail:
+                  "Intake that gathers the matter before anyone picks up, and a copilot over your own precedents and checklists.",
+              },
+              {
+                term: "Shops, hotels and restaurants",
+                detail:
+                  "Product advice, order status, availability and bookings, in the customer's language, at the hour they ask.",
+              },
+            ]}
+          />
+
+          <p className="reveal mt-12">
+            <a href="/agents" className="group inline-flex items-center gap-2 text-[0.9375rem] font-medium text-on-dark">
+              <span className="link">What we build on SuperCognit</span>
+              <Arrow />
+            </a>
+          </p>
+        </Container>
+      </Band>
+
       <Band tone="paper" className="border-t border-b border-hair">
         <Container className="py-20 sm:py-28">
           <SectionHead
             heading="What every automation ships with."
-            lede="None of it is a product you rent from us. It is configuration, code and documentation inside accounts you own."
+            lede="For automations built in your systems, none of it is a product you rent from us. It is configuration, code and documentation inside accounts you own."
           />
 
           <Figure
