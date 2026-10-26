@@ -34,16 +34,16 @@ const SITE = PROPERTIES.aigenica;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'AIgenica, AI automation for European companies',
+    default: 'AIgenica, AI agents for European businesses, built on SuperCognit',
     template: `%s, ${SITE.name}`,
   },
-  description: 'AI automation agency working across Europe and certified SuperCognit partner. We automate the repetitive work in your documents, inboxes and systems, and build AI agents that answer your customers, with human review where it matters and GDPR built in.',
+  description: 'AI agents for your website, WhatsApp and Telegram that answer from your own content, take bookings and leads, and hand over to your team. Built by AIgenica, a certified SuperCognit partner working across Europe.',
   openGraph: {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: 'AIgenica, AI automation for European companies',
-    description: 'AI automation agency working across Europe and certified SuperCognit partner. We automate the repetitive work in your documents, inboxes and systems, and build AI agents that answer your customers, with human review where it matters and GDPR built in.',
+    title: 'AIgenica, AI agents for European businesses, built on SuperCognit',
+    description: 'AI agents for your website, WhatsApp and Telegram that answer from your own content, take bookings and leads, and hand over to your team. Built by AIgenica, a certified SuperCognit partner working across Europe.',
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
@@ -56,8 +56,8 @@ export const viewport: Viewport = {
 
 const NAV = [
   {
-    "label": "AI agents",
-    "href": "/agents"
+    "label": "Industries",
+    "href": "/industries"
   },
   {
     "label": "How it works",
@@ -74,8 +74,8 @@ const FOOTER_COLUMNS = [
     "title": "This site",
     "links": [
       {
-        "label": "AI agents",
-        "href": "/agents"
+        "label": "Industries",
+        "href": "/industries"
       },
       {
         "label": "How it works",

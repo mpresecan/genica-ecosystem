@@ -3,7 +3,7 @@ import type { SceneFactory } from "../types"
 import { Squares, Hairlines, ortho, palette3, rng, clamp01 } from "./lib"
 
 /* ---------------------------------------------------------------------------
-   Where the gate sits                     aigenica.com/how-it-works, "Four stages"
+   Where the gate sits                     aigenica.com/how-it-works, "Four steps"
 
    The page says the human gate belongs on the plan, where changing direction
    is still cheap. That is an assertion until you can move the gate and see
@@ -143,7 +143,7 @@ export const create: SceneFactory = (ctx) => {
       for (let i = si; i < N + DISCARD; i++) squares.set(i, 0, 0, 0, 0, 0)
       squares.commit()
 
-      const note = `A rejection here discards ${Math.round(wasted * 100)}% of the work already done.`
+      const note = `A handover here undoes ${Math.round(wasted * 100)}% of the work already done.`
       if (note !== announced) {
         announced = note
         ctx.emit({ active: gate, gate, note })

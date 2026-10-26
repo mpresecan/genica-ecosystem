@@ -3,7 +3,7 @@ import type { SceneFactory } from "../types"
 import { Squares, Hairlines, ortho, palette3, clamp01, rng } from "./lib"
 
 /* ---------------------------------------------------------------------------
-   The gate                                   aigenica.com, "What we install"
+   The gate                                   aigenica.com, "What every agent ships with"
 
    The product, drawn. Work leaves the control plane as a queue, a scoped agent
    writes the change, and the change meets a gate. Most pass. The ones whose
@@ -156,8 +156,8 @@ export const create: SceneFactory = (ctx) => {
       }
 
       const next = enforced
-        ? `${written} of ${LEDGER} changes recorded. ${held} waiting on a named approval.`
-        : "Gate off. Work still ships, and nothing is being recorded."
+        ? `${written} of ${LEDGER} conversations in the inbox. ${held} waiting for your team.`
+        : "Boundaries off. The agent answers everything, and nothing reaches your team."
       if (next !== note || held !== heldNow) {
         note = next
         heldNow = held
