@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { PROPERTIES } from "@genica/ui";
 
 const BASE = PROPERTIES.aigenica.url;
-const ROUTES = ['', 'how-it-works', 'engagements', 'privacy', 'imprint'];
+const ROUTES = ['', 'agents', 'how-it-works', 'engagements', 'privacy', 'imprint'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
